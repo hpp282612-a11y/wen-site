@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工作流自动化 — Wen</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Serif+SC:wght@300;400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#0a0a0a;--white:#f4f2ee;--accent:#c8f04e;--gray:#666;--dark:#141414}
+body{background:var(--black);color:var(--white);font-family:'Noto Serif SC',serif;font-weight:300;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.6rem 4rem;background:rgba(10,10,10,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.25em;color:var(--accent);text-decoration:none}
+.nav-back{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(244,242,238,0.4);text-decoration:none;transition:color 0.2s}
+.nav-back:hover{color:var(--accent)}
+.page-hero{padding:10rem 4rem 6rem;border-bottom:1px solid rgba(255,255,255,0.06);position:relative;overflow:hidden}
+.page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(200,240,78,0.05) 0%,transparent 70%);pointer-events:none}
+.ph-num{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.4em;color:rgba(200,240,78,0.5);margin-bottom:1.2rem}
+.ph-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,100px);line-height:0.92;margin-bottom:2rem}
+.ph-title em{font-style:normal;color:var(--accent)}
+.ph-desc{max-width:520px;font-size:0.9rem;line-height:2;color:rgba(244,242,238,0.5)}
+.ph-tags{margin-top:2rem;display:flex;flex-wrap:wrap;gap:0.5rem}
+.tag{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.8rem;border:1px solid rgba(200,240,78,0.25);color:var(--accent)}
+.section{padding:6rem 4rem;border-bottom:1px solid rgba(255,255,255,0.05)}
+.section:last-child{border-bottom:none}
+.s-label{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--accent);margin-bottom:1.8rem}
+.s-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4vw,60px);margin-bottom:2.5rem;line-height:1}
+
+/* FLOW DIAGRAM */
+.flow{display:flex;align-items:center;gap:0;overflow-x:auto;padding-bottom:1rem;margin-bottom:3rem}
+.flow-node{flex:1;min-width:160px;padding:1.8rem 1.5rem;border:1px solid rgba(255,255,255,0.08);background:#141414;position:relative}
+.flow-node-icon{font-size:1.4rem;margin-bottom:0.7rem}
+.flow-node-name{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--white);margin-bottom:0.4rem}
+.flow-node-desc{font-size:0.72rem;color:rgba(244,242,238,0.38);line-height:1.6}
+.flow-arrow{padding:0 0.8rem;color:var(--accent);font-size:1.2rem;flex-shrink:0}
+
+/* SCENARIOS */
+.scenario-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06)}
+.scenario{background:var(--black);padding:2.5rem 2rem;transition:background 0.2s}
+.scenario:hover{background:#141414}
+.scenario-icon{font-size:1.6rem;margin-bottom:1rem}
+.scenario-name{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;margin-bottom:0.6rem;letter-spacing:0.02em}
+.scenario-desc{font-size:0.78rem;line-height:1.8;color:rgba(244,242,238,0.42)}
+
+/* CASE */
+.case{padding:3rem;border:1px solid rgba(255,255,255,0.07);margin-bottom:1px;transition:border-color 0.2s;display:grid;grid-template-columns:2fr 1fr;gap:3rem;align-items:start}
+.case:hover{border-color:rgba(200,240,78,0.15)}
+.case-label{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.6rem}
+.case-name{font-family:'Bebas Neue',sans-serif;font-size:2rem;margin-bottom:0.8rem}
+.case-desc{font-size:0.82rem;line-height:1.85;color:rgba(244,242,238,0.45)}
+.case-meta{display:flex;flex-direction:column;gap:1.2rem;align-items:flex-end}
+.case-stat{text-align:right}
+.case-stat-n{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--accent)}
+.case-stat-l{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray)}
+.stack-grid{display:flex;flex-wrap:wrap;gap:1rem}
+.stack-item{padding:1rem 1.5rem;border:1px solid rgba(255,255,255,0.08);font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(244,242,238,0.55);transition:all 0.2s}
+.stack-item:hover{border-color:var(--accent);color:var(--accent)}
+.cta-block{background:#141414;padding:5rem 4rem;text-align:center;border-top:1px solid rgba(255,255,255,0.05)}
+.cta-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,5vw,72px);margin-bottom:1rem}
+.cta-title em{font-style:normal;color:var(--accent)}
+.cta-sub{font-size:0.85rem;color:rgba(244,242,238,0.4);margin-bottom:2.5rem}
+.btn{display:inline-block;padding:0.9rem 2.5rem;background:var(--accent);color:#0a0a0a;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;font-weight:700;transition:all 0.2s;margin:0.4rem}
+.btn:hover{background:var(--white)}
+.btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,0.2)}
+.btn-ghost:hover{background:transparent;border-color:var(--accent);color:var(--accent)}
+footer{padding:1.8rem 4rem;border-top:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between}
+footer p{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.18)}
+@media(max-width:768px){
+  nav{padding:1.2rem 1.5rem}
+  .page-hero,.section,.cta-block{padding-left:1.5rem;padding-right:1.5rem}
+  .scenario-grid{grid-template-columns:1fr}
+  .case{grid-template-columns:1fr}
+  .case-meta{align-items:flex-start;flex-direction:row}
+  .flow{flex-direction:column;align-items:stretch}
+  .flow-arrow{transform:rotate(90deg);text-align:center}
+  footer{padding:1.5rem;flex-direction:column;gap:0.5rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="wen-portfolio.html" class="nav-logo">← WEN</a>
+  <a href="wen-portfolio.html#services" class="nav-back">返回主页</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="ph-num">02 — 工作流自动化</div>
+  <h1 class="ph-title">让机器<br>替你<em>干活</em></h1>
+  <p class="ph-desc">识别你工作中的重复性环节，用 AI 自动化工具重新设计流程。从内容生产到数据处理，从客户沟通到报告生成，我帮你把这些全部接管。</p>
+  <div class="ph-tags">
+    <span class="tag">Make / Zapier</span><span class="tag">n8n</span><span class="tag">流程设计</span>
+    <span class="tag">API 编排</span><span class="tag">数据处理</span><span class="tag">效率翻倍</span>
+  </div>
+</div>
+
+<!-- FLOW EXAMPLE -->
+<section class="section">
+  <div class="s-label">典型流程示例</div>
+  <h2 class="s-title">自动化长什么样</h2>
+  <div class="flow">
+    <div class="flow-node">
+      <div class="flow-node-icon">📥</div>
+      <div class="flow-node-name">触发器</div>
+      <div class="flow-node-desc">表单提交 / 新邮件 / 定时任务 / Webhook</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">
+      <div class="flow-node-icon">🤖</div>
+      <div class="flow-node-name">AI 处理</div>
+      <div class="flow-node-desc">内容生成 / 分类判断 / 提取信息 / 翻译改写</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">
+      <div class="flow-node-icon">⚙️</div>
+      <div class="flow-node-name">逻辑处理</div>
+      <div class="flow-node-desc">条件分支 / 数据格式化 / 多步骤编排</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">
+      <div class="flow-node-icon">📤</div>
+      <div class="flow-node-name">输出交付</div>
+      <div class="flow-node-desc">发送邮件 / 写入表格 / 推送通知 / 更新数据库</div>
+    </div>
+  </div>
+
+  <div class="s-label" style="margin-top:3rem">适用场景</div>
+  <div class="scenario-grid">
+    <div class="scenario">
+      <div class="scenario-icon">📝</div>
+      <div class="scenario-name">内容批量生产</div>
+      <p class="scenario-desc">输入产品信息，自动生成多平台适配文案、标题、关键词，直接推送发布。</p>
+    </div>
+    <div class="scenario">
+      <div class="scenario-icon">📊</div>
+      <div class="scenario-name">数据自动报告</div>
+      <p class="scenario-desc">定期从多个数据源抓取数据，AI 分析总结，自动生成可视化报告并发送。</p>
+    </div>
+    <div class="scenario">
+      <div class="scenario-icon">💬</div>
+      <div class="scenario-name">客户沟通自动化</div>
+      <p class="scenario-desc">AI 自动处理常见询问，生成个性化回复，复杂问题再转交人工处理。</p>
+    </div>
+    <div class="scenario">
+      <div class="scenario-icon">🔄</div>
+      <div class="scenario-name">跨平台数据同步</div>
+      <p class="scenario-desc">多个系统之间数据自动流转，告别手动复制粘贴，消除信息孤岛。</p>
+    </div>
+    <div class="scenario">
+      <div class="scenario-icon">🎯</div>
+      <div class="scenario-name">线索自动跟进</div>
+      <p class="scenario-desc">新线索进入 CRM 后自动触发个性化跟进序列，无需人工一一操作。</p>
+    </div>
+    <div class="scenario">
+      <div class="scenario-icon">📁</div>
+      <div class="scenario-name">文件处理流水线</div>
+      <p class="scenario-desc">自动读取、分析、分类、存档文件，提取关键信息并结构化存储。</p>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section class="section">
+  <div class="s-label">项目案例</div>
+  <h2 class="s-title">做过什么</h2>
+  <div class="case">
+    <div>
+      <div class="case-label">内容生产</div>
+      <div class="case-name">多平台内容矩阵自动化系统</div>
+      <p class="case-desc">为品牌方设计的全链路内容生产工作流。输入产品关键词与目标平台，系统自动生成小红书、微信、抖音适配文案，批量产出配图 Prompt，并推送至内容日历排期发布。从策划到发布完全自动化。</p>
+      <div class="ph-tags" style="margin-top:1rem"><span class="tag">Make</span><span class="tag">GPT-4o</span><span class="tag">Notion</span><span class="tag">Airtable</span></div>
+    </div>
+    <div class="case-meta">
+      <div class="case-stat"><div class="case-stat-n">5×</div><div class="case-stat-l">内容产出效率</div></div>
+      <div class="case-stat"><div class="case-stat-n">80%</div><div class="case-stat-l">人工时间节省</div></div>
+    </div>
+  </div>
+  <div class="case">
+    <div>
+      <div class="case-label">销售自动化</div>
+      <div class="case-name">线索跟进与报价自动化流程</div>
+      <p class="case-desc">企业销售流程自动化改造。客户填写询盘表单后，系统自动提取需求、匹配产品方案、生成个性化报价单，同时在 CRM 建立档案并触发跟进提醒，全程无需人工介入。</p>
+      <div class="ph-tags" style="margin-top:1rem"><span class="tag">n8n</span><span class="tag">Claude</span><span class="tag">HubSpot</span></div>
+    </div>
+    <div class="case-meta">
+      <div class="case-stat"><div class="case-stat-n">2h→5min</div><div class="case-stat-l">响应时间</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section class="section">
+  <div class="s-label">工具生态</div>
+  <h2 class="s-title">常用平台与工具</h2>
+  <div class="stack-grid">
+    <div class="stack-item">Make (Integromat)</div>
+    <div class="stack-item">Zapier</div>
+    <div class="stack-item">n8n</div>
+    <div class="stack-item">Notion API</div>
+    <div class="stack-item">Airtable</div>
+    <div class="stack-item">Google Sheets</div>
+    <div class="stack-item">HubSpot</div>
+    <div class="stack-item">飞书多维表格</div>
+    <div class="stack-item">GPT-4o API</div>
+    <div class="stack-item">Claude API</div>
+    <div class="stack-item">Webhook</div>
+    <div class="stack-item">Python 脚本</div>
+  </div>
+</section>
+
+<div class="cta-block">
+  <div class="cta-title">想把<em>重复工作</em>交出去？</div>
+  <p class="cta-sub">告诉我你每天在手动做什么，我来帮你把它自动化。</p>
+  <a href="mailto:hello@wen.ai" class="btn">联系我</a>
+  <a href="wen-portfolio.html" class="btn btn-ghost">返回首页</a>
+</div>
+
+<footer>
+  <p>© 2026 Wen</p>
+  <p>工作流自动化</p>
+</footer>
+</body>
+</html>
