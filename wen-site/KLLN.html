@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>卡列尼娜（沧州）科技 · 装修方案</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --g:#34d399;--b:#38bdf8;--o:#fb923c;--r:#f87171;
+  --bg:#070d18;--panel:rgba(4,12,26,.93);--border:rgba(52,211,153,.18);
+  --muted:rgba(255,255,255,.35);--fs:13px;--fs-sm:11.5px;--fs-xs:10px;
+}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);
+  font-family:"PingFang SC","Microsoft YaHei",sans-serif;color:#fff;}
+#canvas{display:block;position:fixed;inset:0;width:100%;height:100%;}
+
+/* ── LOADING ── */
+#load{position:fixed;inset:0;z-index:200;background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .6s;}
+.logo{font-size:clamp(15px,4vw,22px);font-weight:700;color:var(--g);
+  letter-spacing:2px;text-align:center;line-height:1.5;}
+.sub{font-size:10px;color:var(--muted);letter-spacing:2px;margin:10px 0 24px;}
+.bar{width:clamp(140px,40vw,200px);height:2px;background:rgba(255,255,255,.08);border-radius:2px;}
+.bfg{height:100%;background:var(--g);border-radius:2px;width:0;}
+
+/* ── TOP BAR ── */
+#topbar{
+  position:fixed;top:0;left:0;right:0;z-index:50;pointer-events:none;
+  background:linear-gradient(180deg,rgba(4,8,18,.97) 65%,transparent);
+  padding:9px 14px 26px;
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+}
+.tb-l{min-width:0;flex:1;}
+.tb-l h1{font-size:clamp(11px,2.8vw,15px);font-weight:700;letter-spacing:.8px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tb-l h1 em{color:var(--g);font-style:normal;}
+.tb-l p{font-size:9px;color:var(--muted);margin-top:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tb-r{display:flex;gap:10px;flex-shrink:0;}
+.ts .v{font-size:clamp(11px,2.6vw,14px);font-weight:700;color:var(--g);text-align:right;white-space:nowrap;}
+.ts .l{font-size:8px;color:rgba(255,255,255,.28);text-align:right;margin-top:1px;white-space:nowrap;}
+
+/* ── NAV BAR ── */
+#navbar{
+  position:fixed;top:46px;left:0;right:0;z-index:51;
+  display:flex;align-items:center;
+  background:rgba(4,10,22,.93);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  height:36px;pointer-events:auto;
+  overflow-x:auto;overflow-y:hidden;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;
+}
+#navbar::-webkit-scrollbar{display:none;}
+.nb{
+  flex-shrink:0;display:flex;align-items:center;height:36px;
+  padding:0 clamp(8px,2vw,13px);
+  color:var(--muted);cursor:pointer;
+  font-size:clamp(10px,2.2vw,12px);font-family:inherit;
+  border:none;background:none;
+  border-right:1px solid rgba(255,255,255,.06);
+  transition:.18s;position:relative;white-space:nowrap;
+}
+.nb:hover{color:var(--g);background:rgba(52,211,153,.07);}
+.nb.on{color:#fff;font-weight:700;}
+.nb.on::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--g);}
+.nb-spacer{flex:1;min-width:4px;}
+.nb-stats{display:flex;gap:12px;padding:0 10px;flex-shrink:0;}
+.nb-stat .nv{font-size:12px;font-weight:700;color:var(--g);}
+.nb-stat .nl{font-size:8px;color:var(--muted);margin-left:2px;}
+
+/* ── SIDE PANELS ── */
+.side-panel{
+  position:fixed;top:92px;z-index:40;width:175px;
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:9px;overflow:hidden;
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+}
+#lp{left:10px;}#rp{right:10px;}
+.sp-head{background:rgba(52,211,153,.09);padding:6px 11px;
+  display:flex;justify-content:space-between;align-items:center;
+  cursor:pointer;user-select:none;}
+.sp-title{font-size:9.5px;color:var(--g);letter-spacing:1.2px;font-weight:700;}
+.sp-arr{font-size:9.5px;color:var(--g);transition:transform .3s;display:inline-block;}
+.sp-arr.open{transform:rotate(180deg);}
+.sp-body{overflow:hidden;transition:max-height .3s ease;}
+.sp-body.collapsed{max-height:0!important;}
+.pr{display:flex;justify-content:space-between;align-items:center;
+  padding:4px 11px;border-bottom:1px solid rgba(255,255,255,.04);font-size:10px;}
+.pk{color:var(--muted)}.pv{color:#fff;font-weight:600;}
+.pv.g{color:var(--g)}.pv.b{color:var(--b)}.pv.o{color:var(--o)}
+.gi{padding:5px 11px;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:7px;}
+.gd{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.gt{font-size:10.5px;color:#fff;font-weight:600;line-height:1.4;}
+.gs{font-size:9px;color:var(--muted);}
+.rr{padding:4px 11px;border-bottom:1px solid rgba(255,255,255,.04);}
+.rk{color:var(--muted);font-size:9px;}.rv{color:#fff;font-weight:700;font-size:10.5px;margin-top:1px;}
+.detail-btn{
+  display:block;width:calc(100% - 18px);margin:6px 9px 8px;
+  background:rgba(52,211,153,.11);border:1px solid rgba(52,211,153,.26);
+  color:var(--g);padding:5px 0;border-radius:5px;text-align:center;
+  font-size:10px;cursor:pointer;font-family:inherit;transition:.2s;
+}
+.detail-btn:hover{background:rgba(52,211,153,.22);color:#fff;}
+
+/* ── BOTTOM ── */
+#bottom{
+  position:fixed;bottom:0;left:0;right:0;z-index:50;pointer-events:none;
+  background:linear-gradient(0deg,rgba(4,8,18,.98) 55%,transparent);
+  padding:26px 10px 8px;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+}
+#vbtns{
+  display:flex;flex-wrap:nowrap;
+  background:rgba(8,16,32,.9);border:1px solid rgba(52,211,153,.22);
+  border-radius:20px;overflow:hidden;pointer-events:auto;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  max-width:calc(100vw - 20px);overflow-x:auto;scrollbar-width:none;
+}
+#vbtns::-webkit-scrollbar{display:none;}
+.vb{
+  flex-shrink:0;background:transparent;border:none;
+  border-right:1px solid rgba(255,255,255,.06);
+  color:var(--muted);padding:7px clamp(7px,2vw,11px);
+  cursor:pointer;font-size:clamp(9.5px,2.2vw,11.5px);font-family:inherit;transition:.18s;
+  white-space:nowrap;
+}
+.vb:last-child{border-right:none;}
+.vb:hover{background:rgba(52,211,153,.13);color:var(--g);}
+.vb.on{background:rgba(52,211,153,.23);color:#fff;font-weight:700;}
+.vb.spin.on{color:var(--g);}
+.hint{font-size:8.5px;color:rgba(255,255,255,.12);letter-spacing:.6px;pointer-events:none;}
+
+/* ── MODAL ── */
+#modal{
+  position:fixed;inset:0;z-index:100;
+  background:rgba(2,6,14,.97);
+  display:none;flex-direction:column;
+  overflow:hidden;
+}
+#modal.show{display:flex;}
+#mhead{
+  flex-shrink:0;
+  background:rgba(4,10,22,.98);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  padding:8px 12px;
+  display:flex;align-items:center;gap:8px;
+}
+#dtabs{
+  display:flex;gap:5px;flex:1;min-width:0;
+  overflow-x:auto;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;padding:2px 0;
+}
+#dtabs::-webkit-scrollbar{display:none;}
+.dtb{
+  flex-shrink:0;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);
+  color:var(--muted);padding:5px 12px;border-radius:14px;
+  cursor:pointer;font-size:clamp(9.5px,2.4vw,11px);font-family:inherit;transition:.18s;
+  white-space:nowrap;
+}
+.dtb:hover{background:rgba(52,211,153,.15);border-color:var(--g);color:var(--g);}
+.dtb.on{background:rgba(52,211,153,.25);border-color:var(--g);color:#fff;font-weight:600;}
+.mcls{
+  flex-shrink:0;
+  background:rgba(52,211,153,.13);border:1px solid rgba(52,211,153,.3);
+  color:var(--g);padding:5px 12px;border-radius:14px;
+  cursor:pointer;font-size:11px;font-family:inherit;transition:.2s;white-space:nowrap;
+}
+.mcls:hover{background:rgba(52,211,153,.26);color:#fff;}
+#mbody{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+#modal-inner{max-width:860px;width:100%;margin:0 auto;padding:14px 14px 60px;}
+.dpage{display:none;}.dpage.on{display:block;}
+
+/* ── MODAL CONTENT ── */
+.d-hero{
+  background:linear-gradient(135deg,rgba(52,211,153,.09),rgba(56,189,248,.05));
+  border:1px solid rgba(52,211,153,.18);border-radius:10px;
+  padding:14px 16px;margin-bottom:14px;
+}
+.d-hero h2{font-size:clamp(14px,3.5vw,19px);font-weight:900;letter-spacing:.8px;margin-bottom:4px;}
+.d-hero h2 em{color:var(--g);font-style:normal;}
+.d-hero p{font-size:11px;color:var(--muted);line-height:1.75;}
+.d-cards{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));
+  gap:7px;margin-bottom:14px;
+}
+.d-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:8px;padding:9px 11px;}
+.d-card.hi{border-color:rgba(52,211,153,.26);background:rgba(52,211,153,.05);}
+.d-card.warn{border-color:rgba(251,147,60,.26);background:rgba(251,147,60,.05);}
+.cv{font-size:clamp(15px,3.5vw,20px);font-weight:900;color:var(--g);line-height:1;}
+.cv.o{color:var(--o);}
+.cl{font-size:9px;color:var(--muted);margin-top:4px;letter-spacing:.2px;}
+.d-sec{font-size:12.5px;font-weight:700;color:var(--g);
+  margin:16px 0 8px;padding-left:8px;border-left:3px solid var(--g);}
+.d-table{width:100%;border-collapse:collapse;font-size:10.5px;margin-bottom:12px;
+  background:rgba(255,255,255,.02);border-radius:7px;overflow:hidden;}
+.d-table th{background:rgba(52,211,153,.11);color:var(--g);
+  padding:6px 9px;text-align:left;font-size:9.5px;letter-spacing:.3px;font-weight:700;}
+.d-table td{padding:6px 9px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top;}
+.d-table tr:last-child td{border-bottom:none;}
+.d-table tr:hover td{background:rgba(255,255,255,.018);}
+.ttl td{font-weight:700;background:rgba(52,211,153,.06)!important;}
+.tgrand td{font-weight:900;background:rgba(52,211,153,.14)!important;color:var(--g);font-size:12px;}
+.note{background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.18);
+  border-radius:7px;padding:9px 12px;font-size:10.5px;color:rgba(255,255,255,.55);line-height:1.8;margin-top:9px;}
+.note b{color:rgba(251,191,36,.9);}
+.cost-bldg{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:7px;margin-bottom:14px;}
+.cb{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:10px 12px;}
+.cb.main{border-color:rgba(52,211,153,.28);background:rgba(52,211,153,.05);}
+.cb.warn{border-color:rgba(251,147,60,.28);background:rgba(251,147,60,.05);}
+.cb .cn{font-size:9px;color:var(--muted);margin-bottom:3px;}
+.cb .ca{font-size:clamp(15px,3.5vw,19px);font-weight:900;color:var(--g);}
+.cb.warn .ca{color:var(--o);}
+.cb .cu{font-size:9px;color:var(--muted);margin-top:2px;}
+.cb .cp{font-size:9px;color:rgba(255,255,255,.35);margin-top:1px;}
+.scheme-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:9px;margin-bottom:16px;}
+.scheme{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:9px;padding:12px;}
+.scheme.rec{border-color:rgba(52,211,153,.36);background:rgba(52,211,153,.05);}
+.scheme h3{font-size:12px;font-weight:700;}
+.scheme .sp{font-size:clamp(16px,3.5vw,22px);font-weight:900;color:var(--g);margin:5px 0 2px;line-height:1;}
+.scheme .sp span{font-size:9.5px;color:var(--muted);font-weight:400;}
+.scheme ul{list-style:none;margin-top:6px;}
+.scheme ul li{font-size:10px;color:rgba(255,255,255,.52);padding:2px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.scheme ul li::before{content:"✓ ";color:var(--g);}
+.scheme ul li.no::before{content:"✗ ";color:var(--r);}
+.rec-badge{font-size:8.5px;background:var(--g);color:#070d18;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:4px;vertical-align:middle;}
+.sch-grid{display:flex;flex-direction:column;gap:7px;margin-bottom:14px;}
+.sch-row{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+  border-radius:7px;padding:9px 12px;display:grid;grid-template-columns:72px 1fr;gap:9px;align-items:start;}
+.sch-row.key{border-color:rgba(52,211,153,.26);background:rgba(52,211,153,.04);}
+.sch-week{font-size:9.5px;font-weight:700;color:var(--g);line-height:1.5;white-space:nowrap;}
+.sch-title{font-size:11px;font-weight:700;color:#fff;margin-bottom:3px;}
+.sch-body{font-size:10px;color:var(--muted);line-height:1.7;}
+.sch-tag{display:inline-block;background:rgba(52,211,153,.13);border:1px solid rgba(52,211,153,.28);
+  color:var(--g);font-size:8.5px;padding:1px 5px;border-radius:3px;margin:1px 3px 1px 0;}
+.sch-tag.warn{background:rgba(251,147,60,.13);border-color:rgba(251,147,60,.28);color:var(--o);}
+.sch-tag.total{background:rgba(52,211,153,.22);font-weight:700;font-size:9.5px;}
+.next-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:9px;}
+.next-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:12px;}
+.next-box h4{font-size:11.5px;font-weight:700;color:var(--g);margin-bottom:8px;}
+
+/* ── 手机端：隐藏侧边栏，改为下方按钮触发 ── */
+@media(max-width:680px){
+  .side-panel{display:none;}
+  .nb-stats{display:none;}
+  .tb-l p{display:none;}
+  .nb{padding:0 9px;font-size:10px;}
+  #topbar{padding:8px 10px 22px;}
+}
+@media(max-width:420px){
+  .vb{padding:7px 7px;font-size:9.5px;}
+  .d-table{font-size:9.5px;}
+  .d-table th{font-size:8.5px;}
+}
+</style>
+</head>
+<body>
+
+<div id="load">
+  <div class="logo">卡列尼娜（沧州）<br>科技股份有限公司</div>
+  <div class="sub">厂房装修方案 · 3D效果渲染中</div>
+  <div class="bar"><div class="bfg" id="bfg"></div></div>
+</div>
+
+<canvas id="canvas"></canvas>
+
+<div id="topbar">
+  <div class="tb-l">
+    <h1>卡列尼娜（沧州）<em>科技股份有限公司</em></h1>
+    <p>芯安软水机生产基地 · 拖拽旋转 · 滚轮缩放 · 右键平移</p>
+  </div>
+  <div class="tb-r">
+    <div class="ts"><div class="v">~10,000 m²</div><div class="l">总建筑面积</div></div>
+    <div class="ts"><div class="v" style="color:var(--o)">约1,030万</div><div class="l">精装预算</div></div>
+  </div>
+</div>
+
+<div id="navbar">
+  <button class="nb on" onclick="showMain(this)">🏭 3D效果</button>
+  <button class="nb" onclick="openModal('buildings',this)">📐 建筑明细</button>
+  <button class="nb" onclick="openModal('cost',this)">💰 造价明细</button>
+  <button class="nb" onclick="openModal('scheme',this)">📋 装修标准</button>
+  <button class="nb" onclick="openModal('schedule',this)">📅 施工计划</button>
+  <button class="nb" onclick="openModal('next',this)">✅ 下一步</button>
+  <div class="nb-spacer"></div>
+  <div class="nb-stats">
+    <div class="nb-stat"><span class="nv">3~3.5月</span><span class="nl">计划工期</span></div>
+    <div class="nb-stat"><span class="nv">二级</span><span class="nl">耐火等级</span></div>
+    <div class="nb-stat"><span class="nv">5.25m</span><span class="nl">车间净高</span></div>
+  </div>
+</div>
+
+<div class="side-panel" id="lp">
+  <div class="sp-head" onclick="togglePanel('lp')">
+    <span class="sp-title">📐 建筑明细</span>
+    <span class="sp-arr open" id="lp-arr">▼</span>
+  </div>
+  <div class="sp-body" id="lp-body">
+    <div class="pr"><span class="pk">18# L型多层</span><span class="pv g">~5,800 m²</span></div>
+    <div class="pr"><span class="pk">└ 顶翼（贴北路）</span><span class="pv">108×20m</span></div>
+    <div class="pr"><span class="pk">└ 西腿（贴西墙）</span><span class="pv">20×85m</span></div>
+    <div class="pr"><span class="pk">└ 约4层高</span><span class="pv o">~16m</span></div>
+    <div class="pr"><span class="pk">14# 独栋车间</span><span class="pv g">~2,700 m²</span></div>
+    <div class="pr"><span class="pk">10# 独栋仓储</span><span class="pv g">~1,500 m²</span></div>
+    <div class="pr"><span class="pk">配电间</span><span class="pv b">已建·可用</span></div>
+    <button class="detail-btn" onclick="openModal('buildings',null)">查看完整明细 →</button>
+  </div>
+</div>
+
+<div class="side-panel" id="rp">
+  <div class="sp-head" onclick="togglePanel('rp')">
+    <span class="sp-title">💰 造价速览</span>
+    <span class="sp-arr open" id="rp-arr">▼</span>
+  </div>
+  <div class="sp-body" id="rp-body">
+    <div class="gi">
+      <div class="gd" style="background:#c084fc;box-shadow:0 0 5px #9333ea"></div>
+      <div><div class="gt">北门（正门）</div><div class="gs">不锈钢伸缩门+门卫亭</div></div>
+    </div>
+    <div class="gi">
+      <div class="gd" style="background:#fb923c;box-shadow:0 0 5px #ea580c"></div>
+      <div><div class="gt">西门（侧门）</div><div class="gs">电动卷帘门+对讲</div></div>
+    </div>
+    <div class="rr"><div class="rk">18# 办公精装（含客梯35万）</div><div class="rv">约 378 万</div></div>
+    <div class="rr"><div class="rk">14# 生产车间</div><div class="rv">约 148 万</div></div>
+    <div class="rr"><div class="rk">10# 仓储辅助</div><div class="rv">约 54 万</div></div>
+    <div class="rr"><div class="rk">公共配套+设计管理</div><div class="rv">约 356 万</div></div>
+    <div class="rr"><div class="rk" style="color:var(--o);font-weight:700">含10%不可预见 总计</div><div class="rv" style="color:var(--o);font-size:13px">约 1,030 万</div></div>
+    <button class="detail-btn" onclick="openModal('cost',null)">查看详细造价 →</button>
+  </div>
+</div>
+
+<div id="bottom">
+  <div id="vbtns">
+    <button class="vb on" onclick="sv('iso',this)">🏭 鸟瞰</button>
+    <button class="vb" onclick="sv('north',this)">🚪 北门</button>
+    <button class="vb" onclick="sv('corner',this)">📐 L转角</button>
+    <button class="vb" onclick="sv('wgate',this)">🚛 西门</button>
+    <button class="vb" onclick="sv('inside',this)">🏗 内院</button>
+    <button class="vb" onclick="sv('bldg14',this)">🏗 14/10#</button>
+    <button class="vb" onclick="sv('top',this)">🗺 俯视</button>
+    <button class="vb spin" id="abtn" onclick="toggleAuto()">⟳ 旋转</button>
+  </div>
+  <div class="hint">拖拽旋转 · 滚轮缩放 · 右键平移 · 手机双指缩放</div>
+</div>
+
+<div id="modal">
+  <div id="mhead">
+    <div id="dtabs"></div>
+    <button class="mcls" onclick="closeModal()">✕ 关闭</button>
+  </div>
+  <div id="mbody">
+    <div id="modal-inner"><div id="dpages"></div></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const PAGES={
+buildings:{label:'📐 建筑',html:`
+  <div class="d-hero"><h2>卡列尼娜（沧州）<em>科技股份有限公司</em></h2>
+  <p>芯安软水机生产基地 · 基于CAD图纸（1:600）测算 · 耐火等级二级 · 危险性分类丙类 · 外立面现状良好不含装修</p></div>
+  <div class="d-cards">
+    <div class="d-card hi"><div class="cv">10,000</div><div class="cl">总建筑面积 m²</div></div>
+    <div class="d-card hi"><div class="cv">5,800</div><div class="cl">18# L型 m²</div></div>
+    <div class="d-card"><div class="cv">2,700</div><div class="cl">14# 车间 m²</div></div>
+    <div class="d-card"><div class="cv">1,500</div><div class="cl">10# 仓储 m²</div></div>
+    <div class="d-card"><div class="cv">5.25m</div><div class="cl">车间净高</div></div>
+    <div class="d-card"><div class="cv">4层</div><div class="cl">18# 楼层数</div></div>
+  </div>
+  <div class="d-sec">各楼栋参数</div>
+  <table class="d-table">
+    <tr><th>楼栋</th><th>形态</th><th>尺寸</th><th>层数</th><th>面积</th><th>装修目标</th></tr>
+    <tr><td><b>18# L型</b></td><td>顶翼+西腿多层</td><td>顶翼108×20m<br>西腿20×85m</td><td>约4层</td><td><b>~5,800m²</b></td><td>精装·拎包入驻</td></tr>
+    <tr><td><b>14# 独栋</b></td><td>单层大跨人字顶</td><td>55m宽×25m深</td><td>1层</td><td><b>~2,700m²</b></td><td>工业精装·生产车间</td></tr>
+    <tr><td><b>10# 独栋</b></td><td>单层人字顶</td><td>45m宽×20m深</td><td>1层</td><td><b>~1,500m²</b></td><td>基础精装·仓储</td></tr>
+    <tr><td><b>配电间</b></td><td>设备房</td><td>~14×16m</td><td>1层</td><td>~224m²</td><td>已建可用·不含</td></tr>
+    <tr class="ttl"><td colspan="4"><b>三栋合计</b></td><td><b>~10,000m²</b></td><td>外立面保留</td></tr>
+  </table>
+  <div class="note">📐 面积基于CAD目视测算，误差约±8%。正式施工前建议索取房产测量报告。</div>
+`},
+cost:{label:'💰 造价',html:`
+  <div class="d-hero"><h2>精装修<em>造价明细</em></h2>
+  <p>毛坯→精装 · 外立面不含 · 2026年河北沧州市场价 · 71项逐条核验 · 含10%不可预见费约93.5万</p></div>
+  <div class="cost-bldg">
+    <div class="cb main"><div class="cn">18# 办公精装</div><div class="ca">378万</div><div class="cu">651元/m²（含客梯35万）</div><div class="cp">市场500~900元/m²</div></div>
+    <div class="cb"><div class="cn">14# 生产车间</div><div class="ca">148万</div><div class="cu">548元/m²</div><div class="cp">市场300~600元/m²</div></div>
+    <div class="cb"><div class="cn">10# 仓储辅助</div><div class="ca">54万</div><div class="cu">359元/m²</div><div class="cp">市场200~400元/m²</div></div>
+    <div class="cb"><div class="cn">公共配套</div><div class="ca">300万</div><div class="cu">道路/空调/强电/门</div><div class="cp">含变压器扩容46万</div></div>
+    <div class="cb"><div class="cn">设计监理管理</div><div class="ca">56万</div><div class="cu">设计24+监理15+临设12+验收5</div></div>
+    <div class="cb warn"><div class="cn">含10%不可预见</div><div class="ca">1,030万</div><div class="cu">最终预算</div><div class="cp">外立面不含</div></div>
+  </div>
+
+  <div class="d-sec">一、18# L型楼 — 办公精装（5,800m²）</div>
+  <table class="d-table">
+    <tr><th>项目</th><th>规格说明</th><th>单位</th><th>数量</th><th>单价</th><th>市场区间</th><th>合价(万)</th></tr>
+    <tr><td colspan="7" style="padding:4px 9px;background:rgba(52,211,153,.06);color:var(--g);font-size:9.5px;font-weight:700;">地面工程</td></tr>
+    <tr><td>大厅走廊抛光砖</td><td>600×600含找平铺贴</td><td>m²</td><td>680</td><td>185</td><td>160~240</td><td><b>12.6</b></td></tr>
+    <tr><td>办公室强化木地板</td><td>圣象/德尔12mm AC4含踢脚</td><td>m²</td><td>2,200</td><td>130</td><td>100~180</td><td><b>28.6</b></td></tr>
+    <tr><td>卫生间防滑砖+防水</td><td>JS防水2道+300×300防滑砖</td><td>m²</td><td>180</td><td>220</td><td>190~280</td><td><b>4.0</b></td></tr>
+    <tr><td>花岗岩楼梯踏步</td><td>深灰花岗岩30mm防滑槽</td><td>延米</td><td>280</td><td>380</td><td>320~520</td><td><b>10.6</b></td></tr>
+    <tr><td>全楼地面找平</td><td>C20细石混凝土30mm</td><td>m²</td><td>3,200</td><td>45</td><td>38~65</td><td><b>14.4</b></td></tr>
+    <tr><td colspan="7" style="padding:4px 9px;background:rgba(52,211,153,.06);color:var(--g);font-size:9.5px;font-weight:700;">墙面 / 隔墙</td></tr>
+    <tr><td>办公室乳胶漆</td><td>腻子2遍+立邦/多乐士2遍</td><td>m²</td><td>6,800</td><td>65</td><td>55~85</td><td><b>44.2</b></td></tr>
+    <tr><td>走廊大厅墙面</td><td>腻子+乳胶漆+局部腰线</td><td>m²</td><td>1,600</td><td>85</td><td>70~110</td><td><b>13.6</b></td></tr>
+    <tr><td>卫生间墙砖</td><td>300×600釉面砖含防水</td><td>m²</td><td>540</td><td>195</td><td>160~250</td><td><b>10.5</b></td></tr>
+    <tr><td>轻钢龙骨隔墙</td><td>75系列双面石膏板+岩棉</td><td>m²</td><td>2,400</td><td>195</td><td>170~260</td><td><b>46.8</b></td></tr>
+    <tr><td colspan="7" style="padding:4px 9px;background:rgba(52,211,153,.06);color:var(--g);font-size:9.5px;font-weight:700;">天花 / 门 / 电梯</td></tr>
+    <tr><td>矿棉板吊顶</td><td>600×600矿棉板明架</td><td>m²</td><td>2,200</td><td>135</td><td>110~175</td><td><b>29.7</b></td></tr>
+    <tr><td>走廊石膏板顶</td><td>轻钢龙骨+石膏板+乳胶漆</td><td>m²</td><td>780</td><td>185</td><td>150~220</td><td><b>14.4</b></td></tr>
+    <tr><td>卫生间铝扣板顶</td><td>集成吊顶含排风口</td><td>m²</td><td>180</td><td>165</td><td>140~200</td><td><b>3.0</b></td></tr>
+    <tr><td>室内木门</td><td>实木复合门含门套锁具</td><td>樘</td><td>80</td><td>1,800</td><td>1,500~2,800</td><td><b>14.4</b></td></tr>
+    <tr><td>乙级防火门</td><td>楼梯间+设备间</td><td>樘</td><td>16</td><td>3,200</td><td>2,800~4,500</td><td><b>5.1</b></td></tr>
+    <tr><td style="color:var(--o);font-weight:700">乘客电梯（必配）</td><td>800kg无机房4层含土建安装</td><td>部</td><td>1</td><td>350,000</td><td>30~48万</td><td><b style="color:var(--o)">35.0</b></td></tr>
+    <tr><td colspan="7" style="padding:4px 9px;background:rgba(52,211,153,.06);color:var(--g);font-size:9.5px;font-weight:700;">强弱电 / 消防 / 给排水</td></tr>
+    <tr><td>照明配电布线</td><td>穿管+开关插座+灯具</td><td>m²</td><td>3,200</td><td>75</td><td>65~100</td><td><b>24.0</b></td></tr>
+    <tr><td>应急照明疏散</td><td>LED应急灯+疏散标志</td><td>套</td><td>60</td><td>450</td><td>380~650</td><td><b>2.7</b></td></tr>
+    <tr><td>综合布线+WiFi</td><td>超六类+PoE AP含信息箱</td><td>点</td><td>268</td><td>350</td><td>280~450</td><td><b>9.4</b></td></tr>
+    <tr><td>视频监控+门禁</td><td>200万半球+NVR+IC卡</td><td>套</td><td>60</td><td>750</td><td>500~1,200</td><td><b>4.5</b></td></tr>
+    <tr><td>给排水系统</td><td>PPR给水+UPVC排水+洁具</td><td>项</td><td>1</td><td>118,000</td><td>—</td><td><b>11.8</b></td></tr>
+    <tr><td>喷淋支管+喷头</td><td>接驳已建主管DN25~32</td><td>m²</td><td>3,800</td><td>68</td><td>58~90</td><td><b>25.8</b></td></tr>
+    <tr><td>感烟探测+报警</td><td>点型感烟+声光报警</td><td>套</td><td>120</td><td>380</td><td>300~520</td><td><b>4.6</b></td></tr>
+    <tr><td>室内消火栓</td><td>SG24D65Z每层2处</td><td>套</td><td>16</td><td>1,800</td><td>1,500~2,500</td><td><b>2.9</b></td></tr>
+    <tr class="ttl"><td colspan="6"><b>18# 合计</b></td><td><b>378万</b></td></tr>
+  </table>
+
+  <div class="d-sec">二、14# 生产车间（2,700m²）</div>
+  <table class="d-table">
+    <tr><th>项目</th><th>规格说明</th><th>单位</th><th>数量</th><th>单价</th><th>市场区间</th><th>合价(万)</th></tr>
+    <tr><td>金刚砂耐磨地坪</td><td>黑金刚≥5kg/m²机械压光</td><td>m²</td><td>2,700</td><td>130</td><td>110~165</td><td><b>35.1</b></td></tr>
+    <tr><td>地面找平C25</td><td>细石混凝土50mm</td><td>m²</td><td>2,700</td><td>55</td><td>45~70</td><td><b>14.9</b></td></tr>
+    <tr><td>伸缩缝切割填胶</td><td>菱形缝+聚氨酯密封</td><td>m</td><td>620</td><td>35</td><td>28~50</td><td><b>2.2</b></td></tr>
+    <tr><td>墙面砂浆+环氧漆腰线</td><td>砂浆找平+1.8m高环氧漆</td><td>m²</td><td>2,560</td><td>59</td><td>45~75</td><td><b>15.1</b></td></tr>
+    <tr><td>屋架防锈漆</td><td>除锈+红丹底漆+银灰面漆</td><td>m²</td><td>2,700</td><td>45</td><td>35~65</td><td><b>12.2</b></td></tr>
+    <tr><td>岩棉保温吊顶</td><td>50mm岩棉+龙骨</td><td>m²</td><td>1,200</td><td>120</td><td>95~160</td><td><b>14.4</b></td></tr>
+    <tr><td>电动提升门4×4.5m</td><td>钢制夹芯保温含电机遥控</td><td>樘</td><td>4</td><td>26,000</td><td>2~3.8万/樘</td><td><b>10.4</b></td></tr>
+    <tr><td>200W工矿灯+动力柜</td><td>IP65 LED+三相配电柜</td><td>项</td><td>1</td><td>129,000</td><td>—</td><td><b>12.9</b></td></tr>
+    <tr><td>喷淋+感烟（轻危险级）</td><td>3.4m×3.4m间距接驳已建主管</td><td>m²</td><td>2,700</td><td>68</td><td>58~90</td><td><b>18.4</b></td></tr>
+    <tr><td>叉车充电站+卸货坡道</td><td>充电桩×4+混凝土坡道（单层无需货梯）</td><td>项</td><td>1</td><td>68,000</td><td>5~10万</td><td><b>6.8</b></td></tr>
+    <tr class="ttl"><td colspan="6"><b>14# 合计</b></td><td><b>148万</b></td></tr>
+  </table>
+
+  <div class="d-sec">三、10# 仓储辅助（1,500m²）</div>
+  <table class="d-table">
+    <tr><th>项目</th><th>规格说明</th><th>单位</th><th>数量</th><th>单价</th><th>市场区间</th><th>合价(万)</th></tr>
+    <tr><td>C25找平+环氧地坪漆</td><td>细石混凝土50mm+2道环氧漆</td><td>m²</td><td>1,500</td><td>130</td><td>90~155</td><td><b>19.5</b></td></tr>
+    <tr><td>墙面砂浆+防水乳胶漆</td><td>找平+防水乳胶漆</td><td>m²</td><td>1,800</td><td>72</td><td>55~90</td><td><b>13.0</b></td></tr>
+    <tr><td>100W工矿灯</td><td>IP54 8m间距含走线桥架</td><td>套</td><td>36</td><td>800</td><td>650~1,100</td><td><b>2.9</b></td></tr>
+    <tr><td>液压升降平台2t</td><td>固定式升高3m（单层仓储适用）</td><td>台</td><td>1</td><td>45,000</td><td>3.5~6.5万</td><td><b>4.5</b></td></tr>
+    <tr><td>喷淋+电动卷帘门</td><td>接驳主管+4m×4m卷帘2樘</td><td>项</td><td>1</td><td>138,000</td><td>—</td><td><b>13.8</b></td></tr>
+    <tr class="ttl"><td colspan="6"><b>10# 合计</b></td><td><b>54万</b></td></tr>
+  </table>
+
+  <div class="d-sec">四、公共配套工程</div>
+  <table class="d-table">
+    <tr><th>项目</th><th>说明</th><th>合价(万)</th></tr>
+    <tr><td>北门：不锈钢伸缩门8m</td><td>304不锈钢含电机+基础+门禁 市场12~20万</td><td><b>14.5</b></td></tr>
+    <tr><td>北门卫亭（含卫生间）</td><td>轻钢3×4m含水电 市场6.5~13万</td><td><b>8.5</b></td></tr>
+    <tr><td>入口门柱景观</td><td>花岗岩门柱+景石 市场4~9万</td><td><b>6.0</b></td></tr>
+    <tr><td>西门卷帘门6m+门禁对讲</td><td>钢制电动提升 市场4.5~9万</td><td><b>6.5</b></td></tr>
+    <tr><td>西门门卫亭</td><td>彩钢活动板房 市场1.2~2.8万</td><td><b>1.8</b></td></tr>
+    <tr><td>C30混凝土道路 2,800m²</td><td>18cm厚含基层 195元/m²</td><td><b>54.6</b></td></tr>
+    <tr><td>路面标线+减速带</td><td>停车位划线+减速带</td><td><b>2.8</b></td></tr>
+    <tr><td>围墙修缮 280m</td><td>仅修补不重建 280元/m</td><td><b>7.8</b></td></tr>
+    <tr><td>室外给排水主管</td><td>DN75 PE给水+De200 UPVC排水含检查井</td><td><b>10.2</b></td></tr>
+    <tr><td>化粪池100m³</td><td>钢筋混凝土含土方 市场14~24万</td><td><b>18.0</b></td></tr>
+    <tr><td>办公区多联机空调 2,000m²</td><td>大金/海信含安装调试 420元/m²</td><td><b>84.0</b></td></tr>
+    <tr><td>车间排风系统</td><td>屋顶风机+风管+百叶 市场10~20万</td><td><b>14.5</b></td></tr>
+    <tr><td>变压器扩容+主配电柜</td><td>800kVA干式变+GGD柜 市场38~60万</td><td><b>46.0</b></td></tr>
+    <tr><td>母线槽+电缆桥架</td><td>全楼主干含安装 市场14~25万</td><td><b>18.0</b></td></tr>
+    <tr><td>出入口绿化</td><td>乔木×8+灌木+草坪400m²</td><td><b>6.8</b></td></tr>
+    <tr class="ttl"><td colspan="2"><b>公共配套合计</b></td><td><b>300万</b></td></tr>
+  </table>
+
+  <div class="d-sec">五、设计 / 监理 / 管理费</div>
+  <table class="d-table">
+    <tr><th>项目</th><th>说明</th><th>合价(万)</th></tr>
+    <tr><td>施工图设计费</td><td>一级设计院含方案深化+施工图+概算 市场18~35万</td><td><b>24.0</b></td></tr>
+    <tr><td>全程驻场监理</td><td>甲级监理公司3.5个月 市场10~22万</td><td><b>15.0</b></td></tr>
+    <tr><td>临设+安全文明施工</td><td>脚手架+围挡+临水电 市场8~18万</td><td><b>12.0</b></td></tr>
+    <tr><td>竣工验收+备案</td><td>消防验收+竣工备案+档案整理</td><td><b>5.0</b></td></tr>
+    <tr class="ttl"><td colspan="2"><b>设计管理合计</b></td><td><b>56万</b></td></tr>
+  </table>
+
+  <table class="d-table">
+    <tr class="ttl"><td><b>子项合计（不含不可预见）</b></td><td style="width:100px"><b>约 935 万</b></td></tr>
+    <tr><td>不可预见费（10%）— 含零星变更/价差/赶工溢价</td><td><b>约 94 万</b></td></tr>
+    <tr class="tgrand"><td>🏁 工程总造价（含不可预见，外立面不含）</td><td style="font-size:14px;white-space:nowrap">约 <b>1,030</b> 万元</td></tr>
+  </table>
+  <div class="note">💡 <b>单价依据：</b>河北省2025建设工程造价定额（沧州分册）+近2年人工费涨幅约8%+沧州市建材市场中档国货询价。各单价取市场中偏高端，已含3~5%赶工溢价，适合3~3.5个月快速施工。</div>
+`},
+scheme:{label:'📋 装修标准',html:`
+  <div class="d-hero"><h2>各区域<em>装修标准</em></h2>
+  <p>毛坯→精装 · 按使用功能分区定标准 · 2026年沧州中档国货品牌</p></div>
+  <div class="d-sec">18# L型楼 — 办公精装（651元/m²）</div>
+  <table class="d-table">
+    <tr><th>部位</th><th>地面</th><th>墙面/隔墙</th><th>顶面</th><th>配套</th></tr>
+    <tr><td><b>1F大厅走廊</b></td><td>600×600抛光砖（冠军/马可波罗）</td><td>腻子+乳胶漆，局部石材背景</td><td>石膏板批腻子乳胶漆</td><td>前台+等候区+LED灯带</td></tr>
+    <tr><td><b>2~4F办公室</b></td><td>圣象/德尔强化木地板12mm AC4</td><td>75系列轻钢龙骨双面石膏板+岩棉（隔声≥40dB）</td><td>600×600矿棉板明架吊顶</td><td>超六类布线+WiFi AP+多联机空调</td></tr>
+    <tr><td><b>各层卫生间</b></td><td>300×300防滑砖+JS防水2道</td><td>300×600釉面砖到顶</td><td>铝扣板集成顶</td><td>感应洁具+同层排水</td></tr>
+    <tr><td><b>楼梯间</b></td><td>深灰花岗岩踏步（防滑槽）</td><td>腻子+乳胶漆</td><td>乳胶漆</td><td>LED应急灯+疏散标志</td></tr>
+    <tr><td><b>电梯</b></td><td colspan="4">800kg无机房乘客电梯，4层，含土建井道+安装调试（35万，4层必配）</td></tr>
+  </table>
+  <div class="d-sec">14# 生产车间 — 工业精装（548元/m²）</div>
+  <table class="d-table">
+    <tr><th>部位</th><th>标准</th><th>技术要求</th></tr>
+    <tr><td><b>地面</b></td><td>金刚砂耐磨地坪（黑金刚）</td><td>撒布量≥5kg/m²，机械压光，承载≥5t/m²，设菱形伸缩缝</td></tr>
+    <tr><td><b>墙柱面</b></td><td>砂浆找平+环氧漆腰线</td><td>1.8m高度以下亮灰色防碰撞环氧漆</td></tr>
+    <tr><td><b>屋架</b></td><td>钢构除锈+防锈漆+银灰面漆</td><td>红丹底漆2道+醇酸面漆，防火防锈</td></tr>
+    <tr><td><b>照明</b></td><td>200W IP65 LED工矿灯</td><td>6m间距，照度≥300lux，含桥架走线</td></tr>
+    <tr><td><b>出入</b></td><td>电动提升门4樘（4×4.5m）</td><td>钢制夹芯保温，含电机遥控+安全感应</td></tr>
+    <tr><td><b>行车预留</b></td><td>屋架下弦H型钢加固</td><td>预留5t电动行车条件（行车另配）</td></tr>
+  </table>
+  <div class="d-sec">10# 仓储辅助 — 基础精装（359元/m²）</div>
+  <table class="d-table">
+    <tr><th>项目</th><th>标准</th></tr>
+    <tr><td>地面</td><td>C25细石混凝土找平50mm+环氧地坪漆2道</td></tr>
+    <tr><td>墙面</td><td>水泥砂浆找平+防水乳胶漆</td></tr>
+    <tr><td>照明</td><td>100W LED工矿灯，照度≥150lux</td></tr>
+    <tr><td>升降</td><td>固定式液压升降平台2t（升高3m）</td></tr>
+    <tr><td>出入</td><td>电动铝合金卷帘门2樘（净宽≥3.5m）</td></tr>
+  </table>
+  <div class="note">🔑 关键原则：14#/10#均为单层厂房，靠叉车从电动提升门进出，<b>无需货梯</b>。18#为4层办公楼，<b>乘客电梯为必须配置</b>，不可省略。</div>
+`},
+schedule:{label:'📅 施工计划',html:`
+  <div class="d-hero"><h2>施工组织<em>计划</em></h2>
+  <p>总工期 3~3.5个月 · 手续已办 · 四栋同时开工 · 两条关键路径：电梯订货（第1周）+ 道路养护（第9周）</p></div>
+  <div class="d-cards">
+    <div class="d-card hi"><div class="cv">3~3.5</div><div class="cl">总工期（月）</div></div>
+    <div class="d-card hi"><div class="cv">第1天</div><div class="cl">团队进场</div></div>
+    <div class="d-card warn"><div class="cv o">第1周</div><div class="cl">电梯必须订货</div></div>
+    <div class="d-card"><div class="cv">21天</div><div class="cl">道路混凝土养护</div></div>
+  </div>
+  <div class="sch-grid">
+    <div class="sch-row key">
+      <div class="sch-week">第1~2周<br>准备进场</div>
+      <div><div class="sch-title">方案交底 → 团队进场 → 长周期设备订货</div>
+      <div class="sch-body"><span class="sch-tag warn">⚠ 电梯立即订货（6~8周交货）</span><span class="sch-tag warn">⚠ 多联机空调订货</span><span class="sch-tag warn">⚠ 提升门订货</span><br>
+      装修团队当天进场，主材集中采购。电梯第1周必须下单，否则推迟总工期。</div></div>
+    </div>
+    <div class="sch-row">
+      <div class="sch-week">第1~6周<br>主体装修</div>
+      <div><div class="sch-title">四栋同时开工 · 多工种并行流水</div>
+      <div class="sch-body">
+        <span class="sch-tag">18#：隔墙→水电→给排水→吊顶→地面→饰面</span><br>
+        <span class="sch-tag">14#：找平→金刚砂→墙面→屋架漆→提升门</span><br>
+        <span class="sch-tag">10#：地坪→墙面→工矿灯→卷帘门</span><br>
+        第6周末：18#精装主体完成；14#/10#地坪墙面完成。金刚砂须在找平后48h内施工。</div></div>
+    </div>
+    <div class="sch-row">
+      <div class="sch-week">第5~10周<br>机电专项</div>
+      <div><div class="sch-title">与装修尾期交叉施工</div>
+      <div class="sch-body">
+        <span class="sch-tag">消防支管+喷头→水压测试（第8周）</span><br>
+        <span class="sch-tag">多联机安装调试（第8周完成）</span><br>
+        <span class="sch-tag">弱电+监控+门禁上架调试</span><br>
+        <span class="sch-tag warn">⚠ 电梯安装（第8~10周，厂家驻场）</span></div></div>
+    </div>
+    <div class="sch-row key">
+      <div class="sch-week">第9~12周<br>配套收尾</div>
+      <div><div class="sch-title">道路 + 门 + 围墙 + 绿化</div>
+      <div class="sch-body">
+        <span class="sch-tag warn">⚠ C30道路浇筑（第9周前完成，养护21天）</span><br>
+        <span class="sch-tag">北门/西门安装调试</span><span class="sch-tag">围墙修缮</span><span class="sch-tag">绿化种植</span><br>
+        道路养护21天为物理约束，是第二条关键路径，必须第9周前完成浇筑。</div></div>
+    </div>
+    <div class="sch-row">
+      <div class="sch-week">第12~14周<br>竣工交付</div>
+      <div><div class="sch-title">验收 → 移交 → 正式投产</div>
+      <div class="sch-body">
+        <span class="sch-tag">消防联动测试+验收</span><span class="sch-tag">电梯特种设备验收</span><br>
+        <span class="sch-tag">全楼竣工保洁</span><span class="sch-tag">设备资料移交</span><br>
+        <span class="sch-tag total">✓ 总工期约3~3.5个月 正式交付投产</span></div></div>
+    </div>
+  </div>
+  <div class="note">💡 工期与造价关系：各单价已取市场中偏高端，含赶工溢价空间；管理/监理费按项目规模计费；10%不可预见费覆盖变更风险。<b>工期缩短不增加额外造价。</b></div>
+`},
+next:{label:'✅ 下一步',html:`
+  <div class="d-hero"><h2>下一步<em>行动清单</em></h2>
+  <p>手续已办·团队现成·方案确定即可开工 · 两条关键路径需第1天启动</p></div>
+  <div class="next-grid">
+    <div class="next-box"><h4>🚨 第1天必须启动</h4>
+    <table class="d-table">
+      <tr><th>事项</th><th>原因</th></tr>
+      <tr><td>☐ 电梯下单订货</td><td>交货6~8周，不订推迟工期</td></tr>
+      <tr><td>☐ 多联机空调下单</td><td>交货4~6周，需确认型号</td></tr>
+      <tr><td>☐ 电动提升门下单</td><td>非标需工厂定制</td></tr>
+      <tr><td>☐ 设计院图纸交底</td><td>装修团队据图施工</td></tr>
+    </table></div>
+    <div class="next-box"><h4>✅ 开工前确认事项</h4>
+    <table class="d-table">
+      <tr><th>事项</th><th>目的</th></tr>
+      <tr><td>☐ 各栋实测面积确认</td><td>核对估算误差</td></tr>
+      <tr><td>☐ 现有供电容量确认</td><td>是否需增容申报</td></tr>
+      <tr><td>☐ 消防验收现状确认</td><td>主管接驳合规性</td></tr>
+      <tr><td>☐ 北门/西门权属确认</td><td>开门条件+业主许可</td></tr>
+      <tr><td>☐ 电梯基坑地质确认</td><td>地下水位影响费用</td></tr>
+    </table></div>
+    <div class="next-box"><h4>💰 造价风险提示</h4>
+    <table class="d-table">
+      <tr><th>风险项</th><th>影响</th></tr>
+      <tr><td>铜材/钢材价格波动</td><td>建议合同约定价差条款</td></tr>
+      <tr><td>电梯井道遇地下水</td><td>可能增加10~20万止水费</td></tr>
+      <tr><td>实测面积偏差±8%</td><td>对应造价偏差约±75万</td></tr>
+      <tr><td>供电增容</td><td>如需增容另增100~200万</td></tr>
+    </table></div>
+    <div class="next-box"><h4>📅 推进时序</h4>
+    <table class="d-table">
+      <tr><th>步骤</th><th>内容</th><th>时间</th></tr>
+      <tr><td>①</td><td>图纸交底+设备订货</td><td>第1周</td></tr>
+      <tr><td>②</td><td>四栋同步开工</td><td>第1~6周</td></tr>
+      <tr><td>③</td><td>机电+电梯安装</td><td>第5~10周</td></tr>
+      <tr><td>④</td><td>道路浇筑养护</td><td>第9~12周</td></tr>
+      <tr><td>⑤</td><td>消防验收+交付</td><td>第12~14周</td></tr>
+    </table></div>
+  </div>
+  <div class="note">📋 总造价约<b>1,030万元</b>（含10%不可预见），工期<b>3~3.5个月</b>，外立面现状良好不含在内。价格已含赶工溢价，无需额外调整。</div>
+`}
+};
+
+function openModal(key,btn){
+  const modal=document.getElementById('modal');
+  const tabsEl=document.getElementById('dtabs');
+  const pagesEl=document.getElementById('dpages');
+  tabsEl.innerHTML='';pagesEl.innerHTML='';
+  Object.keys(PAGES).forEach(k=>{
+    const b=document.createElement('button');
+    b.className='dtb'+(k===key?' on':'');
+    b.textContent=PAGES[k].label;
+    b.onclick=()=>{
+      document.querySelectorAll('.dtb').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      document.querySelectorAll('.dpage').forEach(x=>x.classList.remove('on'));
+      document.getElementById('dp-'+k).classList.add('on');
+      document.getElementById('mbody').scrollTop=0;
+    };
+    tabsEl.appendChild(b);
+    const pg=document.createElement('div');
+    pg.className='dpage'+(k===key?' on':'');
+    pg.id='dp-'+k;pg.innerHTML=PAGES[k].html;
+    pagesEl.appendChild(pg);
+  });
+  modal.classList.add('show');
+  document.getElementById('mbody').scrollTop=0;
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  if(btn)btn.classList.add('on');
+}
+function closeModal(){
+  document.getElementById('modal').classList.remove('show');
+  document.querySelectorAll('.nb').forEach((b,i)=>{if(i===0)b.classList.add('on');});
+}
+function showMain(btn){
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('modal').classList.remove('show');
+}
+function togglePanel(id){
+  const body=document.getElementById(id+'-body');
+  const arr=document.getElementById(id+'-arr');
+  const isOpen=!body.classList.contains('collapsed');
+  if(isOpen){body.style.maxHeight=body.scrollHeight+'px';requestAnimationFrame(()=>{body.style.maxHeight='0';body.classList.add('collapsed');arr.classList.remove('open');});}
+  else{body.classList.remove('collapsed');body.style.maxHeight='0';requestAnimationFrame(()=>{body.style.maxHeight=body.scrollHeight+'px';arr.classList.add('open');});setTimeout(()=>body.style.maxHeight='none',350);}
+}
+window.addEventListener('DOMContentLoaded',()=>{
+  ['lp','rp'].forEach(id=>{const b=document.getElementById(id+'-body');b.style.maxHeight=b.scrollHeight+'px';});
+});
+window.openModal=openModal;window.closeModal=closeModal;window.showMain=showMain;window.togglePanel=togglePanel;
+
+const renderer=new THREE.WebGLRenderer({canvas:document.getElementById('canvas'),antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setSize(innerWidth,innerHeight);
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=2.4;
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x1a2d4a);
+scene.fog=new THREE.FogExp2(0x1a2d4a,0.0018);
+const camera=new THREE.PerspectiveCamera(44,innerWidth/innerHeight,0.5,1200);
+
+const M=(c,o={})=>new THREE.MeshStandardMaterial({color:c,...o});
+const T={
+  gnd:M(0x0b1320,{roughness:.95}),site:M(0x121a27,{roughness:.9}),
+  rd: M(0x0e131e,{roughness:.92}),ep:M(0xccd3da,{roughness:.18,metalness:.05}),
+  epD:M(0xb3bcc6,{roughness:.22,metalness:.04}),
+  lB: M(0x1c3888,{emissive:0x1c3888,emissiveIntensity:.2,roughness:.3}),
+  lY: M(0x91400d,{emissive:0x77340c,emissiveIntensity:.16,roughness:.3}),
+  w18:M(0xb3c0cc,{roughness:.52,metalness:.13}),
+  w18b:M(0x253443,{roughness:.5,metalness:.18}),
+  w18d:M(0x172c4c,{roughness:.44,metalness:.22}),
+  w18g:M(0x59acd4,{transparent:true,opacity:.27,roughness:.04,metalness:.6}),
+  wl: M(0xb7c2cc,{roughness:.6,metalness:.1}),
+  ws: M(0x1a334e,{roughness:.5,metalness:.18}),
+  rf: M(0x1a2c3c,{roughness:.42,metalness:.3}),
+  rfE:M(0x111c2a,{roughness:.52,metalness:.32}),
+  gl: M(0x5fa4f8,{transparent:true,opacity:.2,roughness:.04,metalness:.55}),
+  ml: M(0x3b4e66,{roughness:.35,metalness:.65}),
+  dr: M(0x162333,{roughness:.6,metalness:.3}),
+  dfr:M(0x22364e,{roughness:.4,metalness:.55}),
+  st: M(0x3d4e5e,{roughness:.28,metalness:.8}),
+  cn: M(0x232c38,{roughness:.88}),
+  wh: M(0xebf0f5,{roughness:.5}),
+  fn: M(0x334658,{roughness:.45,metalness:.5}),
+  gr: M(0x152b0c,{roughness:1}),
+  tr1:M(0x152a0c,{roughness:1}),
+  tr2:M(0x1b360d,{roughness:1}),
+  tm: M(0x111622,{roughness:.88}),
+  gG: M(0x34d399,{emissive:0x059669,emissiveIntensity:2.2,roughness:.2}),
+  gB: M(0x38bdf8,{emissive:0x0284c7,emissiveIntensity:2,roughness:.2}),
+  gC: M(0x00e4be,{emissive:0x00c4a6,emissiveIntensity:1.8,roughness:.2}),
+  gtP:M(0xb060f0,{emissive:0x8a20d7,emissiveIntensity:.7,roughness:.3,metalness:.4}),
+  gtO:M(0xf77316,{emissive:0xdb4f08,emissiveIntensity:.6,roughness:.3,metalness:.4}),
+};
+
+function bx(w,h,d,mat,x=0,y=0,z=0,cs=true,rs=true){
+  const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);
+  m.position.set(x,y,z);m.castShadow=cs;m.receiveShadow=rs;scene.add(m);return m;
+}
+function cyl(rt,rb,h,seg,mat,x=0,y=0,z=0){
+  const m=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg),mat);
+  m.position.set(x,y,z);m.castShadow=true;scene.add(m);return m;
+}
+function ridgeRoof(bw,bd,rh,mat,px,py,pz){
+  const sh=new THREE.Shape();sh.moveTo(-bw/2,0);sh.lineTo(0,rh);sh.lineTo(bw/2,0);sh.closePath();
+  const m=new THREE.Mesh(new THREE.ExtrudeGeometry(sh,{depth:bd,bevelEnabled:false}),mat);
+  m.position.set(px,py,pz-bd/2);m.castShadow=true;scene.add(m);return m;
+}
+
+// ══════════════════════════════════════════════════════
+//  坐标系: X负=西, Z负=北
+//  18# L型: 西腿 X:-90~-70, Z:-90~+15  顶翼 X:-90~+18, Z:-90~-70
+//  L内角圆弧: 中心(x=-70,z=-70), R=12 (凹弧)
+//  14#: 55×25m, cx=0, cz=-42
+//  10#: 45×20m, cx=0, cz=-10
+//  配电室: cx=-40, cz=-10
+//  北门: X=28,Z=-90  西门: X=-90,Z=+12
+// ══════════════════════════════════════════════════════
+
+// ── GROUND ──
+bx(500,.3,500,T.gnd,0,-.15,0,false,true);
+bx(200,.15,155,T.site,-30,.04,-42,false,true);
+// 北路（共云路）
+bx(360,.14,30,T.rd,-10,.06,-105,false,true);
+// 西路（宽马路，对西门）
+bx(55,.14,340,T.rd,-124,.06,0,false,true);
+// 消防通道NS（北门右侧）
+bx(6,.09,120,T.rd,28,.07,-20,false,true);
+// 消防通道EW（各楼间）
+bx(180,.09,5,T.rd,-15,.07,-52,false,true);
+bx(180,.09,5,T.rd,-15,.07,-62,false,true);
+bx(180,.09,5,T.rd,-15,.07,20,false,true);
+// 绿化草地
+bx(200,.15,12,T.gr,-10,.07,-99,false);
+bx(12,.15,200,T.gr,86,.07,-20,false);
+
+// ══════════════════════════════════════════════════════
+//  18# L型高层建筑
+//  严格按CAD: 顶翼 x:-90~+18, z:-90~-70 (宽108, 深20)
+//             西腿 x:-90~-70, z:-70~+15 (宽20, 长85)
+//  L内角(x=-70, z=-70): 圆弧平滑过渡
+//  高度: 约8层 H=32m
+//  外墙: 米白色, 玻璃窗带, 红竖条装饰
+// ══════════════════════════════════════════════════════
+{
+  const H=32;
+  const mW = M(0xe8e2d8,{roughness:.5,metalness:.08}); // 米白外墙（更亮）
+  const mBd= M(0x38485a,{roughness:.5,metalness:.15});  // 深色腰线
+  const mGl= M(0x5b8fbe,{transparent:true,opacity:.38,roughness:.04,metalness:.7}); // 玻璃
+  const mRd= M(0xb05040,{roughness:.55}); // 红色竖条
+  const mRf= M(0x283440,{roughness:.45,metalness:.2}); // 屋顶
+  const mCp= M(0x4a5568,{roughness:.3,metalness:.5});  // 雨棚金属
+
+  // ── 顶翼主体 (108m × 20m × 32m) ──
+  // x: -90 ~ +18, center=-36; z: -90 ~ -70, center=-80
+  const TWW=108, TWD=20, TWX=-36, TWZ=-80;
+  bx(TWW,H,TWD,mW,TWX,H/2,TWZ);
+
+  // ── 西腿主体 (20m × 85m × 32m) ──
+  // x: -90 ~ -70, center=-80; z: -70 ~ +15, center=-27.5
+  const WLW=20, WLD=85, WLX=-80, WLZ=-27.5;
+  bx(WLW,H,WLD,mW,WLX,H/2,WLZ);
+
+  // ── L内角圆弧: 用CylinderGeometry(扇形)填充 ──
+  // 圆心: x=-70, z=-70, R=12
+  // 填充西北1/4扇形 (从180°到270°, 即从西到北)
+  const CR=12;
+  const arcGeo = new THREE.CylinderGeometry(CR,CR,H,32,1,false,Math.PI,Math.PI/2);
+  const arcM = new THREE.Mesh(arcGeo, mW);
+  arcM.position.set(-70, H/2, -70);
+  arcM.castShadow=true; scene.add(arcM);
+  // 填实内角矩形块(圆弧内侧)
+  bx(CR,H,CR,mW,-70+CR/2,H/2,-70-CR/2);
+
+  // ── 楼层腰线 ──
+  for(let f=1;f<8;f++){
+    bx(TWW+.4,.45,TWD+.4,mBd,TWX,f*4,TWZ);
+    bx(WLW+.4,.45,WLD+.4,mBd,WLX,f*4,WLZ);
+  }
+
+  // ── 屋顶板 ──
+  bx(TWW+.5,.8,TWD+.5,mRf,TWX,H+.4,TWZ);
+  bx(WLW+.5,.8,WLD+.5,mRf,WLX,H+.4,WLZ);
+  // 女儿墙
+  bx(TWW+.6,1.4,1,M(0xd0ccc8,{roughness:.5}),TWX,H+1.5,TWZ-TWD/2-.44);
+  bx(TWW+.6,1.4,1,M(0xd0ccc8,{roughness:.5}),TWX,H+1.5,TWZ+TWD/2+.44);
+  bx(1,1.4,TWD+.6,M(0xd0ccc8,{roughness:.5}),TWX+TWW/2+.44,H+1.5,TWZ);
+  bx(1,1.4,WLD+.6,M(0xd0ccc8,{roughness:.5}),WLX-WLW/2-.44,H+1.5,WLZ);
+  bx(WLW+.6,1.4,1,M(0xd0ccc8,{roughness:.5}),WLX,H+1.5,WLZ+WLD/2+.44);
+
+  // ── 玻璃窗带 (北立面/西立面/东立面) ──
+  for(let f=0;f<8;f++){
+    const gy=f*4+1.2;
+    // 北立面窗带
+    bx(TWW-6,2.6,.28,mGl,TWX,gy+1.3,TWZ-TWD/2-.12);
+    // 西立面窗带
+    bx(.28,2.6,WLD-6,mGl,WLX-WLW/2-.12,gy+1.3,WLZ);
+    // 顶翼东立面
+    bx(.28,2.6,TWD-4,mGl,TWX+TWW/2+.12,gy+1.3,TWZ);
+    // 西腿南立面
+    bx(WLW-4,2.6,.28,mGl,WLX,gy+1.3,WLZ+WLD/2+.12);
+  }
+
+  // ── 红色竖向装饰条 (北立面) ──
+  for(let i=0;i<8;i++) bx(.9,H,.35,mRd,TWX-46+i*13,H/2,TWZ-TWD/2-.18);
+  // 西立面竖条
+  for(let i=0;i<5;i++) bx(.35,H,.9,mRd,WLX-WLW/2-.18,H/2,WLZ-36+i*16);
+
+  // ── 底层玻璃幕墙+挑檐雨棚 ──
+  bx(TWW-4,4.8,.4,mGl,TWX,2.4,TWZ-TWD/2-.2);   // 北面落地玻璃
+  // west facade glass removed - was overlapping with gate
+  // 挑檐
+  bx(TWW+2,.3,3.8,mCp,TWX,5.1,TWZ-TWD/2-1.9);
+  // west canopy removed - was creating extra block
+  // 挑檐斜撑
+  for(let i=0;i<9;i++) bx(.25,1.6,.25,mBd,TWX-50+i*12,4.2,TWZ-TWD/2-.8);
+  // west canopy supports removed
+
+  // ── 底部基座深色腰带 ──
+  bx(TWW+.4,.55,TWD+.4,mBd,TWX,5.5,TWZ);
+  bx(WLW+.4,.55,WLD+.4,mBd,WLX,5.5,WLZ);
+
+  // ── 门 (北立面5个) ──
+  for(let d=0;d<5;d++){
+    const dx=TWX-44+d*22;
+    bx(5.5,4,.4,M(0x1a2530,{roughness:.5}),dx,2,TWZ-TWD/2-.18);
+    bx(6,.45,.5,mBd,dx,4.25,TWZ-TWD/2-.18);
+  }
+
+  // ── 地基板 ──
+  bx(TWW,.18,TWD,M(0xb8b4ae,{roughness:.75}),TWX,.09,TWZ,false,true);
+  bx(WLW,.18,WLD,M(0xb8b4ae,{roughness:.75}),WLX,.09,WLZ,false,true);
+
+  // ── 公司标识 ──
+  bx(34,2.2,.6,T.gG,TWX,H-.9,TWZ-TWD/2-.45);
+  bx(28,.3,.65,T.gC,TWX,H-2.6,TWZ-TWD/2-.35);
+
+  // ── 18# 电梯 (顶翼东端内侧) ──
+  {const EX=TWX+TWW/2-5, EZ=TWZ+2;
+  bx(3.5,H+3,3.5,M(0xcac4bc,{roughness:.5}),EX,H/2+1.5,EZ);
+  bx(.25,H+2,2.8,mGl,EX+1.76,H/2+1,EZ);
+  bx(4,.5,4,mRf,EX,H+3.25,EZ);
+  bx(1.4,2.8,.25,M(0x1a2530,{roughness:.5}),EX,1.4,EZ-1.76);
+  bx(1.5,.8,.3,T.gB,EX,H+.5,EZ-1.76);}
+}
+
+// ══════════════════════════════════════════════════════
+//  14# 独栋厂房 — 照片: 人字形屋顶, 石材贴面, 3层
+//  顶部有镂空拱门架造型, 底层大玻璃窗
+//  宽55m × 深25m, 中心 x=0, z=-42
+// ══════════════════════════════════════════════════════
+{
+  const cx=0, cz=-42, W=55, D=25, BH=12; // 3层×4m
+  const mFace=M(0xe0dbd2,{roughness:.48,metalness:.06}); // 石材米白（更亮）
+  const mDark=M(0x2e4055,{roughness:.42,metalness:.12});  // 深色窗框
+  const mGls =M(0x5090c8,{transparent:true,opacity:.38,roughness:.04,metalness:.7});
+  const mRf  =M(0x354550,{roughness:.38,metalness:.2}); // 深灰屋顶
+
+  // 主体
+  bx(W,BH,D,mFace,cx,BH/2,cz);
+  // 楼层腰线
+  for(let f=1;f<3;f++) bx(W+.4,.4,D+.4,mDark,cx,f*4,cz);
+  // 垂直分割线
+  for(let i=-2;i<=2;i++) bx(.5,BH,.3,mDark,cx+i*11,BH/2,cz-D/2-.12);
+
+  // 人字形屋顶 (特征性!)
+  // 两个并排的人字屋顶单元
+  for(let u=0;u<2;u++){
+    const ux=cx-13+u*26;
+    ridgeRoof(26,D+1,5,mRf,ux,BH,cz);
+    // 屋顶白色挑出部分 (照片中屋顶有白色反光结构)
+    bx(24,.4,D+2,M(0xe8e4df,{roughness:.5}),ux,BH+.2,cz);
+    bx(24,.3,2,M(0xf0ece8,{roughness:.45}),ux,BH+4.5,cz-D/2-.8);
+  }
+  // 中间连接段屋顶
+  bx(5,BH,D,mFace,cx,BH/2,cz); // 中间体
+
+  // 顶部镂空拱门架 (照片图3特征!)
+  // 两个拱形框架，中间镂空
+  for(let u=0;u<2;u++){
+    const ux=cx-13+u*26;
+    // 左右立柱
+    bx(2.5,6,2.5,mFace,ux-9,BH+3,cz-D/4);
+    bx(2.5,6,2.5,mFace,ux+9,BH+3,cz-D/4);
+    // 顶梁(斜)
+    const archGeo=new THREE.BoxGeometry(20,.7,2.2);
+    const arch1=new THREE.Mesh(archGeo,mFace);
+    arch1.position.set(ux,BH+5.8,cz-D/4);
+    arch1.rotation.z=Math.PI/8*(u===0?1:-1);
+    arch1.castShadow=true; scene.add(arch1);
+    const arch2=new THREE.Mesh(archGeo,mFace);
+    arch2.position.set(ux,BH+5.8,cz-D/4);
+    arch2.rotation.z=-Math.PI/8*(u===0?1:-1);
+    arch2.castShadow=true; scene.add(arch2);
+  }
+
+  // 窗户 (每层，前后立面)
+  for(let f=0;f<3;f++){
+    const wy=f*4+1;
+    bx(45,2.4,.3,mGls,cx,wy+1.2,cz-D/2-.12);
+    bx(45,2.4,.3,mGls,cx,wy+1.2,cz+D/2+.12);
+    // 底层落地大窗
+    if(f===0) bx(50,3.6,.4,mGls,cx,1.8,cz-D/2-.2);
+  }
+  // 窗框深色
+  for(let i=-3;i<=3;i++) bx(.4,BH+1,.3,mDark,cx+i*8,BH/2,cz-D/2-.08);
+
+  // 顶部女儿墙+石材贴面线条
+  bx(W+.5,.5,D+.5,mDark,cx,BH+.25,cz);
+  bx(W+.8,1.2,1,mFace,cx,BH+.9,cz-D/2-.38);
+  bx(W+.8,1.2,1,mFace,cx,BH+.9,cz+D/2+.38);
+
+  // 地基
+  bx(W,.15,D,M(0xb5b0aa,{roughness:.8}),cx,.07,cz,false,true);
+
+  // 14# 电梯
+  {const EX=cx+W/2-4,EZ=cz+D/2-4;
+  bx(4,BH+4,4,mFace,EX,BH/2+2,EZ);
+  bx(.3,BH+3.5,3.2,mGls,EX+2.1,BH/2+1.8,EZ);
+  bx(4.5,.5,4.5,mRf,EX,BH+4.25,EZ);
+  bx(1.4,2.8,.25,mDark,EX,1.4,EZ-2.1);
+  bx(1.5,.8,.3,T.gB,EX,BH+.4,EZ-2.1);}
+
+  // 标识
+  bx(16,1.6,.45,T.gG,cx,BH-.8,cz-D/2-.38);
+}
+
+// ══════════════════════════════════════════════════════
+//  10# 独栋厂房 — 同风格, 宽45×深20m, cx=0, cz=-10
+//  (14#正南,两栋并排可见于图4)
+// ══════════════════════════════════════════════════════
+{
+  const cx=0, cz=-10, W=45, D=20, BH=12;
+  const mFace=M(0xcdc8bf,{roughness:.55,metalness:.05});
+  const mDark=M(0x2a3540,{roughness:.45,metalness:.1});
+  const mGls =M(0x4a7ea8,{transparent:true,opacity:.3,roughness:.05,metalness:.65});
+  const mRf  =M(0x3a3f46,{roughness:.4,metalness:.18});
+
+  bx(W,BH,D,mFace,cx,BH/2,cz);
+  for(let f=1;f<3;f++) bx(W+.4,.4,D+.4,mDark,cx,f*4,cz);
+  for(let i=-2;i<=2;i++) bx(.5,BH,.3,mDark,cx+i*9,BH/2,cz-D/2-.12);
+
+  // 人字屋顶 (单跨)
+  ridgeRoof(W+2,D+1,4.5,mRf,cx,BH,cz);
+  bx(W,.3,D+1.5,M(0xe0dbd4,{roughness:.5}),cx,BH+.15,cz);
+  bx(W,.25,2,M(0xf0ece8,{roughness:.45}),cx,BH+4,cz-D/2-.7);
+
+  // 顶部拱门架
+  for(let u=0;u<2;u++){
+    const ux=cx-10+u*20;
+    bx(2,5,2,mFace,ux-7,BH+2.5,cz-D/4);
+    bx(2,5,2,mFace,ux+7,BH+2.5,cz-D/4);
+    const ag=new THREE.BoxGeometry(16,.6,2);
+    const a1=new THREE.Mesh(ag,mFace); a1.position.set(ux,BH+4.8,cz-D/4);
+    a1.rotation.z=Math.PI/9; a1.castShadow=true; scene.add(a1);
+    const a2=new THREE.Mesh(ag,mFace); a2.position.set(ux,BH+4.8,cz-D/4);
+    a2.rotation.z=-Math.PI/9; a2.castShadow=true; scene.add(a2);
+  }
+
+  for(let f=0;f<3;f++){
+    bx(36,2.2,.3,mGls,cx,f*4+1.2,cz-D/2-.12);
+    if(f===0) bx(40,3.4,.4,mGls,cx,1.7,cz-D/2-.2);
+  }
+  for(let i=-2;i<=2;i++) bx(.4,BH,.3,mDark,cx+i*9,BH/2,cz-D/2-.08);
+  bx(W+.5,.5,D+.5,mDark,cx,BH+.25,cz);
+  bx(W+.8,1,1,mFace,cx,BH+.8,cz-D/2-.38);
+  bx(W,.15,D,M(0xb5b0aa,{roughness:.8}),cx,.07,cz,false,true);
+
+  // 10# 电梯
+  {const EX=cx+W/2-4,EZ=cz+D/2-4;
+  bx(4,BH+4,4,mFace,EX,BH/2+2,EZ);
+  bx(.3,BH+3.5,3.2,mGls,EX+2.1,BH/2+1.8,EZ);
+  bx(4.5,.5,4.5,mRf,EX,BH+4.25,EZ);
+  bx(1.4,2.8,.25,mDark,EX,1.4,EZ-2.1);
+  bx(1.5,.8,.3,T.gB,EX,BH+.4,EZ-2.1);}
+
+  bx(14,1.5,.4,T.gG,cx,BH-.8,cz-D/2-.35);
+}
+
+// ══════════════════════════════════════════════════════
+//  配电室 — 紧挨10#西侧
+// ══════════════════════════════════════════════════════
+{
+  const cx=-40, cz=-10, W=14, D=16, H=4.5;
+  bx(W,H,D,M(0xb8c0c8,{roughness:.7}),cx,H/2,cz);
+  bx(W+.4,.5,D+.4,M(0x2a3540,{roughness:.5}),cx,H+.25,cz);
+  bx(W+.6,.9,1,M(0xd0ccc6,{roughness:.5}),cx,H+.7,cz-D/2-.28);
+  bx(1,.9,D+.6,M(0xd0ccc6,{roughness:.5}),cx-W/2-.28,H+.7,cz);
+  bx(2.2,3,.3,M(0x1a2530,{roughness:.5}),cx,1.5,cz-D/2-.13);
+  bx(6,.9,.3,T.gB,cx,H-.45,cz-D/2-.28);
+  cyl(.25,.25,3,6,T.st,cx-W/2+.8,1.5,cz-D/2+1.2);
+  cyl(.25,.25,3,6,T.st,cx-W/2+.8,1.5,cz+D/2-1.2);
+}
+
+// ══════════════════════════════════════════════════════
+//  北门 — x=28, z=-90 (消防通道入口)
+// ══════════════════════════════════════════════════════
+{
+  const GX=28, GZ=-90;
+  bx(2.8,7,2.8,T.wh,GX-8,3.5,GZ);bx(2.8,7,2.8,T.wh,GX+8,3.5,GZ);
+  bx(.45,6.5,.4,T.gG,GX-8,3.2,GZ-.8);bx(.45,6.5,.4,T.gG,GX+8,3.2,GZ-.8);
+  bx(22,1.4,1.8,T.wh,GX,7.2,GZ);bx(18,.6,.4,T.gG,GX,7.2,GZ-.9);
+  bx(9,4,.5,T.gtP,GX-16,2,GZ+.8);bx(9,4,.5,T.gtP,GX+16,2,GZ+.8);
+  for(let g=0;g<4;g++){bx(.18,4,.5,T.st,GX-20+g*2.5,2,GZ+.9,false);bx(.18,4,.5,T.st,GX+20-g*2.5,2,GZ+.9,false);}
+  cyl(.12,.12,11,8,T.st,GX-4,5.5,GZ);cyl(.12,.12,11,8,T.st,GX+4,5.5,GZ);
+  bx(4.5,4.2,4.5,T.w18,GX+18,2.1,GZ+2);bx(4.5,.44,4.5,T.rf,GX+18,4.42,GZ+2);
+  bx(3.2,1.7,.26,T.gl,GX+18,2.75,GZ-.46);
+  const gg=new THREE.Mesh(new THREE.CircleGeometry(14,32),M(0x9333ea,{emissive:0x9333ea,emissiveIntensity:.2,transparent:true,opacity:.5,roughness:1}));
+  gg.rotation.x=-Math.PI/2;gg.position.set(GX,.01,GZ);scene.add(gg);
+  const gg2=new THREE.Mesh(new THREE.CircleGeometry(7,32),M(0xc080ff,{emissive:0xb060ff,emissiveIntensity:.8,transparent:true,opacity:.65,roughness:1}));
+  gg2.rotation.x=-Math.PI/2;gg2.position.set(GX,.03,GZ);scene.add(gg2);
+  bx(5,.05,20,T.lB,GX,.06,GZ+12,false,true);
+}
+
+
+// ══════════════════════════════════════════════════════
+//  西门（侧门）— 18#顶翼东端南侧
+//  箭头2位置: x≈+15, z≈-70（顶翼南面，靠近东端）
+//  面向内院/内部道路，与北门呼应
+// ══════════════════════════════════════════════════════
+{
+  // 西门 — 西侧围墙(x=-112)上，z=-55，朝东开对内部道路
+  // 就是截图左侧围墙线中段，箭头2所指位置
+  const GX=-112, GZ=25;
+  // 两侧门柱（立在围墙线上，朝东突出）
+  bx(2.5,7,2.5,T.wh,GX,3.5,GZ-5);
+  bx(2.5,7,2.5,T.wh,GX,3.5,GZ+5);
+  // 门楣
+  bx(.8,1.5,14,T.wh,GX,7.8,GZ);
+  bx(.6,.6,13,T.gtO,GX,7.75,GZ);
+  // 电动门（朝东开，XZ平面Z方向跨越）
+  bx(.5,5.8,11,T.gtO,GX+.4,2.9,GZ);
+  bx(.6,6,12,T.st,GX-.3,3,GZ);
+  // 门卫亭（围墙内侧东边）
+  bx(3.8,4,3.8,T.wh,GX+6,2,GZ+8);
+  bx(3.8,.44,3.8,T.rf,GX+6,4.22,GZ+8);
+  bx(2.8,1.6,.26,T.gl,GX+6,2.7,GZ+6.1);
+  // 围墙缺口两侧连接段
+  bx(.6,3.5,8,M(0x8a9098,{roughness:.7}),GX,1.75,GZ-13);
+  bx(.6,3.5,8,M(0x8a9098,{roughness:.7}),GX,1.75,GZ+13);
+  // 橙色光晕
+  const wg=new THREE.Mesh(new THREE.CircleGeometry(11,32),M(0xf77316,{emissive:0xea5f00,emissiveIntensity:.28,transparent:true,opacity:.5,roughness:1}));
+  wg.rotation.x=-Math.PI/2; wg.position.set(GX+5,.02,GZ); scene.add(wg);
+  const wg2=new THREE.Mesh(new THREE.CircleGeometry(5,32),M(0xffa040,{emissive:0xff8020,emissiveIntensity:.75,transparent:true,opacity:.65,roughness:1}));
+  wg2.rotation.x=-Math.PI/2; wg2.position.set(GX+4,.03,GZ); scene.add(wg2);
+  // 内部引道
+  bx(.2,.05,25,M(0xe8d840,{emissive:0xc8b820,emissiveIntensity:.5}),GX+15,.06,GZ,false);
+}
+
+// ── 围墙/栅栏 ──
+// 北面（北路到北门段）
+bx(36,3,.6,T.fn,-7,1.5,-94,false);bx(24,3,.6,T.fn,46,1.5,-94,false);
+bx(36,.2,.8,T.gC,-7,3.1,-94,false);bx(24,.2,.8,T.gC,46,3.1,-94,false);
+// 西面围墙（西门处留缺口 z=+5）
+bx(.6,3,88,T.fn,-112,1.5,-46,false);
+// 围墙立柱
+for(let f=0;f<3;f++){bx(1.2,3.4,1.2,T.wh,-20+f*9,1.7,-94,false);bx(1.2,3.4,1.2,T.wh,36+f*8,1.7,-94,false);}
+for(let f=0;f<5;f++) bx(1.2,3.4,1.2,T.wh,-112,1.7,-70+f*14,false);
+
+// ── 路灯 ──
+[[-4,-94],[12,-94],[40,-94],[52,-94],[-112,-70],[-112,-50],[-112,-28],[-112,0],[-112,26]
+].forEach(([x,z])=>{cyl(.1,.1,10,8,T.st,x,5,z);bx(2.3,.24,.56,T.gC,x+1.2,10.2,z);});
+
+// ── 树木 ──
+function tree(x,z,h=5){
+  cyl(.28,.42,h*.3,7,M(0x0f0904,{roughness:1}),x,h*.15,z);
+  cyl(h*.36,.18,h*.5,9,T.tr1,x,h*.58,z);
+  cyl(h*.22,.14,h*.34,9,T.tr2,x,h*.83,z);
+}
+[[-88,-96],[-68,-96],[-46,-96],[-22,-96],[0,-96],[22,-96],[44,-96],[64,-96],
+ [-112,-74],[-112,-54],[-112,-32],[-112,-8],[-112,18],[-112,40],
+ [88,-64],[88,-42],[88,-16],[88,12],[88,38],
+ [-60,80],[-38,80],[-14,80],[10,80],[34,80],[58,80],[78,80]
+].forEach(([x,z])=>tree(x,z,4+Math.random()*2));
+
+// ── 照明 (明亮白天效果) ──
+scene.add(new THREE.AmbientLight(0xc8d8e8, 1.4));  // 强环境光
+scene.add(new THREE.HemisphereLight(0xddeeff, 0x334455, 1.2));
+const sun=new THREE.DirectionalLight(0xfff8ee, 3.8);
+sun.position.set(90,140,65); sun.castShadow=true;
+sun.shadow.mapSize.set(2048,2048);
+sun.shadow.camera.left=-180; sun.shadow.camera.right=180;
+sun.shadow.camera.top=180; sun.shadow.camera.bottom=-180;
+sun.shadow.camera.far=550; sun.shadow.bias=-.001;
+scene.add(sun);
+const fill=new THREE.DirectionalLight(0xd0e8ff,1.2); fill.position.set(-80,60,-30); scene.add(fill);
+const fill2=new THREE.DirectionalLight(0xfff0e0,.9); fill2.position.set(60,40,80); scene.add(fill2);
+const ngL=new THREE.PointLight(0xb060f0,8,60); ngL.position.set(28,8,-88); scene.add(ngL);
+const wgL=new THREE.PointLight(0xff7020,8,55); wgL.position.set(-108,5,25); scene.add(wgL);
+const bldL=new THREE.PointLight(0x80c8ff,4,90); bldL.position.set(-36,20,-60); scene.add(bldL);
+const ydL=new THREE.PointLight(0x80e8ff,3,70); ydL.position.set(-5,8,-30); scene.add(ydL);
+const bld14=new THREE.PointLight(0x34d399,2.5,60); bld14.position.set(0,8,-25); scene.add(bld14);
+
+// ── CAMERA ──
+let theta=.55,phi=.42,radius=240,tT=.55,tP=.42,tR=240;
+let look=new THREE.Vector3(-20,8,-25),tL=new THREE.Vector3(-20,8,-25);
+let drag=false,rDrag=false,ox=0,oy=0,autoRot=true;
+function updateCam(){
+  camera.position.set(radius*Math.sin(phi)*Math.sin(theta)+look.x,radius*Math.cos(phi)+look.y,radius*Math.sin(phi)*Math.cos(theta)+look.z);
+  camera.lookAt(look);
+}
+const el=renderer.domElement;
+el.addEventListener('mousedown',e=>{drag=true;rDrag=e.button===2;ox=e.clientX;oy=e.clientY;autoRot=false;const ab=document.getElementById('abtn');ab.textContent='⟳ 自动旋转';ab.classList.remove('on');});
+window.addEventListener('mouseup',()=>drag=false);
+window.addEventListener('mousemove',e=>{
+  if(!drag)return;const dx=e.clientX-ox,dy=e.clientY-oy;ox=e.clientX;oy=e.clientY;
+  if(rDrag){tL.x-=dx*.09;tL.z-=dy*.09;}
+  else{tT-=dx*.006;tP=Math.max(.12,Math.min(1.44,tP-dy*.006));}
+});
+el.addEventListener('wheel',e=>{tR=Math.max(20,Math.min(420,tR+e.deltaY*.15));autoRot=false;});
+el.addEventListener('contextmenu',e=>e.preventDefault());
+let tx=null;
+el.addEventListener('touchstart',e=>{tx=e.touches[0];autoRot=false;},{passive:true});
+el.addEventListener('touchmove',e=>{
+  if(!tx)return;const t1=e.touches[0];
+  tT-=(t1.clientX-tx.clientX)*.006;tP=Math.max(.12,Math.min(1.44,tP-(t1.clientY-tx.clientY)*.006));
+  tx=t1;e.preventDefault();
+},{passive:false});
+
+const VIEWS={
+  iso:   {t:.55,p:.42,r:240,l:[-20,8,-25]},   // 整体鸟瞰
+  top:   {t:.58,p:.13,r:200,l:[-40,6,-30]},     // 俯视全图
+  north: {t:3.14,p:.70,r:60, l:[28,6,-84]},     // 北门正面(从路上朝南看)
+  corner:{t:.52, p:.50,r:90, l:[-60,12,-55]},   // L型转角
+  wgate: {t:1.57,p:.52,r:70,l:[-100,5,25]},   // 西门(从西路朝东看)
+  inside:{t:.40, p:.60,r:80, l:[-30,6,-40]},    // 内院视角
+  bldg14:{t:.10, p:.54,r:82, l:[0,6,-26]},      // 14/10#楼
+};
+function sv(name,btn){
+  const v=VIEWS[name];tT=v.t;tP=v.p;tR=v.r;tL.set(...v.l);
+  autoRot=false;document.querySelectorAll('.vb').forEach(b=>b.classList.remove('on'));
+  if(btn)btn.classList.add('on');const ab=document.getElementById('abtn');ab.textContent='⟳ 自动旋转';ab.classList.remove('on');
+}
+function toggleAuto(){
+  autoRot=!autoRot;
+  const btn=document.getElementById('abtn');
+  btn.textContent=autoRot?'⏸ 暂停':'⟳ 自动旋转';
+  btn.classList.toggle('on',autoRot);
+}
+window.sv=sv;window.toggleAuto=toggleAuto;
+
+let tick=0;
+function animate(){
+  requestAnimationFrame(animate);tick+=.01;
+  if(autoRot)tT+=.0017;
+  theta+=(tT-theta)*.052;phi+=(tP-phi)*.052;
+  radius+=(tR-radius)*.052;look.lerp(tL,.052);
+  updateCam();
+  ngL.intensity=5.5+Math.sin(tick*1.7)*.7;wgL.intensity=5.5+Math.cos(tick*1.7)*.7;
+  bldL.intensity=2.6+Math.sin(tick)*.4;
+  renderer.render(scene,camera);
+}
+const bfg=document.getElementById('bfg'),ldEl=document.getElementById('load');
+let p=0;
+const tmr=setInterval(()=>{p=Math.min(p+4,100);bfg.style.width=p+'%';
+  if(p>=100){clearInterval(tmr);setTimeout(()=>{ldEl.style.opacity='0';setTimeout(()=>ldEl.style.display='none',500);animate();},200);}
+},28);
+window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+
+// touch support for pinch zoom
+let _tx=null,_pinchD=null;
+const _el=renderer.domElement;
+_el.addEventListener('touchstart',e=>{
+  if(e.touches.length===1){_tx=e.touches[0];autoRot=false;const ab=document.getElementById('abtn');ab.textContent='⟳ 旋转';ab.classList.remove('on');}
+  else if(e.touches.length===2){const dx=e.touches[0].clientX-e.touches[1].clientX,dy=e.touches[0].clientY-e.touches[1].clientY;_pinchD=Math.sqrt(dx*dx+dy*dy);_tx=null;}
+},{passive:true});
+_el.addEventListener('touchmove',e=>{
+  e.preventDefault();
+  if(e.touches.length===1&&_tx){const t1=e.touches[0];tT-=(t1.clientX-_tx.clientX)*.006;tP=Math.max(.12,Math.min(1.44,tP-(t1.clientY-_tx.clientY)*.006));_tx=t1;}
+  else if(e.touches.length===2&&_pinchD!==null){const dx=e.touches[0].clientX-e.touches[1].clientX,dy=e.touches[0].clientY-e.touches[1].clientY;const d=Math.sqrt(dx*dx+dy*dy);tR=Math.max(20,Math.min(420,tR-(d-_pinchD)*.8));_pinchD=d;}
+},{passive:false});
+_el.addEventListener('touchend',()=>{_tx=null;_pinchD=null;},{passive:true});
+</script>
+</body>
+</html>
