@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wen — 赞助会员 · Sponsor</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Serif+SC:wght@300;400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#0a0a0a;--white:#f4f2ee;--accent:#c8f04e;--gray:#666;--dark:#141414;--border:rgba(255,255,255,0.07)}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Noto Serif SC',serif;font-weight:300;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.8rem 4rem;background:rgba(10,10,10,0.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.25em;color:var(--accent);text-decoration:none}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(244,242,238,0.45);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+
+/* ── HERO ── */
+.hero{min-height:80vh;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 4rem 4rem;position:relative;overflow:hidden}
+#starfield{position:absolute;inset:0;z-index:0;width:100%;height:100%}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 70% 50%,rgba(200,240,78,0.07) 0%,transparent 65%);pointer-events:none;z-index:1}
+.hero-content{position:relative;z-index:2}
+.hero-label{font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,10vw,130px);line-height:0.88;letter-spacing:0.01em;margin-bottom:2rem}
+.hero-title span{color:var(--accent)}
+.hero-ghost{position:absolute;right:4rem;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(100px,16vw,200px);color:transparent;-webkit-text-stroke:1px rgba(200,240,78,0.04);pointer-events:none;user-select:none;z-index:1}
+.hero-sub{max-width:500px;font-size:0.9rem;line-height:1.9;color:rgba(244,242,238,0.45);margin-bottom:2.5rem}
+.hero-sub strong{color:var(--accent);font-style:normal}
+.btn{display:inline-block;padding:0.9rem 2.2rem;background:var(--accent);color:#0a0a0a;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;font-weight:700;transition:all 0.2s;border:none;cursor:pointer}
+.btn:hover{background:var(--white)}
+.btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,0.2)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);background:transparent}
+
+/* ── MARQUEE ── */
+.marquee-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1rem 0;background:var(--dark)}
+.marquee-track{display:flex;gap:3rem;width:max-content;animation:marquee 28s linear infinite}
+.marquee-item{font-family:'Bebas Neue',sans-serif;font-size:0.9rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.22);white-space:nowrap;display:flex;align-items:center;gap:2rem}
+.marquee-item em{color:var(--accent);font-style:normal}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── SECTIONS ── */
+section{padding:7rem 4rem}
+.s-label{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--accent);margin-bottom:2.5rem;display:flex;align-items:center;gap:1.2rem}
+.s-label::after{content:'';width:40px;height:1px;background:var(--accent);opacity:0.4}
+.s-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,5vw,72px);line-height:1;margin-bottom:1rem}
+
+/* ── VALUE BANNER ── */
+#value{background:#0d0d0d}
+.value-hero{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-bottom:5rem}
+.value-left .s-title{margin-bottom:0.5rem}
+.value-tag{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(200,240,78,0.5);margin-bottom:1rem}
+.value-desc{font-size:0.85rem;line-height:1.9;color:rgba(244,242,238,0.42);margin-bottom:2rem}
+.value-price-block{display:flex;align-items:baseline;gap:1.5rem;margin-bottom:2rem;flex-wrap:wrap}
+.price-market{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:rgba(244,242,238,0.18);text-decoration:line-through;line-height:1}
+.price-market-label{font-family:'Space Mono',monospace;font-size:0.55rem;color:rgba(244,242,238,0.2);letter-spacing:0.1em;text-transform:uppercase;display:block;margin-top:4px}
+.price-arrow{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--accent);opacity:0.5}
+.price-sponsor{font-family:'Bebas Neue',sans-serif;font-size:5.5rem;color:var(--accent);line-height:1;text-shadow:0 0 40px rgba(200,240,78,0.25)}
+.price-sponsor-label{font-family:'Space Mono',monospace;font-size:0.55rem;color:rgba(200,240,78,0.5);letter-spacing:0.1em;text-transform:uppercase;display:block;margin-top:4px}
+.value-saving{display:inline-flex;align-items:center;gap:0.8rem;padding:0.6rem 1.2rem;border:1px solid rgba(200,240,78,0.2);background:rgba(200,240,78,0.04);margin-bottom:2rem}
+.value-saving span{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:var(--accent)}
+
+/* ── MARKET PRICE BREAKDOWN ── */
+.mkt-table{border:1px solid var(--border);overflow:hidden}
+.mkt-head{display:grid;grid-template-columns:1fr 1fr 80px;background:#141414;padding:0.8rem 1.5rem;font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,242,238,0.25);border-bottom:1px solid var(--border)}
+.mkt-row{display:grid;grid-template-columns:1fr 1fr 80px;padding:1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.15s;align-items:center}
+.mkt-row:last-child{border-bottom:none}
+.mkt-row:hover{background:rgba(255,255,255,0.02)}
+.mkt-service{font-size:0.8rem;color:rgba(244,242,238,0.7);font-family:'Space Mono',monospace;font-size:0.7rem}
+.mkt-service em{display:block;font-style:normal;font-size:0.55rem;color:rgba(244,242,238,0.25);margin-top:2px;letter-spacing:0.05em}
+.mkt-price{font-family:'Space Mono',monospace;font-size:0.72rem;color:rgba(244,242,238,0.35);text-decoration:line-through}
+.mkt-incl{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent);text-align:right}
+.mkt-total{display:grid;grid-template-columns:1fr 1fr 80px;padding:1.2rem 1.5rem;background:rgba(200,240,78,0.04);border-top:1px solid rgba(200,240,78,0.15);align-items:center}
+.mkt-total-label{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.1em;color:rgba(244,242,238,0.5)}
+.mkt-total-market{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:rgba(244,242,238,0.2);text-decoration:line-through}
+.mkt-total-price{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--accent);text-align:right}
+
+/* ── BENEFITS ── */
+#benefits{background:var(--black)}
+.benefits-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;border:1px solid var(--border);background:var(--border)}
+.benefit{background:var(--black);padding:3rem;position:relative;transition:background 0.25s;overflow:hidden}
+.benefit:hover{background:var(--dark)}
+.benefit::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--accent);transition:width 0.4s}
+.benefit:hover::after{width:100%}
+.benefit-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:rgba(255,255,255,0.04);line-height:1;margin-bottom:0.8rem}
+.benefit-icon{font-size:1.6rem;margin-bottom:1rem;display:block}
+.benefit-name{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.04em;margin-bottom:0.8rem}
+.benefit-name em{font-style:normal;color:var(--accent)}
+.benefit-desc{font-size:0.8rem;line-height:1.85;color:rgba(244,242,238,0.4);margin-bottom:1.2rem}
+.benefit-val{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,240,78,0.4)}
+.benefit-val-cross{text-decoration:line-through;color:rgba(244,242,238,0.2)}
+.tags{margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.4rem}
+.tag{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.6rem;border:1px solid rgba(200,240,78,0.2);color:var(--accent)}
+
+/* ── MEMBERSHIP / REFERRAL ── */
+#membership{background:#0d0d0d}
+.member-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+
+/* MEMBER CARD */
+.member-card{border:1px solid rgba(200,240,78,0.15);padding:3rem;position:relative;background:rgba(200,240,78,0.02)}
+.member-card::before{content:'// SPONSOR MEMBER';position:absolute;top:-10px;left:20px;background:#0d0d0d;padding:0 10px;font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.2em;color:rgba(200,240,78,0.4)}
+.member-tier{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+.member-price{font-family:'Bebas Neue',sans-serif;font-size:5rem;color:var(--white);line-height:1;margin-bottom:0.3rem}
+.member-price span{font-size:2rem;color:rgba(244,242,238,0.4)}
+.member-period{font-family:'Space Mono',monospace;font-size:0.6rem;color:rgba(244,242,238,0.3);letter-spacing:0.1em;margin-bottom:2rem}
+.member-features{list-style:none;margin-bottom:2.5rem}
+.member-features li{font-size:0.8rem;padding:0.7rem 0;border-bottom:1px solid var(--border);color:rgba(244,242,238,0.55);display:flex;align-items:center;gap:0.8rem;font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.05em}
+.member-features li:last-child{border-bottom:none}
+.member-features li::before{content:'▸';color:var(--accent);flex-shrink:0}
+.member-features li em{font-style:normal;color:rgba(200,240,78,0.45);font-size:0.55rem;margin-left:auto}
+.pay-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:1.5rem}
+.pay-method{background:var(--dark);padding:1rem;text-align:center;transition:background 0.15s}
+.pay-method:hover{background:#1a1a1a}
+.pay-icon{font-size:1.3rem;display:block;margin-bottom:0.4rem}
+.pay-name{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.08em;color:rgba(244,242,238,0.3);text-transform:uppercase}
+
+/* REFERRAL */
+.referral-section{display:flex;flex-direction:column;gap:2rem}
+.ref-box{border:1px solid var(--border);padding:2rem;position:relative;transition:border-color 0.2s}
+.ref-box:hover{border-color:rgba(200,240,78,0.2)}
+.ref-box::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent);opacity:0.4}
+.ref-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;margin-bottom:0.5rem}
+.ref-title em{font-style:normal;color:var(--accent)}
+.ref-desc{font-size:0.78rem;line-height:1.7;color:rgba(244,242,238,0.38);margin-bottom:1.2rem}
+
+/* REFERRAL WIDGET */
+.ref-widget{background:#0a0a0a;border:1px solid rgba(200,240,78,0.1);padding:1.5rem}
+.ref-widget-label{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(200,240,78,0.4);margin-bottom:0.8rem}
+.ref-link-row{display:flex;gap:0;margin-bottom:0.8rem}
+.ref-link-input{flex:1;background:transparent;border:1px solid rgba(255,255,255,0.1);border-right:none;padding:0.65rem 1rem;font-family:'Space Mono',monospace;font-size:0.6rem;color:rgba(244,242,238,0.6);outline:none;letter-spacing:0.04em}
+.ref-link-input:focus{border-color:rgba(200,240,78,0.3)}
+.ref-copy-btn{padding:0.65rem 1.2rem;background:var(--accent);color:#0a0a0a;border:none;cursor:pointer;font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;transition:all 0.15s;white-space:nowrap}
+.ref-copy-btn:hover{background:var(--white)}
+.ref-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.05)}
+.ref-stat{background:#0d0d0d;padding:0.8rem;text-align:center}
+.ref-stat-n{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--accent);line-height:1}
+.ref-stat-l{font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(244,242,238,0.25);margin-top:2px}
+.ref-flow{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;font-family:'Space Mono',monospace;font-size:0.55rem;margin-top:1rem}
+.ref-step{padding:0.5rem 0.8rem;border:1px solid var(--border);color:rgba(244,242,238,0.4)}
+.ref-arrow{color:rgba(200,240,78,0.3)}
+
+/* ── MEMBER DASHBOARD PREVIEW ── */
+#dashboard{background:var(--black)}
+.dash-preview{border:1px solid var(--border);overflow:hidden}
+.dash-bar{background:var(--dark);padding:0.7rem 1.2rem;display:flex;align-items:center;gap:0.6rem;border-bottom:1px solid var(--border)}
+.dash-dot{width:8px;height:8px;border-radius:50%}
+.dash-title{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;color:rgba(244,242,238,0.25);margin-left:0.5rem}
+.dash-body{padding:2rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.dash-card{background:#0d0d0d;padding:1.5rem}
+.dash-card-label{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,242,238,0.25);margin-bottom:0.6rem}
+.dash-card-val{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--accent);line-height:1;margin-bottom:0.3rem}
+.dash-card-sub{font-family:'Space Mono',monospace;font-size:0.52rem;color:rgba(244,242,238,0.3);letter-spacing:0.05em}
+.dash-progress{height:3px;background:rgba(255,255,255,0.06);margin-top:0.8rem}
+.dash-progress-fill{height:100%;background:var(--accent)}
+.dash-actions{padding:1.5rem 2rem;background:#0a0a0a;border-top:1px solid var(--border);display:flex;gap:1rem;flex-wrap:wrap}
+.dash-action-btn{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.6rem 1.2rem;border:1px solid var(--border);color:rgba(244,242,238,0.4);background:transparent;cursor:pointer;transition:all 0.15s}
+.dash-action-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ── HOW TO ── */
+#howto{background:#0d0d0d}
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:grid;grid-template-columns:60px 1fr;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--border);align-items:start;transition:padding-left 0.2s}
+.step:hover{padding-left:0.5rem}
+.step:last-child{border-bottom:none}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:rgba(200,240,78,0.12);line-height:1}
+.step-title{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.04em;margin-bottom:0.5rem;transition:color 0.2s}
+.step:hover .step-title{color:var(--accent)}
+.step-desc{font-size:0.78rem;line-height:1.8;color:rgba(244,242,238,0.38)}
+.step-desc code{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent);background:rgba(200,240,78,0.06);padding:1px 5px}
+
+/* ── CONTACT / CTA ── */
+#cta{background:var(--dark);text-align:center;padding:9rem 4rem}
+.cta-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,8vw,110px);line-height:1;margin-bottom:1.5rem}
+.cta-big em{font-style:normal;color:var(--accent)}
+.cta-sub{font-size:0.85rem;color:rgba(244,242,238,0.35);margin-bottom:3rem;line-height:1.8}
+.cta-btns{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:3rem}
+.social-row{display:flex;justify-content:center;align-items:center;gap:0;border-top:1px solid var(--border);padding-top:2.5rem;flex-wrap:wrap}
+.social-link{display:flex;flex-direction:column;align-items:center;gap:0.5rem;padding:1.2rem 1.8rem;color:rgba(244,242,238,0.3);text-decoration:none;transition:all 0.2s;border-right:1px solid var(--border)}
+.social-link:last-child{border-right:none}
+.social-link span{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase}
+.social-link:hover{color:var(--accent);background:rgba(200,240,78,0.03)}
+
+footer{padding:1.8rem 4rem;border-top:1px solid var(--border);display:flex;justify-content:space-between}
+footer p{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.18)}
+
+@media(max-width:768px){
+  nav{padding:1.4rem 1.5rem}
+  .nav-links{display:none}
+  section{padding:4.5rem 1.5rem}
+  .hero{padding:6rem 1.5rem 3.5rem}
+  .hero-ghost{display:none}
+  .value-hero,.member-grid,.benefits-grid{grid-template-columns:1fr}
+  .dash-body{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:0.8rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">WEN</a>
+  <ul class="nav-links">
+    <li><a href="index.html#services">服务</a></li>
+    <li><a href="index.html#projects">案例</a></li>
+    <li><a href="#value">方案</a></li>
+    <li><a href="#membership" class="active">赞助</a></li>
+    <li><a href="#cta">联系</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="starfield"></canvas>
+  <div class="hero-glow"></div>
+  <div class="hero-ghost">SPONSOR</div>
+  <div class="hero-content">
+    <div class="hero-label">— 赞助会员 · Sponsor Membership</div>
+    <h1 class="hero-title">赞助<span>.</span><br><span>两种方式。</span></h1>
+    <p class="hero-sub">
+      VPN · AI社群 · 大模型体验 · 全站工具<br>
+      基础赞助 <strong>¥199/年</strong>，解锁全部产品工具。<br>
+      Pro 赞助 <strong>¥1,999/年</strong>，还能解锁 <strong>Wen 本人</strong>。
+    </p>
+    <div style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap">
+      <a href="#membership" class="btn">选择方案 →</a>
+      <a href="#value" class="btn btn-ghost">查看完整权益</a>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">VPN <em>规划10+节点</em></div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item"><em>AI</em> 大模型体验</div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">知识星球 <em>AI社群</em></div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">基础赞助 <em>¥199/年</em></div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">Pro赞助 <em>¥1,999/年</em></div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item"><em>1v1</em> 视频咨询</div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">AI工作流 <em>定制搭建</em></div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">VPN <em>规划10+节点</em></div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item"><em>AI</em> 大模型体验</div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">知识星球 <em>AI社群</em></div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">基础赞助 <em>¥199/年</em></div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">Pro赞助 <em>¥1,999/年</em></div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item"><em>1v1</em> 视频咨询</div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">AI工作流 <em>定制搭建</em></div>
+    <div class="marquee-item">·</div>
+  </div>
+</div>
+
+<!-- VALUE SECTION -->
+<section id="value">
+  <div class="s-label">01 — 价值对比</div>
+  <div class="value-hero">
+    <div class="value-left">
+      <div class="value-tag">// market vs sponsor price</div>
+      <h2 class="s-title">市场价<br><span style="color:var(--accent)">¥12,665+</span></h2>
+      <p style="font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.15em;color:rgba(200,240,78,0.5);margin-bottom:0.5rem">VS</p>
+      <h2 class="s-title" style="font-size:clamp(52px,7vw,90px)">赞助价<br><span style="color:var(--accent)">¥199</span></h2>
+      <div class="value-saving">
+        <span>省下至少 <strong>¥12,466</strong> / 年</span>
+      </div>
+      <p class="value-desc">Claude、ChatGPT、Gemini、Copilot、Grok、Perplexity、DeepSeek、Midjourney、Notion AI……把市面上主流 AI 工具的会员全开一遍，一年要花超过 ¥12,000。而你只需要 ¥199，就能体验个中最核心的那些。</p>
+      <a href="#membership" class="btn">现在赞助 ¥199 →</a>
+    </div>
+    <div>
+      <div class="mkt-table">
+        <div class="mkt-head">
+          <span>服务 / 权益</span>
+          <span>市场正价（年）</span>
+          <span style="text-align:right">赞助含？</span>
+        </div>
+        <div class="mkt-row">
+          <span class="mkt-service">🔒 VPN 服务<em>WireGuard · 规划10+节点 · 无限流量</em></span>
+          <span class="mkt-price">¥240/年</span>
+          <span class="mkt-incl">✓ 全含</span>
+        </div>
+        <div class="mkt-row">
+          <span class="mkt-service">🧠 知识星球 AI社群<em>学习圈子 · 1年会员</em></span>
+          <span class="mkt-price">¥196/年</span>
+          <span class="mkt-incl">✓ 全含</span>
+        </div>
+        <div class="mkt-row">
+          <span class="mkt-service">⚙️ 全站工具无限使用<em>持续更新 · 无广告</em></span>
+          <span class="mkt-price">—</span>
+          <span class="mkt-incl">✓ 全含</span>
+        </div>
+        <div class="mkt-row" style="background:rgba(200,240,78,0.02)">
+          <span class="mkt-service" style="color:rgba(244,242,238,0.5);font-size:0.6rem;letter-spacing:0.05em;font-style:italic;grid-column:1/-1">以下为 AI 模型体验额度（50次/月），非完整账号</span>
+        </div>
+        <div class="mkt-row">
+          <span class="mkt-service">✦ Claude Pro · Anthropic<em>最强推理 · 代码 · 写作</em></span>
+          <span class="mkt-price">¥1,728/年</span>
+          <span class="mkt-incl">体验</span>
+        </div>
+        <div class="mkt-row">
+          <span class="mkt-service">✦ ChatGPT Plus · OpenAI<em>GPT-4o · 多模态 · 插件</em></span>
+          <span class="mkt-price">¥1,728/年</span>
+          <span class="mkt-incl">体验</span>
+        </div>
+        <div class="mkt-row">
+          <span class="mkt-service">✦ Gemini Advanced · Google<em>长上下文 · 多模态 · G Suite集成</em></span>
+          <span class="mkt-price">¥1,727/年</span>
+          <span class="mkt-incl">体验</span>
+        </div>
+        <div class="mkt-row">
+          <span class="mkt-service">✦ Copilot Pro · Microsoft<em>Office全家桶AI · GPT-4o</em></span>
+          <span class="mkt-price">¥1,728/年</span>
+          <span class="mkt-incl">体验</span>
+        </div>
+        <div class="mkt-row">
+          <span class="mkt-service">✦ Grok Premium · xAI<em>马斯克 · 实时网络 · 无审查</em></span>
+          <span class="mkt-price">¥1,382/年</span>
+          <span class="mkt-incl">体验</span>
+        </div>
+        <div class="mkt-row">
+          <span class="mkt-service">✦ Perplexity Pro<em>AI搜索引擎 · 实时信息</em></span>
+          <span class="mkt-price">¥1,728/年</span>
+          <span class="mkt-incl">体验</span>
+        </div>
+        <div class="mkt-row">
+          <span class="mkt-service">✦ DeepSeek Pro<em>国产最强 · 中文 · 超低价</em></span>
+          <span class="mkt-price">¥480/年</span>
+          <span class="mkt-incl">体验</span>
+        </div>
+        <div class="mkt-row">
+          <span class="mkt-service">✦ Midjourney Basic<em>AI绘图 · 最强图像生成</em></span>
+          <span class="mkt-price">¥864/年</span>
+          <span class="mkt-incl">体验</span>
+        </div>
+        <div class="mkt-row">
+          <span class="mkt-service">✦ Notion AI<em>AI笔记 · 知识管理 · 写作</em></span>
+          <span class="mkt-price">¥864/年</span>
+          <span class="mkt-incl">体验</span>
+        </div>
+        <div class="mkt-total">
+          <span class="mkt-total-label">市场价合计</span>
+          <span class="mkt-total-market">¥12,665+</span>
+          <span class="mkt-total-price">¥199</span>
+        </div>
+      </div>
+      <p style="font-family:'Space Mono',monospace;font-size:0.5rem;color:rgba(244,242,238,0.2);margin-top:0.8rem;letter-spacing:0.05em">* AI模型为体验额度（50次/月），不含完整会员权限</p>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section id="benefits">
+  <div class="s-label">02 — 四大权益</div>
+  <h2 class="s-title" style="margin-bottom:3rem">赞助后<br>你得到什么</h2>
+  <div class="benefits-grid">
+    <div class="benefit">
+      <div class="benefit-num">01</div>
+      <span class="benefit-icon">🔒</span>
+      <div class="benefit-name">全球 <em>VPN</em></div>
+      <p class="benefit-desc">WireGuard 协议，零日志，无限流量，3设备同时在线，全平台支持。现已上线4节点，按规划持续扩展至10+节点覆盖亚洲/欧洲/美洲/大洋洲。</p>
+
+      <!-- NODE ROADMAP INLINE -->
+      <div style="margin-top:1.2rem;border:1px solid rgba(255,255,255,0.07);overflow:hidden">
+        <div style="background:rgba(200,240,78,0.06);padding:0.6rem 1rem;font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,240,78,0.6);border-bottom:1px solid rgba(255,255,255,0.06)">// NODE ROADMAP</div>
+
+        <div style="padding:0.7rem 1rem;border-bottom:1px solid rgba(255,255,255,0.04)">
+          <div style="font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.12em;color:rgba(40,200,64,0.7);text-transform:uppercase;margin-bottom:0.5rem">● LIVE · 已上线</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem">
+            <span style="font-family:'Space Mono',monospace;font-size:0.55rem;padding:0.2rem 0.5rem;border:1px solid rgba(40,200,64,0.25);color:rgba(40,200,64,0.8)">🇯🇵 东京 ~12ms</span>
+            <span style="font-family:'Space Mono',monospace;font-size:0.55rem;padding:0.2rem 0.5rem;border:1px solid rgba(40,200,64,0.25);color:rgba(40,200,64,0.8)">🇸🇬 新加坡 ~28ms</span>
+            <span style="font-family:'Space Mono',monospace;font-size:0.55rem;padding:0.2rem 0.5rem;border:1px solid rgba(40,200,64,0.25);color:rgba(40,200,64,0.8)">🇺🇸 洛杉矶 ~140ms</span>
+            <span style="font-family:'Space Mono',monospace;font-size:0.55rem;padding:0.2rem 0.5rem;border:1px solid rgba(40,200,64,0.25);color:rgba(40,200,64,0.8)">🇩🇪 法兰克福 ~180ms</span>
+          </div>
+        </div>
+
+        <div style="padding:0.7rem 1rem;border-bottom:1px solid rgba(255,255,255,0.04);opacity:0.65">
+          <div style="font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.12em;color:rgba(255,184,0,0.8);text-transform:uppercase;margin-bottom:0.5rem">◐ Q2 2026 · 建设中</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem">
+            <span style="font-family:'Space Mono',monospace;font-size:0.55rem;padding:0.2rem 0.5rem;border:1px solid rgba(255,184,0,0.2);color:rgba(255,184,0,0.65)">🇰🇷 首尔</span>
+            <span style="font-family:'Space Mono',monospace;font-size:0.55rem;padding:0.2rem 0.5rem;border:1px solid rgba(255,184,0,0.2);color:rgba(255,184,0,0.65)">🇭🇰 香港</span>
+            <span style="font-family:'Space Mono',monospace;font-size:0.55rem;padding:0.2rem 0.5rem;border:1px solid rgba(255,184,0,0.2);color:rgba(255,184,0,0.65)">🇬🇧 伦敦</span>
+            <span style="font-family:'Space Mono',monospace;font-size:0.55rem;padding:0.2rem 0.5rem;border:1px solid rgba(255,184,0,0.2);color:rgba(255,184,0,0.65)">🇺🇸 纽约</span>
+          </div>
+        </div>
+
+        <div style="padding:0.7rem 1rem;opacity:0.35">
+          <div style="font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.12em;color:rgba(244,242,238,0.5);text-transform:uppercase;margin-bottom:0.5rem">○ Q3-Q4 2026 · 规划中</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem">
+            <span style="font-family:'Space Mono',monospace;font-size:0.55rem;padding:0.2rem 0.5rem;border:1px solid rgba(255,255,255,0.1);color:rgba(244,242,238,0.45)">🇯🇵 大阪</span>
+            <span style="font-family:'Space Mono',monospace;font-size:0.55rem;padding:0.2rem 0.5rem;border:1px solid rgba(255,255,255,0.1);color:rgba(244,242,238,0.45)">🇨🇦 温哥华</span>
+            <span style="font-family:'Space Mono',monospace;font-size:0.55rem;padding:0.2rem 0.5rem;border:1px solid rgba(255,255,255,0.1);color:rgba(244,242,238,0.45)">🇦🇺 悉尼</span>
+            <span style="font-family:'Space Mono',monospace;font-size:0.55rem;padding:0.2rem 0.5rem;border:1px solid rgba(255,255,255,0.1);color:rgba(244,242,238,0.45)">🇳🇱 阿姆斯特丹</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="benefit-val" style="margin-top:1rem">外面买 <span class="benefit-val-cross">¥240+/年</span></div>
+      <div class="tags">
+        <span class="tag">WireGuard</span>
+        <span class="tag">规划10+节点</span>
+        <span class="tag">无日志</span>
+        <span class="tag">全平台</span>
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-num">02</div>
+      <span class="benefit-icon">🧠</span>
+      <div class="benefit-name">知识星球 <em>AI社群</em></div>
+      <p class="benefit-desc">加入 Wen 的 AI 学习社群，获取前沿工具评测、使用技巧、独立开发经验。与真正在用 AI 做事的人一起成长。</p>
+      <div class="benefit-val">单独加入 <span class="benefit-val-cross">¥196/年</span></div>
+      <div class="tags">
+        <span class="tag">知识星球</span>
+        <span class="tag">AI培训</span>
+        <span class="tag">工具评测</span>
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-num">03</div>
+      <span class="benefit-icon">✦</span>
+      <div class="benefit-name">多模型 <em>AI体验</em></div>
+      <p class="benefit-desc">无需自己开各平台会员。直接在 wenai.work/ai 体验 Claude · GPT-4o · DeepSeek · Gemini 四款顶级模型，每月50次额度，月初重置。</p>
+      <div class="benefit-val">自己开会员 <span class="benefit-val-cross">¥200+/月</span></div>
+      <div class="tags">
+        <span class="tag">Claude</span>
+        <span class="tag">GPT-4o</span>
+        <span class="tag">DeepSeek</span>
+        <span class="tag">50次/月</span>
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-num">04</div>
+      <span class="benefit-icon">⚙️</span>
+      <div class="benefit-name">全站 <em>工具</em></div>
+      <p class="benefit-desc">wenai.work 上所有 Wen 开发的网页工具和产品，现有的与未来上线的，赞助会员全部免费使用，无广告，持续更新。</p>
+      <div class="benefit-val">持续更新中</div>
+      <div class="tags">
+        <span class="tag">无广告</span>
+        <span class="tag">持续更新</span>
+        <span class="tag">全站通行</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP + REFERRAL -->
+<section id="membership">
+  <div class="s-label">03 — 赞助方案</div>
+  <h2 class="s-title" style="margin-bottom:0.5rem">选择你的<br><span style="color:var(--accent)">赞助档位</span></h2>
+  <p style="font-family:'Noto Serif SC',serif;font-size:0.85rem;color:rgba(244,242,238,0.35);margin-bottom:4rem;line-height:1.8">基础赞助解锁产品工具，高级赞助解锁 Wen 本人。</p>
+
+  <!-- DUAL TIER CARDS -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.07);margin-bottom:5rem">
+
+    <!-- TIER 1: SUPPORTER -->
+    <div style="background:var(--black);padding:3rem;position:relative">
+      <div style="font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(200,240,78,0.5);margin-bottom:1.2rem">// TIER 01 · SUPPORTER</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:5rem;color:var(--white);line-height:1">¥199<span style="font-size:2rem;color:rgba(244,242,238,0.35)">/年</span></div>
+      <div style="font-family:'Space Mono',monospace;font-size:0.55rem;color:rgba(244,242,238,0.25);letter-spacing:0.1em;margin-bottom:2.5rem">基础赞助会员 · BILLED ANNUALLY</div>
+      <ul style="list-style:none;margin-bottom:2.5rem;display:flex;flex-direction:column;gap:0">
+        <li style="font-size:0.72rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.06);color:rgba(244,242,238,0.6);display:flex;align-items:center;gap:0.8rem;font-family:'Space Mono',monospace;letter-spacing:0.04em"><span style="color:var(--accent)">▸</span> VPN 全球节点 · 无限流量 <span style="margin-left:auto;color:rgba(200,240,78,0.4);font-size:0.55rem">WireGuard</span></li>
+        <li style="font-size:0.72rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.06);color:rgba(244,242,238,0.6);display:flex;align-items:center;gap:0.8rem;font-family:'Space Mono',monospace;letter-spacing:0.04em"><span style="color:var(--accent)">▸</span> 知识星球 AI 社群 · 1年 <span style="margin-left:auto;color:rgba(200,240,78,0.4);font-size:0.55rem">价值¥196</span></li>
+        <li style="font-size:0.72rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.06);color:rgba(244,242,238,0.6);display:flex;align-items:center;gap:0.8rem;font-family:'Space Mono',monospace;letter-spacing:0.04em"><span style="color:var(--accent)">▸</span> 多模型 AI 体验 · 50次/月 <span style="margin-left:auto;color:rgba(200,240,78,0.4);font-size:0.55rem">3款模型</span></li>
+        <li style="font-size:0.72rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.06);color:rgba(244,242,238,0.6);display:flex;align-items:center;gap:0.8rem;font-family:'Space Mono',monospace;letter-spacing:0.04em"><span style="color:var(--accent)">▸</span> 全站工具免费使用 <span style="margin-left:auto;color:rgba(200,240,78,0.4);font-size:0.55rem">持续更新</span></li>
+        <li style="font-size:0.72rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.06);color:rgba(244,242,238,0.6);display:flex;align-items:center;gap:0.8rem;font-family:'Space Mono',monospace;letter-spacing:0.04em"><span style="color:var(--accent)">▸</span> 3台设备同时在线 <span style="margin-left:auto;color:rgba(200,240,78,0.4);font-size:0.55rem">全平台</span></li>
+        <li style="font-size:0.72rem;padding:0.75rem 0;color:rgba(244,242,238,0.6);display:flex;align-items:center;gap:0.8rem;font-family:'Space Mono',monospace;letter-spacing:0.04em"><span style="color:var(--accent)">▸</span> 专属邀请链接 · 返利 <span style="margin-left:auto;color:rgba(200,240,78,0.4);font-size:0.55rem">+30天/人</span></li>
+      </ul>
+      <a href="#pay-basic" class="btn" style="display:block;text-align:center;width:100%">赞助 ¥199 →</a>
+    </div>
+
+    <!-- TIER 2: PRO -->
+    <div style="background:#0d0d0d;padding:3rem;position:relative;border-left:2px solid var(--accent)">
+      <div style="position:absolute;top:1.5rem;right:1.5rem;background:var(--accent);color:#0a0a0a;font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.3rem 0.7rem;font-weight:700">BEST VALUE</div>
+      <div style="font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem">// TIER 02 · PRO SPONSOR</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:5rem;color:var(--accent);line-height:1;text-shadow:0 0 30px rgba(200,240,78,0.2)">¥1,999<span style="font-size:2rem;color:rgba(200,240,78,0.4)">/年</span></div>
+      <div style="font-family:'Space Mono',monospace;font-size:0.55rem;color:rgba(200,240,78,0.35);letter-spacing:0.1em;margin-bottom:2.5rem">高级赞助 · 解锁 Wen 本人 · ANNUAL</div>
+      <ul style="list-style:none;margin-bottom:2.5rem;display:flex;flex-direction:column;gap:0">
+        <li style="font-size:0.72rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.06);color:rgba(244,242,238,0.85);display:flex;align-items:center;gap:0.8rem;font-family:'Space Mono',monospace;letter-spacing:0.04em"><span style="color:var(--accent)">▸</span> 基础版全部权益 <span style="margin-left:auto;color:rgba(200,240,78,0.4);font-size:0.55rem">全含</span></li>
+        <li style="font-size:0.72rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.06);color:var(--accent);display:flex;align-items:flex-start;gap:0.8rem;font-family:'Space Mono',monospace;letter-spacing:0.04em"><span style="color:var(--accent);flex-shrink:0">★</span><span>私人微信直连<br><span style="font-size:0.6rem;color:rgba(200,240,78,0.5);font-weight:300">随时发消息咨询，Wen 亲自回复，48h内响应</span></span></li>
+        <li style="font-size:0.72rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.06);color:var(--accent);display:flex;align-items:flex-start;gap:0.8rem;font-family:'Space Mono',monospace;letter-spacing:0.04em"><span style="color:var(--accent);flex-shrink:0">★</span><span>每月 1次 1v1 视频咨询<br><span style="font-size:0.6rem;color:rgba(200,240,78,0.5);font-weight:300">60分钟深度对谈，AI工具/副业/自动化/产品规划</span></span></li>
+        <li style="font-size:0.72rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.06);color:var(--accent);display:flex;align-items:flex-start;gap:0.8rem;font-family:'Space Mono',monospace;letter-spacing:0.04em"><span style="color:var(--accent);flex-shrink:0">★</span><span>个人 AI 工作流搭建<br><span style="font-size:0.6rem;color:rgba(200,240,78,0.5);font-weight:300">针对你的业务场景，设计并搭建专属自动化流程</span></span></li>
+        <li style="font-size:0.72rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.06);color:var(--accent);display:flex;align-items:flex-start;gap:0.8rem;font-family:'Space Mono',monospace;letter-spacing:0.04em"><span style="color:var(--accent);flex-shrink:0">★</span><span>AI 工具/产品定制开发<br><span style="font-size:0.6rem;color:rgba(200,240,78,0.5);font-weight:300">小型AI工具、网页产品、自动化脚本，每年1个项目</span></span></li>
+        <li style="font-size:0.72rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.06);color:var(--accent);display:flex;align-items:flex-start;gap:0.8rem;font-family:'Space Mono',monospace;letter-spacing:0.04em"><span style="color:var(--accent);flex-shrink:0">★</span><span>AI 体验额度翻倍 · 100次/月<br><span style="font-size:0.6rem;color:rgba(200,240,78,0.5);font-weight:300">所有模型额度翻倍，优先使用新接入的模型</span></span></li>
+        <li style="font-size:0.72rem;padding:0.75rem 0;color:var(--accent);display:flex;align-items:flex-start;gap:0.8rem;font-family:'Space Mono',monospace;letter-spacing:0.04em"><span style="color:var(--accent);flex-shrink:0">★</span><span>线下见面 · 1次/年<br><span style="font-size:0.6rem;color:rgba(200,240,78,0.5);font-weight:300">约在你的城市或我在当地时，面对面深聊 AI 策略与个人规划</span></span></li>
+      </ul>
+      <a href="#pay-pro" class="btn" style="display:block;text-align:center;width:100%;background:var(--accent);box-shadow:0 0 30px rgba(200,240,78,0.15)">升级 Pro · ¥1,999 →</a>
+    </div>
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <div class="s-label" style="margin-bottom:1.5rem">权益对比 · Full Comparison</div>
+  <div style="border:1px solid rgba(255,255,255,0.07);overflow:hidden;margin-bottom:5rem">
+    <div style="display:grid;grid-template-columns:1fr 120px 120px;background:var(--dark);padding:0.8rem 1.5rem;font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,242,238,0.25);border-bottom:1px solid rgba(255,255,255,0.06)">
+      <span>权益</span><span style="text-align:center">基础 ¥199</span><span style="text-align:center">Pro ¥1,999</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 120px 120px;padding:0.9rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.04);background:var(--black);align-items:center">
+      <span style="font-family:'Space Mono',monospace;font-size:0.65rem;color:rgba(244,242,238,0.6)">VPN 全球节点（规划10+）</span>
+      <span style="text-align:center;color:var(--accent);font-family:'Space Mono',monospace;font-size:0.65rem">✓</span>
+      <span style="text-align:center;color:var(--accent);font-family:'Space Mono',monospace;font-size:0.65rem">✓</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 120px 120px;padding:0.9rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.04);background:var(--black);align-items:center">
+      <span style="font-family:'Space Mono',monospace;font-size:0.65rem;color:rgba(244,242,238,0.6)">知识星球 AI 社群</span>
+      <span style="text-align:center;color:var(--accent);font-family:'Space Mono',monospace;font-size:0.65rem">✓</span>
+      <span style="text-align:center;color:var(--accent);font-family:'Space Mono',monospace;font-size:0.65rem">✓</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 120px 120px;padding:0.9rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.04);background:var(--black);align-items:center">
+      <span style="font-family:'Space Mono',monospace;font-size:0.65rem;color:rgba(244,242,238,0.6)">多模型 AI 体验</span>
+      <span style="text-align:center;font-family:'Space Mono',monospace;font-size:0.6rem;color:rgba(200,240,78,0.5)">50次/月</span>
+      <span style="text-align:center;font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent)">100次/月</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 120px 120px;padding:0.9rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.04);background:var(--black);align-items:center">
+      <span style="font-family:'Space Mono',monospace;font-size:0.65rem;color:rgba(244,242,238,0.6)">全站工具免费使用</span>
+      <span style="text-align:center;color:var(--accent);font-family:'Space Mono',monospace;font-size:0.65rem">✓</span>
+      <span style="text-align:center;color:var(--accent);font-family:'Space Mono',monospace;font-size:0.65rem">✓</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 120px 120px;padding:0.9rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.04);background:var(--black);align-items:center">
+      <span style="font-family:'Space Mono',monospace;font-size:0.65rem;color:rgba(244,242,238,0.6)">邀请返利</span>
+      <span style="text-align:center;color:var(--accent);font-family:'Space Mono',monospace;font-size:0.65rem">✓</span>
+      <span style="text-align:center;color:var(--accent);font-family:'Space Mono',monospace;font-size:0.65rem">✓</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 120px 120px;padding:0.9rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.04);background:rgba(200,240,78,0.02);align-items:center">
+      <span style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent)">★ 私人微信直连</span>
+      <span style="text-align:center;color:rgba(244,242,238,0.2);font-family:'Space Mono',monospace;font-size:0.65rem">—</span>
+      <span style="text-align:center;color:var(--accent);font-family:'Space Mono',monospace;font-size:0.65rem">✓</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 120px 120px;padding:0.9rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.04);background:rgba(200,240,78,0.02);align-items:center">
+      <span style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent)">★ 每月1v1视频咨询（60min）</span>
+      <span style="text-align:center;color:rgba(244,242,238,0.2);font-family:'Space Mono',monospace;font-size:0.65rem">—</span>
+      <span style="text-align:center;color:var(--accent);font-family:'Space Mono',monospace;font-size:0.65rem">✓ ×12</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 120px 120px;padding:0.9rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.04);background:rgba(200,240,78,0.02);align-items:center">
+      <span style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent)">★ 个人 AI 工作流搭建</span>
+      <span style="text-align:center;color:rgba(244,242,238,0.2);font-family:'Space Mono',monospace;font-size:0.65rem">—</span>
+      <span style="text-align:center;color:var(--accent);font-family:'Space Mono',monospace;font-size:0.65rem">✓</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 120px 120px;padding:0.9rem 1.5rem;background:rgba(200,240,78,0.02);align-items:center">
+      <span style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent)">★ AI 工具/产品定制开发</span>
+      <span style="text-align:center;color:rgba(244,242,238,0.2);font-family:'Space Mono',monospace;font-size:0.65rem">—</span>
+      <span style="text-align:center;font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent)">1项/年</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 120px 120px;padding:0.9rem 1.5rem;background:rgba(200,240,78,0.02);align-items:center;border-top:1px solid rgba(255,255,255,0.04)">
+      <span style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent)">★ 线下见面</span>
+      <span style="text-align:center;color:rgba(244,242,238,0.2);font-family:'Space Mono',monospace;font-size:0.65rem">—</span>
+      <span style="text-align:center;font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent)">1次/年</span>
+    </div>
+  </div>
+
+  <!-- PAYMENT + REFERRAL SIDE BY SIDE -->
+  <div class="member-grid">
+
+    <!-- PAYMENT -->
+    <div>
+      <h2 class="s-title" style="margin-bottom:2rem">支付<br><span style="color:var(--accent)">方式</span></h2>
+      <div class="member-card" id="pay-basic" style="margin-bottom:1.5rem">
+        <div class="member-tier">// 基础赞助 · ¥199/年</div>
+        <div class="pay-methods" style="margin-bottom:1.5rem">
+          <div class="pay-method"><span class="pay-icon">💚</span><div class="pay-name">微信支付</div></div>
+          <div class="pay-method"><span class="pay-icon">💙</span><div class="pay-name">支付宝</div></div>
+          <div class="pay-method"><span class="pay-icon">🔶</span><div class="pay-name">USDT</div></div>
+        </div>
+        <a href="#" class="btn" style="display:block;text-align:center;width:100%">赞助 ¥199 →</a>
+      </div>
+      <div class="member-card" id="pay-pro" style="border-color:rgba(200,240,78,0.3);background:rgba(200,240,78,0.02)">
+        <div class="member-tier" style="color:var(--accent)">// Pro 赞助 · ¥1,999/年</div>
+        <p style="font-family:'Noto Serif SC',serif;font-size:0.78rem;color:rgba(244,242,238,0.35);line-height:1.8;margin-bottom:1.5rem">Pro 赞助需要先微信确认需求和档期，确保双方都能充分利用这份赞助。</p>
+        <div class="pay-methods" style="margin-bottom:1.5rem">
+          <div class="pay-method"><span class="pay-icon">💚</span><div class="pay-name">微信支付</div></div>
+          <div class="pay-method"><span class="pay-icon">💙</span><div class="pay-name">支付宝</div></div>
+          <div class="pay-method"><span class="pay-icon">🔶</span><div class="pay-name">USDT</div></div>
+        </div>
+        <button onclick="openWechat()" class="btn" style="display:block;text-align:center;width:100%;background:var(--accent);box-shadow:0 0 20px rgba(200,240,78,0.15)">先加微信聊聊 →</button>
+      </div>
+    </div>
+
+    <!-- REFERRAL -->
+    <div>
+      <h2 class="s-title" style="margin-bottom:2rem">邀请<br><span style="color:var(--accent)">返利</span></h2>
+      <div class="referral-section">
+        <div class="ref-box">
+          <h3 class="ref-title">邀请好友，<em>双向获益</em></h3>
+          <p class="ref-desc">每成功邀请一位好友完成赞助：<br>你延长 <strong style="color:var(--accent)">+30天</strong>，好友享 <strong style="color:var(--accent)">9折（¥179）</strong>。<br>邀请越多，白嫖越久。</p>
+          <div class="ref-flow">
+            <span class="ref-step">获取专属链接</span>
+            <span class="ref-arrow">→</span>
+            <span class="ref-step">好友完成赞助</span>
+            <span class="ref-arrow">→</span>
+            <span class="ref-step">你+30天·他9折</span>
+          </div>
+        </div>
+        <div class="ref-box">
+          <h3 class="ref-title"><em>生成</em>专属邀请链接</h3>
+          <p class="ref-desc">输入你的会员ID，生成专属链接。</p>
+          <div class="ref-widget">
+            <div class="ref-widget-label">// YOUR REFERRAL LINK</div>
+            <div style="display:flex;gap:0.6rem;margin-bottom:1rem">
+              <input id="refIdInput" type="text" placeholder="输入你的会员ID..." style="flex:1;background:transparent;border:1px solid rgba(255,255,255,0.1);padding:0.6rem 0.8rem;font-family:'Space Mono',monospace;font-size:0.62rem;color:rgba(244,242,238,0.7);outline:none;letter-spacing:0.04em" oninput="generateRefLink()">
+            </div>
+            <div class="ref-link-row">
+              <input id="refLinkOut" class="ref-link-input" type="text" value="wenai.work/sponsor?ref=..." readonly>
+              <button class="ref-copy-btn" onclick="copyRefLink()">复制</button>
+            </div>
+            <div class="ref-stats">
+              <div class="ref-stat"><div class="ref-stat-n" id="refCount">0</div><div class="ref-stat-l">邀请人数</div></div>
+              <div class="ref-stat"><div class="ref-stat-n" id="refDays">+0天</div><div class="ref-stat-l">已获奖励</div></div>
+              <div class="ref-stat"><div class="ref-stat-n" id="refSaved">¥0</div><div class="ref-stat-l">好友省了</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ref-box">
+          <h3 class="ref-title">本月<em>邀请榜</em></h3>
+          <p class="ref-desc">Top 3 额外奖励延期 90 天。</p>
+          <div style="display:flex;flex-direction:column">
+            <div style="display:grid;grid-template-columns:30px 1fr auto;gap:1rem;align-items:center;padding:0.8rem 0;border-bottom:1px solid var(--border)">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--accent)">01</span>
+              <span style="font-family:'Space Mono',monospace;font-size:0.62rem;color:rgba(244,242,238,0.5)">w***8</span>
+              <span style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent)">12人</span>
+            </div>
+            <div style="display:grid;grid-template-columns:30px 1fr auto;gap:1rem;align-items:center;padding:0.8rem 0;border-bottom:1px solid var(--border)">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:rgba(200,240,78,0.5)">02</span>
+              <span style="font-family:'Space Mono',monospace;font-size:0.62rem;color:rgba(244,242,238,0.5)">l***3</span>
+              <span style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent)">8人</span>
+            </div>
+            <div style="display:grid;grid-template-columns:30px 1fr auto;gap:1rem;align-items:center;padding:0.8rem 0">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:rgba(200,240,78,0.3)">03</span>
+              <span style="font-family:'Space Mono',monospace;font-size:0.62rem;color:rgba(244,242,238,0.5)">a***7</span>
+              <span style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent)">5人</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBER DASHBOARD PREVIEW -->
+<section id="dashboard">
+  <div class="s-label">04 — 会员后台</div>
+  <h2 class="s-title" style="margin-bottom:3rem">赞助后你的<br><span style="color:var(--accent)">专属后台</span></h2>
+  <div class="dash-preview">
+    <div class="dash-bar">
+      <div class="dash-dot" style="background:#ff5f57"></div>
+      <div class="dash-dot" style="background:#febc2e"></div>
+      <div class="dash-dot" style="background:#28c840"></div>
+      <span class="dash-title">wenai.work/dashboard — member portal</span>
+    </div>
+    <div class="dash-body">
+      <div class="dash-card">
+        <div class="dash-card-label">会员状态 · Status</div>
+        <div class="dash-card-val" style="color:#28c840;font-size:1.2rem">● ACTIVE</div>
+        <div class="dash-card-sub">到期 2026-03-13</div>
+        <div class="dash-progress"><div class="dash-progress-fill" style="width:68%"></div></div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-card-label">AI 额度 · Quota</div>
+        <div class="dash-card-val">38<span style="font-size:1rem;color:rgba(200,240,78,0.4)">/50</span></div>
+        <div class="dash-card-sub">本月剩余 · 4月1日重置</div>
+        <div class="dash-progress"><div class="dash-progress-fill" style="width:76%"></div></div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-card-label">邀请奖励 · Referral</div>
+        <div class="dash-card-val">+60<span style="font-size:1rem;color:rgba(200,240,78,0.4)">天</span></div>
+        <div class="dash-card-sub">已邀请 2 人</div>
+        <div class="dash-progress"><div class="dash-progress-fill" style="width:40%"></div></div>
+      </div>
+    </div>
+    <div class="dash-actions">
+      <button class="dash-action-btn">⬇ 下载 VPN 配置</button>
+      <button class="dash-action-btn">🧠 进入 AI Lab</button>
+      <button class="dash-action-btn">🌐 加入知识星球</button>
+      <button class="dash-action-btn">🔗 复制邀请链接</button>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO -->
+<section id="howto">
+  <div class="s-label">05 — 使用流程</div>
+  <h2 class="s-title" style="margin-bottom:3rem">五步<br><span style="color:var(--accent)">开始使用</span></h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div>
+        <div class="step-title">完成赞助</div>
+        <p class="step-desc">选择支付方式，完成 ¥199/年 的赞助。支付完成后系统自动开通账户，5分钟内生效。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div>
+        <div class="step-title">登录会员后台</div>
+        <p class="step-desc">用邮箱登录 <code>wenai.work/dashboard</code>，查看你的所有权益和使用状态。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div>
+        <div class="step-title">配置 VPN</div>
+        <p class="step-desc">后台下载 <code>wenai.conf</code> 配置文件，导入免费开源 WireGuard 客户端，一键连接。支持 Windows / macOS / iOS / Android。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div>
+        <div class="step-title">加入知识星球</div>
+        <p class="step-desc">后台获取专属邀请码，免费加入 wenai AI 社群，开始与同频的人一起学习和交流。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">05</div>
+      <div>
+        <div class="step-title">体验 AI Lab</div>
+        <p class="step-desc">访问 <code>wenai.work/ai</code>，直接对话 Claude · GPT-4o · DeepSeek，每月50次额度月初重置。分享邀请链接，每邀请1人你多 <code>+30天</code>。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="s-label" style="justify-content:center">06 — 加入我们</div>
+  <h2 class="cta-big">¥199 <em>或</em><br>¥1,999</h2>
+  <p class="cta-sub">基础赞助解锁产品工具，Pro 赞助解锁 Wen 本人。<br>私人微信 · 1v1视频咨询 · AI工作流定制 · 产品开发</p>
+  <div class="cta-btns">
+    <a href="#pay" class="btn">立即赞助 · SPONSOR NOW</a>
+    <button onclick="openWechat()" class="btn btn-ghost">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:6px"><path d="M8.69 4C4.49 4 1 7.12 1 11c0 2.07 1.01 3.93 2.62 5.24L3 19l2.87-1.43c.85.24 1.75.37 2.68.37.27 0 .54-.01.8-.04a6.3 6.3 0 0 1-.08-1c0-3.59 3.13-6.5 7-6.5.27 0 .54.02.8.04C16.35 7.67 12.85 4 8.69 4zm-1.9 3.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm3.9 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zM15.5 10c-3.59 0-6.5 2.69-6.5 6s2.91 6 6.5 6c.97 0 1.88-.21 2.7-.57L21 23l-.62-2.92C21.6 18.73 22.5 17.43 22.5 16c0-3.31-2.91-6-7-6zm-1.75 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm3.5 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+      微信咨询
+    </button>
+  </div>
+  <div class="social-row">
+    <a href="#" target="_blank" class="social-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M12 8v8"/></svg>
+      <span>小红书</span>
+    </a>
+    <a href="#" target="_blank" class="social-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+      <span>抖音</span>
+    </a>
+    <a href="#" target="_blank" class="social-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <span>Twitter / X</span>
+    </a>
+    <a href="#" target="_blank" class="social-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+      <span>GitHub</span>
+    </a>
+    <a href="#" target="_blank" class="social-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+      <span>即刻</span>
+    </a>
+  </div>
+</section>
+
+<!-- 微信弹窗 -->
+<div id="wechatModal" onclick="closeWechat()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:999;align-items:center;justify-content:center;backdrop-filter:blur(8px);opacity:0;transition:opacity 0.22s">
+  <div onclick="event.stopPropagation()" style="background:#141414;border:1px solid rgba(200,240,78,0.18);padding:2.8rem 2.5rem;text-align:center;max-width:300px;width:90%;position:relative">
+    <button onclick="closeWechat()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:rgba(255,255,255,0.35);font-size:1.1rem;cursor:pointer;font-family:'Space Mono',monospace">✕</button>
+    <div style="font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(200,240,78,0.55);margin-bottom:1.5rem">扫码添加微信</div>
+    <div style="width:180px;height:180px;margin:0 auto 1.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.6rem">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(200,240,78,0.25)" stroke-width="1.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="5" y="5" width="3" height="3" fill="rgba(200,240,78,0.25)" stroke="none"/><rect x="16" y="5" width="3" height="3" fill="rgba(200,240,78,0.25)" stroke="none"/><rect x="5" y="16" width="3" height="3" fill="rgba(200,240,78,0.25)" stroke="none"/></svg>
+      <span style="font-family:'Space Mono',monospace;font-size:0.5rem;color:rgba(255,255,255,0.18);letter-spacing:0.08em">待替换为真实二维码</span>
+    </div>
+    <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:rgba(200,240,78,0.5);margin-bottom:0.3rem">YOUR_WECHAT_ID</div>
+    <div style="font-family:'Noto Serif SC',serif;font-size:0.72rem;color:rgba(244,242,238,0.3);line-height:1.6">添加时请注明来意</div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Wen · wenai.work · 保留所有权利</p>
+  <p>独立构建 · AI 驱动 · 持续进化</p>
+</footer>
+
+<script>
+// ═══ STARFIELD ═══
+(function(){
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let W,H,stars=[],meteors=[];
+  function resize(){
+    const hero = canvas.parentElement;
+    W = canvas.width = hero.offsetWidth;
+    H = canvas.height = hero.offsetHeight;
+    stars=[];
+    for(let i=0;i<200;i++){
+      stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.4+0.2,speed:Math.random()*0.004+0.001,phase:Math.random()*Math.PI*2,color:Math.random()>0.92?'#c8f04e':'#ffffff'});
+    }
+  }
+  window.addEventListener('resize',resize); resize();
+  function spawnMeteor(){meteors.push({x:Math.random()*W*0.7+W*0.1,y:Math.random()*H*0.4,len:Math.random()*120+60,speed:Math.random()*6+5,angle:Math.PI/4+(Math.random()-0.5)*0.3,life:1,decay:Math.random()*0.02+0.015});}
+  setInterval(spawnMeteor,2800); setTimeout(spawnMeteor,600);
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const vg=ctx.createRadialGradient(W/2,H/2,H*0.1,W/2,H/2,H*0.9);
+    vg.addColorStop(0,'rgba(0,0,0,0)'); vg.addColorStop(1,'rgba(0,0,0,0.55)');
+    ctx.fillStyle=vg; ctx.fillRect(0,0,W,H);
+    const t=Date.now()*0.001;
+    stars.forEach(s=>{
+      const alpha=0.3+0.5*Math.sin(t*s.speed*60+s.phase);
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=s.color==='#c8f04e'?`rgba(200,240,78,${alpha*0.9})`:`rgba(255,255,255,${alpha})`;
+      ctx.fill();
+    });
+    meteors=meteors.filter(m=>m.life>0);
+    meteors.forEach(m=>{
+      const dx=Math.cos(m.angle)*m.len, dy=Math.sin(m.angle)*m.len;
+      const grad=ctx.createLinearGradient(m.x,m.y,m.x-dx,m.y-dy);
+      grad.addColorStop(0,`rgba(200,240,78,${m.life*0.9})`);
+      grad.addColorStop(0.3,`rgba(255,255,255,${m.life*0.5})`);
+      grad.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.beginPath(); ctx.moveTo(m.x,m.y); ctx.lineTo(m.x-dx,m.y-dy);
+      ctx.strokeStyle=grad; ctx.lineWidth=1.5; ctx.stroke();
+      m.x+=Math.cos(m.angle)*m.speed; m.y+=Math.sin(m.angle)*m.speed; m.life-=m.decay;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ═══ REFERRAL SYSTEM ═══
+function generateRefLink(){
+  const id = document.getElementById('refIdInput').value.trim();
+  const out = document.getElementById('refLinkOut');
+  if(id){
+    out.value = 'https://wenai.work/vpn?ref=' + encodeURIComponent(id);
+    // Simulate some stats
+    const fakeCount = Math.floor(id.length * 1.3) % 10;
+    document.getElementById('refCount').textContent = fakeCount;
+    document.getElementById('refDays').textContent = '+' + (fakeCount * 30) + '天';
+    document.getElementById('refSaved').textContent = '¥' + (fakeCount * 20);
+  } else {
+    out.value = 'wenai.work/vpn?ref=...';
+    document.getElementById('refCount').textContent = '0';
+    document.getElementById('refDays').textContent = '+0天';
+    document.getElementById('refSaved').textContent = '¥0';
+  }
+}
+
+function copyRefLink(){
+  const val = document.getElementById('refLinkOut').value;
+  if(val && val !== 'wenai.work/vpn?ref=...'){
+    navigator.clipboard.writeText(val).then(()=>{
+      const btn = document.querySelector('.ref-copy-btn');
+      const orig = btn.textContent;
+      btn.textContent = '已复制 ✓';
+      btn.style.background = '#28c840';
+      setTimeout(()=>{ btn.textContent = orig; btn.style.background = ''; }, 1800);
+    });
+  }
+}
+
+// ═══ WECHAT MODAL ═══
+function openWechat(){
+  const m=document.getElementById('wechatModal');
+  m.style.display='flex';
+  requestAnimationFrame(()=>{ m.style.opacity='1'; });
+  document.body.style.overflow='hidden';
+}
+function closeWechat(){
+  const m=document.getElementById('wechatModal');
+  m.style.opacity='0';
+  setTimeout(()=>{ m.style.display='none'; document.body.style.overflow=''; },220);
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeWechat(); });
+</script>
+</body>
+</html>
