@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wen VPN · 全球节点 · 赞助会员专属</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Serif+SC:wght@300;400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#0a0a0a;--white:#f4f2ee;--accent:#c8f04e;--gray:#666;--dark:#141414;--border:rgba(255,255,255,0.07)}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Noto Serif SC',serif;font-weight:300;overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.8rem 4rem;background:rgba(10,10,10,0.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.25em;color:var(--accent);text-decoration:none}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(244,242,238,0.45);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+
+/* HERO */
+.hero{min-height:80vh;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 4rem 4rem;position:relative;overflow:hidden}
+#starfield{position:absolute;inset:0;z-index:0;width:100%;height:100%}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 65% 45%,rgba(200,240,78,0.07) 0%,transparent 65%);pointer-events:none;z-index:1}
+.hero-content{position:relative;z-index:2}
+.hero-label{font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,10vw,130px);line-height:0.88;letter-spacing:0.01em;margin-bottom:2rem}
+.hero-title span{color:var(--accent)}
+.hero-ghost{position:absolute;right:4rem;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(100px,16vw,200px);color:transparent;-webkit-text-stroke:1px rgba(200,240,78,0.04);pointer-events:none;user-select:none;z-index:1}
+.hero-sub{max-width:500px;font-size:0.88rem;line-height:1.9;color:rgba(244,242,238,0.45);margin-bottom:2.5rem}
+.btn{display:inline-block;padding:0.9rem 2.2rem;background:var(--accent);color:#0a0a0a;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;font-weight:700;transition:all 0.2s;border:none;cursor:pointer}
+.btn:hover{background:var(--white)}
+.btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,0.2)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);background:transparent}
+
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1rem 0;background:var(--dark)}
+.marquee-track{display:flex;gap:3rem;width:max-content;animation:marquee 30s linear infinite}
+.marquee-item{font-family:'Bebas Neue',sans-serif;font-size:0.9rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.22);white-space:nowrap;display:flex;align-items:center;gap:2rem}
+.marquee-item em{color:var(--accent);font-style:normal}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+section{padding:7rem 4rem}
+.s-label{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--accent);margin-bottom:2.5rem;display:flex;align-items:center;gap:1.2rem}
+.s-label::after{content:'';width:40px;height:1px;background:var(--accent);opacity:0.4}
+.s-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,5vw,72px);line-height:1;margin-bottom:2rem}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:3rem}
+.stat-cell{background:var(--black);padding:1.8rem;text-align:center}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--accent);line-height:1}
+.stat-l{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray);margin-top:4px}
+
+/* NODE LIST */
+#nodes{background:#0d0d0d}
+.node-phase{margin-bottom:3rem}
+.phase-label{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.4rem 0.8rem;display:inline-flex;align-items:center;gap:0.6rem;border:1px solid;margin-bottom:1.2rem}
+.phase-live{color:rgba(40,200,64,0.9);border-color:rgba(40,200,64,0.25);background:rgba(40,200,64,0.05)}
+.phase-building{color:rgba(255,184,0,0.8);border-color:rgba(255,184,0,0.2);background:rgba(255,184,0,0.04)}
+.phase-planned{color:rgba(244,242,238,0.3);border-color:rgba(244,242,238,0.1);background:transparent}
+.nodes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.node-card{background:var(--black);padding:1.5rem;transition:background 0.2s;position:relative;overflow:hidden}
+.node-card:hover{background:#111}
+.node-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--accent);transition:width 0.4s}
+.node-card:hover::after{width:100%}
+.node-flag{font-size:1.8rem;display:block;margin-bottom:0.8rem}
+.node-city{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.04em;margin-bottom:0.2rem}
+.node-country{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);margin-bottom:0.8rem}
+.node-ping{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent)}
+.node-status{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.5rem}
+.node-card.live .node-status{color:rgba(40,200,64,0.8)}
+.node-card.building{opacity:0.6}
+.node-card.building .node-status{color:rgba(255,184,0,0.7)}
+.node-card.planned{opacity:0.35}
+.node-card.planned .node-city{color:rgba(244,242,238,0.5)}
+.node-card.planned .node-ping{color:rgba(244,242,238,0.25)}
+.node-card.planned .node-status{color:rgba(244,242,238,0.25)}
+
+/* FEATURES */
+#features{background:var(--black)}
+.feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.feat{background:var(--black);padding:3rem;position:relative;transition:background 0.2s;overflow:hidden}
+.feat:hover{background:var(--dark)}
+.feat::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--accent);transition:width 0.4s}
+.feat:hover::after{width:100%}
+.feat-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:rgba(255,255,255,0.04);line-height:1;margin-bottom:0.8rem}
+.feat-icon{font-size:1.5rem;display:block;margin-bottom:0.8rem}
+.feat-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.04em;margin-bottom:0.7rem}
+.feat-name em{font-style:normal;color:var(--accent)}
+.feat-desc{font-size:0.8rem;line-height:1.85;color:rgba(244,242,238,0.4)}
+.tags{margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.4rem}
+.tag{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.6rem;border:1px solid rgba(200,240,78,0.2);color:var(--accent)}
+
+/* SETUP GUIDE */
+#setup{background:#0d0d0d}
+.setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:grid;grid-template-columns:50px 1fr;gap:1.5rem;padding:1.8rem 0;border-bottom:1px solid var(--border);align-items:start;transition:padding-left 0.2s}
+.step:hover{padding-left:0.5rem}
+.step:last-child{border-bottom:none}
+.step-n{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:rgba(200,240,78,0.12);line-height:1}
+.step-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.04em;margin-bottom:0.5rem;transition:color 0.2s}
+.step:hover .step-title{color:var(--accent)}
+.step-desc{font-size:0.78rem;line-height:1.8;color:rgba(244,242,238,0.38)}
+.step-desc code{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--accent);background:rgba(200,240,78,0.06);padding:1px 5px}
+
+/* PLATFORM CARDS */
+.platform-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border)}
+.platform-card{background:var(--black);padding:1.5rem;transition:background 0.2s;cursor:pointer;text-decoration:none;display:block;color:inherit}
+.platform-card:hover{background:var(--dark)}
+.platform-icon{font-size:1.6rem;display:block;margin-bottom:0.6rem}
+.platform-name{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;margin-bottom:0.3rem;letter-spacing:0.04em}
+.platform-os{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);margin-bottom:0.6rem}
+.platform-desc{font-size:0.72rem;color:rgba(244,242,238,0.35);line-height:1.6}
+.dl-btn{display:inline-flex;align-items:center;gap:0.4rem;font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,240,78,0.6);margin-top:0.8rem;transition:color 0.15s}
+.platform-card:hover .dl-btn{color:var(--accent)}
+
+/* PROTOCOL */
+.proto-box{border:1px solid var(--border);padding:2rem;background:rgba(200,240,78,0.02);position:relative}
+.proto-box::before{content:'// PROTOCOL';position:absolute;top:-10px;left:16px;background:#0d0d0d;padding:0 8px;font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.15em;color:rgba(200,240,78,0.4)}
+.proto-row{display:flex;justify-content:space-between;align-items:baseline;padding:0.8rem 0;border-bottom:1px solid var(--border);font-size:0.78rem}
+.proto-row:last-child{border-bottom:none}
+.proto-key{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray)}
+.proto-val{color:var(--accent);font-family:'Space Mono',monospace;font-size:0.68rem}
+
+/* CTA */
+#cta{background:var(--dark);text-align:center;padding:8rem 4rem}
+.cta-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,8vw,110px);line-height:1;margin-bottom:1.5rem}
+.cta-big em{font-style:normal;color:var(--accent)}
+.cta-sub{font-size:0.85rem;color:rgba(244,242,238,0.35);margin-bottom:3rem;line-height:1.8}
+.cta-btns{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:3rem}
+.contact-btn{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);padding:0.85rem 1.8rem;border:1px solid rgba(255,255,255,0.14);text-decoration:none;transition:all 0.2s;cursor:pointer;background:transparent;display:inline-flex;align-items:center;gap:0.5rem}
+.contact-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+footer{padding:1.8rem 4rem;border-top:1px solid var(--border);display:flex;justify-content:space-between}
+footer p{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.18)}
+
+@media(max-width:768px){
+  nav{padding:1.4rem 1.5rem}
+  .nav-links{display:none}
+  section{padding:4.5rem 1.5rem}
+  .hero{padding:6rem 1.5rem 3rem}
+  .hero-ghost{display:none}
+  .stats-row,.nodes-grid,.feat-grid,.setup-grid,.platform-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:0.8rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">WEN</a>
+  <ul class="nav-links">
+    <li><a href="index.html">主页</a></li>
+    <li><a href="#" class="active">VPN</a></li>
+    <li><a href="ai.html">AI Lab</a></li>
+    <li><a href="sponsor.html" style="color:var(--accent)">赞助 ↗</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="starfield"></canvas>
+  <div class="hero-glow"></div>
+  <div class="hero-ghost">VPN</div>
+  <div class="hero-content">
+    <div class="hero-label">— 赞助会员专属 · WireGuard Protocol</div>
+    <h1 class="hero-title">全球节点<br><span>自由上网。</span></h1>
+    <p class="hero-sub">
+      WireGuard 协议，现已上线4个节点，规划扩展至10+。<br>
+      零日志，3台设备同时在线，全平台支持。<br>
+      赞助会员专属权益，¥199/年解锁全部。
+    </p>
+    <div style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap">
+      <a href="sponsor.html" class="btn">赞助解锁 →</a>
+      <a href="#setup" class="btn btn-ghost">配置教程</a>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">WireGuard <em>协议</em></div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">规划 <em>10+节点</em></div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item"><em>零日志</em> 政策</div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">3台 <em>同时在线</em></div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">亚洲 <em>最低延迟</em> 12ms</div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item"><em>全平台</em> 支持</div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">赞助会员 <em>¥199/年</em></div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">WireGuard <em>协议</em></div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">规划 <em>10+节点</em></div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item"><em>零日志</em> 政策</div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">3台 <em>同时在线</em></div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">亚洲 <em>最低延迟</em> 12ms</div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item"><em>全平台</em> 支持</div>
+    <div class="marquee-item">·</div>
+    <div class="marquee-item">赞助会员 <em>¥199/年</em></div>
+    <div class="marquee-item">·</div>
+  </div>
+</div>
+
+<!-- STATS -->
+<section style="background:var(--black);padding:4rem">
+  <div class="stats-row">
+    <div class="stat-cell">
+      <div class="stat-n">4</div>
+      <div class="stat-l">当前节点</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">10+</div>
+      <div class="stat-l">规划节点</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">12ms</div>
+      <div class="stat-l">亚洲最低延迟</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-n">0</div>
+      <div class="stat-l">日志记录</div>
+    </div>
+  </div>
+</section>
+
+<!-- NODES -->
+<section id="nodes">
+  <div class="s-label">01 — 节点规划</div>
+  <h2 class="s-title">全球覆盖<br><span style="color:var(--accent)">持续扩展</span></h2>
+  <p style="font-family:'Noto Serif SC',serif;font-size:0.85rem;color:rgba(244,242,238,0.38);max-width:520px;margin-bottom:4rem;line-height:1.9">赞助用户越多，节点铺得越快。每个新节点都意味着更快的速度和更好的稳定性。</p>
+
+  <!-- LIVE -->
+  <div class="node-phase">
+    <div class="phase-label phase-live">● 已上线 · LIVE</div>
+    <div class="nodes-grid">
+      <div class="node-card live">
+        <span class="node-flag">🇯🇵</span>
+        <div class="node-city">东京</div>
+        <div class="node-country">Japan · Tokyo</div>
+        <div class="node-ping">~12ms</div>
+        <div class="node-status">● 在线 · 推荐亚太首选</div>
+      </div>
+      <div class="node-card live">
+        <span class="node-flag">🇸🇬</span>
+        <div class="node-city">新加坡</div>
+        <div class="node-country">Singapore · SG</div>
+        <div class="node-ping">~28ms</div>
+        <div class="node-status">● 在线 · 东南亚枢纽</div>
+      </div>
+      <div class="node-card live">
+        <span class="node-flag">🇺🇸</span>
+        <div class="node-city">洛杉矶</div>
+        <div class="node-country">USA · Los Angeles</div>
+        <div class="node-ping">~140ms</div>
+        <div class="node-status">● 在线 · 美西首选</div>
+      </div>
+      <div class="node-card live">
+        <span class="node-flag">🇩🇪</span>
+        <div class="node-city">法兰克福</div>
+        <div class="node-country">Germany · Frankfurt</div>
+        <div class="node-ping">~180ms</div>
+        <div class="node-status">● 在线 · 欧洲核心</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUILDING Q2 -->
+  <div class="node-phase">
+    <div class="phase-label phase-building">◐ 建设中 · Q2 2026</div>
+    <div class="nodes-grid">
+      <div class="node-card building">
+        <span class="node-flag">🇰🇷</span>
+        <div class="node-city">首尔</div>
+        <div class="node-country">South Korea · Seoul</div>
+        <div class="node-ping">~18ms</div>
+        <div class="node-status">◐ 建设中</div>
+      </div>
+      <div class="node-card building">
+        <span class="node-flag">🇭🇰</span>
+        <div class="node-city">香港</div>
+        <div class="node-country">Hong Kong · HK</div>
+        <div class="node-ping">~22ms</div>
+        <div class="node-status">◐ 建设中</div>
+      </div>
+      <div class="node-card building">
+        <span class="node-flag">🇬🇧</span>
+        <div class="node-city">伦敦</div>
+        <div class="node-country">United Kingdom · London</div>
+        <div class="node-ping">~170ms</div>
+        <div class="node-status">◐ 建设中</div>
+      </div>
+      <div class="node-card building">
+        <span class="node-flag">🇺🇸</span>
+        <div class="node-city">纽约</div>
+        <div class="node-country">USA · New York</div>
+        <div class="node-ping">~200ms</div>
+        <div class="node-status">◐ 建设中</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLANNED Q3-Q4 -->
+  <div class="node-phase">
+    <div class="phase-label phase-planned">○ 规划中 · Q3–Q4 2026</div>
+    <div class="nodes-grid">
+      <div class="node-card planned">
+        <span class="node-flag">🇯🇵</span>
+        <div class="node-city">大阪</div>
+        <div class="node-country">Japan · Osaka</div>
+        <div class="node-ping">TBD</div>
+        <div class="node-status">○ 规划中</div>
+      </div>
+      <div class="node-card planned">
+        <span class="node-flag">🇨🇦</span>
+        <div class="node-city">温哥华</div>
+        <div class="node-country">Canada · Vancouver</div>
+        <div class="node-ping">TBD</div>
+        <div class="node-status">○ 规划中</div>
+      </div>
+      <div class="node-card planned">
+        <span class="node-flag">🇦🇺</span>
+        <div class="node-city">悉尼</div>
+        <div class="node-country">Australia · Sydney</div>
+        <div class="node-ping">TBD</div>
+        <div class="node-status">○ 规划中</div>
+      </div>
+      <div class="node-card planned">
+        <span class="node-flag">🇳🇱</span>
+        <div class="node-city">阿姆斯特丹</div>
+        <div class="node-country">Netherlands · AMS</div>
+        <div class="node-ping">TBD</div>
+        <div class="node-status">○ 规划中</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-family:'Space Mono',monospace;font-size:0.5rem;color:rgba(244,242,238,0.18);margin-top:1rem;letter-spacing:0.05em">* 节点扩展速度与赞助人数正相关。所有已赞助会员自动获得新节点访问权限。</p>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="s-label">02 — 核心特性</div>
+  <h2 class="s-title" style="margin-bottom:3rem">为什么选<br><span style="color:var(--accent)">Wen VPN</span></h2>
+  <div class="feat-grid">
+    <div class="feat">
+      <div class="feat-num">01</div>
+      <span class="feat-icon">⚡</span>
+      <div class="feat-name"><em>WireGuard</em> 协议</div>
+      <p class="feat-desc">下一代 VPN 协议，代码量仅 4000 行（OpenVPN 超过60万行），更轻量、更快速、更安全。连接速度比传统 VPN 快 3-5 倍。</p>
+      <div class="tags"><span class="tag">WireGuard</span><span class="tag">UDP</span><span class="tag">ChaCha20</span><span class="tag">最新密码学</span></div>
+    </div>
+    <div class="feat">
+      <div class="feat-num">02</div>
+      <span class="feat-icon">🔒</span>
+      <div class="feat-name"><em>零日志</em> 政策</div>
+      <p class="feat-desc">服务器不记录任何用户活动日志。IP 地址、访问记录、流量内容——什么都不存。法律要求时也无日志可交。</p>
+      <div class="tags"><span class="tag">零日志</span><span class="tag">隐私优先</span><span class="tag">无追踪</span></div>
+    </div>
+    <div class="feat">
+      <div class="feat-num">03</div>
+      <span class="feat-icon">📱</span>
+      <div class="feat-name"><em>全平台</em> 支持</div>
+      <p class="feat-desc">一个配置文件，四个平台通用。Windows / macOS / iOS / Android 均使用官方 WireGuard 客户端，开源免费，3台设备同时在线。</p>
+      <div class="tags"><span class="tag">Windows</span><span class="tag">macOS</span><span class="tag">iOS</span><span class="tag">Android</span></div>
+    </div>
+    <div class="feat">
+      <div class="feat-num">04</div>
+      <span class="feat-icon">♾️</span>
+      <div class="feat-name"><em>无限</em> 流量</div>
+      <p class="feat-desc">没有流量上限，没有速度限制，没有高峰期降速。看 4K 视频、下文件、开发调试，随便用。按月买 ¥199 起，比市面上大多数 VPN 便宜。</p>
+      <div class="tags"><span class="tag">无限流量</span><span class="tag">不限速</span><span class="tag">¥199/年</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SETUP -->
+<section id="setup">
+  <div class="s-label">03 — 配置教程</div>
+  <div class="setup-grid">
+    <div>
+      <h2 class="s-title">五步<br><span style="color:var(--accent)">连上去</span></h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-n">01</div>
+          <div>
+            <div class="step-title">完成赞助</div>
+            <p class="step-desc">访问 <code>wenai.work/sponsor</code>，完成 ¥199/年 赞助后系统自动开通账户。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">02</div>
+          <div>
+            <div class="step-title">下载 WireGuard</div>
+            <p class="step-desc">根据你的设备，从官网免费下载 WireGuard 客户端。完全开源，零广告。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">03</div>
+          <div>
+            <div class="step-title">登录会员后台</div>
+            <p class="step-desc">用邮箱登录 <code>wenai.work/dashboard</code>，进入「VPN 配置」板块。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">04</div>
+          <div>
+            <div class="step-title">下载配置文件</div>
+            <p class="step-desc">选择目标节点，下载 <code>wenai-tokyo.conf</code> 等配置文件（一个节点一个文件）。</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">05</div>
+          <div>
+            <div class="step-title">导入并连接</div>
+            <p class="step-desc">在 WireGuard 客户端点击「导入隧道」，选择配置文件，点击「连接」即可。整个过程不超过2分钟。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h2 class="s-title" style="margin-bottom:2rem">下载<br><span style="color:var(--accent)">客户端</span></h2>
+      <div class="platform-grid">
+        <a href="https://apps.apple.com/app/wireguard/id1441195209" target="_blank" class="platform-card">
+          <span class="platform-icon">🍎</span>
+          <div class="platform-name">iOS</div>
+          <div class="platform-os">iPhone · iPad</div>
+          <p class="platform-desc">App Store 官方 WireGuard，免费下载</p>
+          <div class="dl-btn">App Store →</div>
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.wireguard.android" target="_blank" class="platform-card">
+          <span class="platform-icon">🤖</span>
+          <div class="platform-name">Android</div>
+          <div class="platform-os">Google Play</div>
+          <p class="platform-desc">Google Play 官方 WireGuard，免费下载</p>
+          <div class="dl-btn">Google Play →</div>
+        </a>
+        <a href="https://download.wireguard.com/windows-client/wireguard-installer.exe" target="_blank" class="platform-card">
+          <span class="platform-icon">🪟</span>
+          <div class="platform-name">Windows</div>
+          <div class="platform-os">Win 10/11</div>
+          <p class="platform-desc">官网直接下载安装包，一键安装</p>
+          <div class="dl-btn">下载 .exe →</div>
+        </a>
+        <a href="https://apps.apple.com/app/wireguard/id1451685025" target="_blank" class="platform-card">
+          <span class="platform-icon">🍏</span>
+          <div class="platform-name">macOS</div>
+          <div class="platform-os">Mac App Store</div>
+          <p class="platform-desc">App Store 官方 WireGuard，免费下载</p>
+          <div class="dl-btn">Mac App Store →</div>
+        </a>
+      </div>
+
+      <div class="proto-box" style="margin-top:2rem">
+        <div class="proto-row">
+          <span class="proto-key">协议</span>
+          <span class="proto-val">WireGuard</span>
+        </div>
+        <div class="proto-row">
+          <span class="proto-key">加密</span>
+          <span class="proto-val">ChaCha20-Poly1305</span>
+        </div>
+        <div class="proto-row">
+          <span class="proto-key">密钥交换</span>
+          <span class="proto-val">Curve25519</span>
+        </div>
+        <div class="proto-row">
+          <span class="proto-key">传输层</span>
+          <span class="proto-val">UDP</span>
+        </div>
+        <div class="proto-row">
+          <span class="proto-key">日志策略</span>
+          <span class="proto-val">零日志 · No Logs</span>
+        </div>
+        <div class="proto-row">
+          <span class="proto-key">设备数量</span>
+          <span class="proto-val">3台同时在线</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="s-label" style="justify-content:center">04 — 开始使用</div>
+  <h2 class="cta-big">赞助 <em>¥199</em><br>解锁 VPN</h2>
+  <p class="cta-sub">全球节点 + AI社群 + 大模型体验 + 全站工具<br>一份赞助，全部解锁，365天有效。</p>
+  <div class="cta-btns">
+    <a href="sponsor.html" class="btn">查看完整方案 →</a>
+    <button onclick="openWechat()" class="contact-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.69 4C4.49 4 1 7.12 1 11c0 2.07 1.01 3.93 2.62 5.24L3 19l2.87-1.43c.85.24 1.75.37 2.68.37.27 0 .54-.01.8-.04a6.3 6.3 0 0 1-.08-1c0-3.59 3.13-6.5 7-6.5.27 0 .54.02.8.04C16.35 7.67 12.85 4 8.69 4zm-1.9 3.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm3.9 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zM15.5 10c-3.59 0-6.5 2.69-6.5 6s2.91 6 6.5 6c.97 0 1.88-.21 2.7-.57L21 23l-.62-2.92C21.6 18.73 22.5 17.43 22.5 16c0-3.31-2.91-6-7-6zm-1.75 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm3.5 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+      微信咨询
+    </button>
+  </div>
+</section>
+
+<!-- 微信弹窗 -->
+<div id="wechatModal" onclick="closeWechat()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:999;align-items:center;justify-content:center;backdrop-filter:blur(8px);opacity:0;transition:opacity 0.22s">
+  <div onclick="event.stopPropagation()" style="background:#141414;border:1px solid rgba(200,240,78,0.18);padding:2.8rem 2.5rem;text-align:center;max-width:300px;width:90%;position:relative">
+    <button onclick="closeWechat()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:rgba(255,255,255,0.35);font-size:1.1rem;cursor:pointer;font-family:'Space Mono',monospace">✕</button>
+    <div style="font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(200,240,78,0.55);margin-bottom:1.5rem">扫码添加微信</div>
+    <div style="width:180px;height:180px;margin:0 auto 1.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.6rem">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="rgba(200,240,78,0.25)" stroke-width="1.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="5" y="5" width="3" height="3" fill="rgba(200,240,78,0.25)" stroke="none"/><rect x="16" y="5" width="3" height="3" fill="rgba(200,240,78,0.25)" stroke="none"/><rect x="5" y="16" width="3" height="3" fill="rgba(200,240,78,0.25)" stroke="none"/></svg>
+      <span style="font-family:'Space Mono',monospace;font-size:0.5rem;color:rgba(255,255,255,0.18);letter-spacing:0.08em">待替换为真实二维码</span>
+    </div>
+    <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:rgba(200,240,78,0.5);margin-bottom:0.3rem">YOUR_WECHAT_ID</div>
+    <div style="font-family:'Noto Serif SC',serif;font-size:0.72rem;color:rgba(244,242,238,0.3);line-height:1.6">添加时请注明来意</div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Wen · wenai.work · VPN Service</p>
+  <p>WireGuard® is a registered trademark of Jason A. Donenfeld</p>
+</footer>
+
+<script>
+// ═══ STARFIELD ═══
+(function(){
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let W,H,stars=[],meteors=[];
+  function resize(){
+    const hero = canvas.parentElement;
+    W = canvas.width = hero.offsetWidth;
+    H = canvas.height = hero.offsetHeight;
+    stars=[];
+    for(let i=0;i<200;i++){
+      stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.4+0.2,speed:Math.random()*0.004+0.001,phase:Math.random()*Math.PI*2,color:Math.random()>0.92?'#c8f04e':'#ffffff'});
+    }
+  }
+  window.addEventListener('resize',resize); resize();
+  function spawnMeteor(){meteors.push({x:Math.random()*W*0.7+W*0.1,y:Math.random()*H*0.4,len:Math.random()*120+60,speed:Math.random()*6+5,angle:Math.PI/4+(Math.random()-0.5)*0.3,life:1,decay:Math.random()*0.02+0.015});}
+  setInterval(spawnMeteor,2800); setTimeout(spawnMeteor,600);
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const vg=ctx.createRadialGradient(W/2,H/2,H*0.1,W/2,H/2,H*0.9);
+    vg.addColorStop(0,'rgba(0,0,0,0)'); vg.addColorStop(1,'rgba(0,0,0,0.55)');
+    ctx.fillStyle=vg; ctx.fillRect(0,0,W,H);
+    const t=Date.now()*0.001;
+    stars.forEach(s=>{
+      const alpha=0.3+0.5*Math.sin(t*s.speed*60+s.phase);
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=s.color==='#c8f04e'?`rgba(200,240,78,${alpha*0.9})`:`rgba(255,255,255,${alpha})`;
+      ctx.fill();
+    });
+    meteors=meteors.filter(m=>m.life>0);
+    meteors.forEach(m=>{
+      const dx=Math.cos(m.angle)*m.len, dy=Math.sin(m.angle)*m.len;
+      const grad=ctx.createLinearGradient(m.x,m.y,m.x-dx,m.y-dy);
+      grad.addColorStop(0,`rgba(200,240,78,${m.life*0.9})`);
+      grad.addColorStop(0.3,`rgba(255,255,255,${m.life*0.5})`);
+      grad.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.beginPath(); ctx.moveTo(m.x,m.y); ctx.lineTo(m.x-dx,m.y-dy);
+      ctx.strokeStyle=grad; ctx.lineWidth=1.5; ctx.stroke();
+      m.x+=Math.cos(m.angle)*m.speed; m.y+=Math.sin(m.angle)*m.speed; m.life-=m.decay;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+function openWechat(){
+  const m=document.getElementById('wechatModal');
+  m.style.display='flex';
+  requestAnimationFrame(()=>{ m.style.opacity='1'; });
+  document.body.style.overflow='hidden';
+}
+function closeWechat(){
+  const m=document.getElementById('wechatModal');
+  m.style.opacity='0';
+  setTimeout(()=>{ m.style.display='none'; document.body.style.overflow=''; },220);
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeWechat(); });
+</script>
+</body>
+</html>
