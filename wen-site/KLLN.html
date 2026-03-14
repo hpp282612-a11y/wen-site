@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>卡列尼娜（沧州）科技 · 生产基地装修方案</title>
+<style>
+:root{--ink:#0f172a;--paper:#f8f7f2;--gold:#c9a84c;--gold2:#e8c97a;--blue:#1B3A6B;--blue2:#2d5fa6;--red:#c53030;--muted:#64748b;--border:#e2ddd4;}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;font-weight:300}
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--blue);border-bottom:2px solid var(--gold);display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:54px;}
+#nav .brand{font-size:12px;font-weight:700;color:#fff;letter-spacing:.08em;white-space:nowrap}
+#nav .brand span{color:var(--gold2);font-size:9px;font-weight:400;margin-left:8px}
+#nav ul{list-style:none;display:flex;gap:2px}
+#nav ul li a{display:flex;align-items:center;gap:4px;padding:6px 12px;border-radius:4px;font-size:10.5px;letter-spacing:.04em;color:rgba(255,255,255,.75);text-decoration:none;transition:.18s;cursor:pointer;white-space:nowrap}
+#nav ul li a:hover,#nav ul li a.act{background:rgba(255,255,255,.12);color:#fff;border-bottom:2px solid var(--gold2)}
+.page{display:none;padding-top:54px;min-height:100vh}.page.active{display:block}
+#hero{background:linear-gradient(160deg,var(--blue) 0%,#0f2040 55%,#1a3060 100%);color:#fff;padding:56px 28px 44px;position:relative;overflow:hidden}
+#hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.inner{max-width:960px;margin:0 auto;position:relative}
+.h1{font-size:26px;font-weight:700;letter-spacing:.06em;line-height:1.35;margin-bottom:6px}
+.h1 em{color:var(--gold2);font-style:normal}
+.sub{font-size:11px;color:rgba(148,197,253,.8);letter-spacing:.08em;margin-bottom:36px}
+.kpi-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+.kpi{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:14px 18px;flex:1;min-width:120px}
+.kpi .val{font-size:20px;font-weight:700;color:var(--gold2)}.kpi .lbl{font-size:9.5px;color:rgba(255,255,255,.55);letter-spacing:.05em;margin-top:3px}
+.nav-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.nc{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:18px;cursor:pointer;transition:.2s;text-decoration:none;color:#fff;display:block}
+.nc:hover{background:rgba(255,255,255,.12);border-color:var(--gold);transform:translateY(-2px)}
+.nc .icon{font-size:22px;margin-bottom:8px}.nc h3{font-size:12px;font-weight:500;margin-bottom:5px}.nc p{font-size:9.5px;color:rgba(255,255,255,.5);line-height:1.6}
+.pg-header{background:var(--blue);color:#fff;padding:24px 28px 20px;border-bottom:2px solid var(--gold)}
+.pg-header h2{font-size:16px;font-weight:700;letter-spacing:.05em}.pg-header p{font-size:9.5px;color:rgba(148,197,253,.8);margin-top:5px}
+.content{padding:22px 28px}
+.sec-meta{font-size:10px;color:var(--muted);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--border);line-height:1.9}
+#page3d{padding-top:54px}
+#canvas3d-wrap{position:relative;width:100%;height:calc(100vh - 54px - 74px);background:#08101e;overflow:hidden}
+#canvas3d-wrap canvas{display:block;width:100%!important;height:100%!important}
+#hud3d{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:10px 16px;background:linear-gradient(180deg,rgba(4,8,20,.88) 0%,transparent 100%);pointer-events:none;z-index:5}
+#legend3d{background:rgba(4,8,20,.85);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 12px}
+#legend3d h3{font-size:8.5px;color:rgba(148,197,253,.6);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.li3{display:flex;align-items:center;gap:5px;margin:2px 0}.ld3{width:8px;height:8px;border-radius:2px;flex-shrink:0}.li3 span{font-size:8px;color:rgba(255,255,255,.7)}
+#btns3d{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:5px;flex-wrap:wrap;justify-content:center;max-width:960px;z-index:10}
+.btn3{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.82);padding:5px 11px;border-radius:12px;font-size:9.5px;cursor:pointer;backdrop-filter:blur(8px);transition:.18s;font-family:inherit;white-space:nowrap}
+.btn3:hover{background:rgba(255,255,255,.15);border-color:rgba(148,197,253,.5);color:#fff}.btn3.on{background:rgba(30,86,200,.5);border-color:#3b82f6;color:#93c5fd}
+#info3d{position:absolute;bottom:48px;right:12px;background:rgba(4,8,20,.85);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:9px 12px;font-size:8.5px;color:rgba(255,255,255,.6);line-height:1.9;z-index:10;pointer-events:none}
+#info3d b{color:#93c5fd}
+#vlabel3{position:absolute;top:52px;left:50%;transform:translateX(-50%);background:rgba(20,50,160,.4);border:1px solid rgba(59,130,246,.4);border-radius:20px;padding:4px 14px;font-size:9.5px;color:#93c5fd;z-index:10;pointer-events:none;opacity:0;transition:opacity .4s}
+.svg-wrap{background:#fff;border:1px solid var(--border);border-radius:8px;overflow:auto;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.svg-wrap svg{width:100%;height:auto;display:block}
+.btabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.btab{padding:7px 16px;border-radius:4px;border:1px solid var(--border);font-size:11px;cursor:pointer;transition:.18s;background:#fff;color:var(--muted)}
+.btab:hover,.btab.act{background:var(--blue);color:#fff;border-color:var(--blue)}
+.dsec{margin-bottom:36px}
+.dsec h3{font-size:15px;font-weight:700;color:var(--blue);border-left:4px solid var(--gold);padding-left:12px;margin-bottom:16px;letter-spacing:.03em}
+.fc{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.fc .fch{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--blue);color:#fff}
+.fc .fch h4{font-size:11.5px;font-weight:500;letter-spacing:.03em}.fc .fch .ar{font-size:10.5px;color:var(--gold2)}
+.fc .fcb{padding:12px 16px 14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:9px}
+.rm{border-left:3px solid;padding:7px 11px;border-radius:0 4px 4px 0}.rm h5{font-size:10.5px;font-weight:500;margin-bottom:2px}.rm p{font-size:9.5px;color:var(--muted);line-height:1.6}
+.rm.bl{border-color:#3b82f6;background:#eff6ff}.rm.gr{border-color:#16a34a;background:#f0fdf4}.rm.or{border-color:#ea580c;background:#fff7ed}.rm.gy{border-color:#475569;background:#f1f5f9}.rm.gd{border-color:#ca8a04;background:#fefce8}.rm.pu{border-color:#7c3aed;background:#f5f3ff}
+.ctbl{width:100%;border-collapse:collapse;font-size:10.5px;margin-bottom:18px}
+.ctbl th{background:var(--blue);color:#fff;padding:9px 12px;text-align:left;font-weight:500;font-size:10px}
+.ctbl td{padding:7px 12px;border-bottom:1px solid var(--border)}.ctbl tr:nth-child(even) td{background:#f8f7f2}
+.ctbl .sbt td{background:#e8f0fb!important;font-weight:600;color:var(--blue)}.ctbl .tot td{background:var(--blue)!important;color:#fff;font-weight:700}
+.pb{display:inline-block;padding:2px 7px;border-radius:3px;font-size:9px;font-weight:500}
+.p1{background:#dbeafe;color:#1d4ed8}.p2{background:#dcfce7;color:#15803d}.p3{background:#ffedd5;color:#c2410c}
+.notice{background:#fff8e1;border:1px solid #f59e0b;border-radius:6px;padding:11px 14px;font-size:10.5px;color:#92400e;line-height:1.8;margin-top:16px}
+.tbl{width:100%;border-collapse:collapse;font-size:11px}
+.tbl th{background:var(--blue);color:#fff;padding:9px 12px;font-weight:500}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--border)}
+.tbl tr:nth-child(even) td{background:#f8f7f2}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <div class="brand">卡列尼娜（沧州）科技股份有限公司<span>· 生产基地装修方案 V4</span></div>
+  <ul>
+    <li><a href="javascript:void(0)" onclick="show('pageHome',this)" class="act">🏠 总览</a></li>
+    <li><a href="javascript:void(0)" onclick="show('page3d',this)">🏗 3D效果图</a></li>
+    <li><a href="javascript:void(0)" onclick="show('pagePlan',this)">📐 平面区划图</a></li>
+    <li><a href="javascript:void(0)" onclick="show('pageDoc',this)">📋 区划建议书</a></li>
+    <li><a href="javascript:void(0)" onclick="show('pageIndoor',this)">🛋 室内效果图</a></li>
+    <li><a href="javascript:void(0)" onclick="show('pageCost',this)">💰 造价估算</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE: 总览 -->
+<div id="pageHome" class="page active">
+<div id="hero">
+<div class="inner">
+  <div class="h1">卡列尼娜（沧州）科技<br><em>生产基地</em> 装修规划方案</div>
+  <p class="sub">五行空间布局 · V4修正版 · 总建筑面积约21,240m² · 2026年3月</p>
+  <div class="kpi-row">
+    <div class="kpi"><div class="val">21,240<span style="font-size:12px">m²</span></div><div class="lbl">总建筑面积（毛）</div></div>
+    <div class="kpi"><div class="val">18,000<span style="font-size:12px">m²</span></div><div class="lbl">净可用面积</div></div>
+    <div class="kpi"><div class="val">3栋</div><div class="lbl">1# L型 · 2#北侧 · 6#南侧</div></div>
+    <div class="kpi"><div class="val">10万台</div><div class="lbl">年产能（双线）</div></div>
+    <div class="kpi"><div class="val">1,290<span style="font-size:12px">万元</span></div><div class="lbl">综合落地总费用（含税含设计）</div></div>
+    <div class="kpi"><div class="val">24~28<span style="font-size:12px">周</span></div><div class="lbl">建议完工周期（修正版）</div></div>
+  </div>
+  <div class="nav-cards">
+    <a class="nc" href="javascript:void(0)" onclick="show('page3d',document.querySelectorAll('#nav a')[1])">
+      <div class="icon">🏗</div><h3>3D效果图</h3>
+      <p>可交互三维模型，室内外全视角，含接待大厅、装配车间等室内实景</p>
+    </a>
+    <a class="nc" href="javascript:void(0)" onclick="show('pagePlan',document.querySelectorAll('#nav a')[2])">
+      <div class="icon">📐</div><h3>平面区划图</h3>
+      <p>按CAD尺寸绘制的精确平面图，五行布局、各区功能、面积分配</p>
+    </a>
+    <a class="nc" href="javascript:void(0)" onclick="show('pageDoc',document.querySelectorAll('#nav a')[3])">
+      <div class="icon">📋</div><h3>分层区划建议书</h3>
+      <p>三栋逐层功能分配方案，含室内设计标准与重点说明</p>
+    </a>
+    <a class="nc" href="javascript:void(0)" onclick="show('pageIndoor',document.querySelectorAll('#nav a')[4])">
+      <div class="icon">🛋</div><h3>室内效果图</h3>
+      <p>各厂房装修完成后室内效果，含接待大厅、装配车间、品控区、餐厅、研发办公等</p>
+    </a>
+    <a class="nc" href="javascript:void(0)" onclick="show('pageCost',document.querySelectorAll('#nav a')[5])">
+      <div class="icon">💰</div><h3>造价估算</h3>
+      <p>精装修分项造价，三期施工计划，含设备清单与施工时序</p>
+    </a>
+  </div>
+</div>
+</div>
+<div style="padding:28px;max-width:1100px;margin:0 auto">
+  <h2 style="font-size:16px;font-weight:700;color:var(--blue);margin-bottom:6px">建筑概览</h2>
+  <p style="font-size:10px;color:var(--muted);margin-bottom:16px">基于CAD总平图女儿墙高度推算 · V4修正：2#/6#南北布局 · 北门西墙·西门北墙 · 误差±15% · 以竣工备案表为准</p>
+  <table class="tbl">
+    <thead><tr><th>楼栋</th><th>层数</th><th>底面积/层</th><th>总毛面积</th><th>净可用（×85%）</th><th style="text-align:left">功能定位</th></tr></thead>
+    <tbody>
+      <tr style="background:#eff6ff"><td style="font-weight:600;color:#1d4ed8">1# 顶翼</td><td style="text-align:center">4层</td><td style="text-align:center">2,160m²</td><td style="text-align:center">8,640m²</td><td style="text-align:center">7,344m²</td><td>北·水局 · 管理/高管/接待/研发</td></tr>
+      <tr><td style="font-weight:600;color:#15803d">1# 西腿</td><td style="text-align:center">4层</td><td style="text-align:center">1,700m²</td><td style="text-align:center">5,200m²</td><td style="text-align:center">4,420m²</td><td>西·金局 · 餐厅/研发/办公/会议</td></tr>
+      <tr style="background:#fff7ed"><td style="font-weight:600;color:#c2410c">2# 独栋（北侧）</td><td style="text-align:center">3层+阁楼</td><td style="text-align:center">1,375m²</td><td style="text-align:center">~4,500m²</td><td style="text-align:center">~3,826m²</td><td>东南·木局 · 装配双线/仓储</td></tr>
+      <tr><td style="font-weight:600;color:#475569">6# 独栋（南侧）</td><td style="text-align:center">3层+阁楼</td><td style="text-align:center">900m²</td><td style="text-align:center">~2,900m²</td><td style="text-align:center">~2,503m²</td><td>木金交界 · 品控/缓冲/预留</td></tr>
+      <tr style="background:var(--blue);color:#fff"><td style="font-weight:700" colspan="2">合计</td><td style="text-align:center">—</td><td style="text-align:center;font-weight:700">~21,240m²</td><td style="text-align:center;font-weight:700">~18,000m²</td><td>五行布局 · 产研管一体</td></tr>
+    </tbody>
+  </table>
+  <div style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div style="border:1px solid var(--border);border-radius:8px;padding:18px">
+      <h3 style="font-size:13px;font-weight:700;color:var(--blue);margin-bottom:12px">⚠ 关键待确认事项</h3>
+      <div style="font-size:10.5px;line-height:2.1;color:#374151">
+        <div>☐ <strong>最紧急</strong>：向开发商索取2#结构设计说明，确认楼板承重≥1,000kg/m²</div>
+        <div>☐ 确认现有供电容量（是否需扩容变压器）</div>
+        <div>☐ 确认消防验收状态（三栋）</div>
+        <div>☐ 第1周立即订货：电梯×2、多联机、电动提升门×3~4</div>
+      </div>
+    </div>
+    <div style="border:1px solid var(--border);border-radius:8px;padding:18px">
+      <h3 style="font-size:13px;font-weight:700;color:var(--blue);margin-bottom:12px">📅 推进节奏</h3>
+      <div style="font-size:10.5px;line-height:2.1;color:#374151">
+        <div><span style="color:var(--blue);font-weight:600">第1~8周</span>：2# 1F装配线A区（金刚砂地坪+照明+消防）</div>
+        <div><span style="color:var(--blue);font-weight:600">第2~10周</span>：6# 1F品控区；1#西腿1F员工餐厅</div>
+        <div><span style="color:var(--blue);font-weight:600">第3~12周</span>：1#顶翼1~3F精装修（接待+IT+财务+研发）</div>
+        <div><span style="color:var(--blue);font-weight:600">第10~18周</span>：2#装配线B区；1#顶翼4F多功能厅+露台</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PAGE: 3D效果图 -->
+<div id="page3d" class="page">
+<div class="pg-header">
+  <h2>🏗 厂区3D装修效果图</h2>
+  <p>按平面图布局 · L型西北角 · 北门/西门正确位置 · 室内可进入 · 拖拽旋转 · 滚轮缩放</p>
+</div>
+<div id="canvas3d-wrap">
+  <canvas id="c3d"></canvas>
+  <div id="hud3d">
+    <div style="pointer-events:none">
+      <div style="font-size:10.5px;font-weight:700;color:#fff;letter-spacing:.04em">卡列尼娜（沧州）科技 · 生产基地</div>
+      <div style="font-size:8.5px;color:rgba(148,197,253,.7);margin-top:2px">L型西北角 · 北门西墙（正对内部纵向车道）· 西门北墙（正对横向车道）</div>
+    </div>
+    <div id="legend3d">
+      <h3>五行区划</h3>
+      <div class="li3"><div class="ld3" style="background:#3b82f6"></div><span>1# 顶翼 北·水局</span></div>
+      <div class="li3"><div class="ld3" style="background:#f59e0b"></div><span>1# 西腿1F 员工餐厅</span></div>
+      <div class="li3"><div class="ld3" style="background:#22c55e"></div><span>1# 西腿2~4F 研发/办公</span></div>
+      <div class="li3"><div class="ld3" style="background:#f97316"></div><span>2# 北侧·装配车间</span></div>
+      <div class="li3"><div class="ld3" style="background:#94a3b8"></div><span>6# 南侧·品控仓储</span></div>
+    </div>
+  </div>
+  <div id="vlabel3"></div>
+  <div id="btns3d">
+    <button class="btn3 on" onclick="gv('bird',this)">🗺 全景</button>
+    <button class="btn3" onclick="gv('north',this)">🚪 北门</button>
+    <button class="btn3" onclick="gv('west',this)">🚛 西门</button>
+    <button class="btn3" onclick="gv('street',this)">🏙 内街</button>
+    <button class="btn3" onclick="gv('corner',this)">🔲 L转角</button>
+    <button class="btn3" onclick="gv('lobby',this)">🏛 接待大厅</button>
+    <button class="btn3" onclick="gv('office',this)">💼 研发办公</button>
+    <button class="btn3" onclick="gv('factory',this)">⚙️ 装配车间</button>
+    <button class="btn3" onclick="gv('dining',this)">🍽 员工餐厅</button>
+    <button class="btn3" onclick="gv('exec',this)">👔 高管办公</button>
+    <button class="btn3" onclick="toggleNight(this)">🌙 昼/夜</button>
+  </div>
+  <div id="info3d">
+    <b>布局（按CAD平面图修正）</b><br>
+    1# L型：西北角<br>
+    北门：西围墙（正对内部纵向车道）<br>
+    西门：北围墙（正对横向车道）<br>
+    2# 北侧独栋（装配）<br>
+    6# 南侧独栋（品控）<br>
+    中间消防车道（4.8m）<br><br>
+    <b>操作说明</b><br>
+    左键拖拽旋转<br>
+    右键平移 · 滚轮缩放
+  </div>
+</div>
+</div>
+
+<!-- PAGE: 平面区划图 -->
+<div id="pagePlan" class="page">
+<div class="pg-header">
+  <h2>📐 生产基地平面区划图</h2>
+  <p>V4修正版 · 2#/6#厂房南北布局已修正 · 北门西墙·西门北墙 · 五行空间布局 · 2026年3月</p>
+</div>
+<div class="content">
+<p class="sec-meta">
+  总建筑面积约21,240m²（毛）/ 净可用约18,000m² · 1# L型西北角（4层）· 2#独栋北侧（3层+阁楼）· 6#独栋南侧（3层+阁楼）<br>
+  <strong style="color:var(--red)">注：2#楼板承重≥1,000kg/m²需向开发商索取结构设计说明确认（仓储用途关键）</strong><br>
+  <strong style="color:var(--blue)">V4修正：2#/6#厂房已按CAD平面图更正为南北排列；北门（主入口）在西围墙·正对内部纵向车道；西门（进货）在北围墙·正对横向车道</strong>
+</p>
+<div class="svg-wrap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 760" font-family="'PingFang SC','Microsoft YaHei',Arial,sans-serif">
+  <defs>
+    <filter id="sh"><feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.13"/></filter>
+    <pattern id="hatch" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#bbb" stroke-width="0.8"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="760" fill="#f2f1ec"/>
+
+  <!-- Title bar -->
+  <rect x="0" y="0" width="1000" height="50" fill="#1B3A6B"/>
+  <text x="500" y="20" text-anchor="middle" font-size="14" font-weight="bold" fill="white">卡列尼娜（沧州）科技股份有限公司 · 生产基地平面区划图 V3</text>
+  <text x="500" y="39" text-anchor="middle" font-size="9.5" fill="#93c5fd">五行空间布局 · 面积修正版 · 总建筑面积约21,240m² · 2026年3月</text>
+
+  <!-- Compass -->
+  <g transform="translate(955,90)">
+    <circle r="22" fill="white" stroke="#888" stroke-width="1"/>
+    <polygon points="0,-18 3,-6 0,-9 -3,-6" fill="#c0392b"/>
+    <polygon points="0,18 3,6 0,9 -3,6" fill="#999"/>
+    <text x="0" y="-20" text-anchor="middle" font-size="9" font-weight="bold" fill="#c0392b">北</text>
+    <text x="0" y="30" text-anchor="middle" font-size="8" fill="#666">南</text>
+    <text x="-27" y="4" text-anchor="middle" font-size="8" fill="#666">西</text>
+    <text x="27" y="4" text-anchor="middle" font-size="8" fill="#666">东</text>
+  </g>
+
+  <!-- North road -->
+  <rect x="52" y="56" width="820" height="18" fill="#d0d0c4" stroke="#aaa" stroke-width="1"/>
+  <text x="462" y="69" text-anchor="middle" font-size="9" fill="#555" font-weight="bold">共云路（北侧市政道路）</text>
+
+  <!-- West road -->
+  <rect x="25" y="56" width="27" height="640" fill="#d0d0c4" stroke="#aaa" stroke-width="1"/>
+  <text x="38" y="380" text-anchor="middle" font-size="8.5" fill="#555" transform="rotate(-90,38,380)">西侧市政道路</text>
+
+  <!-- Red line boundary -->
+  <rect x="52" y="74" width="820" height="610" fill="none" stroke="#e53e3e" stroke-width="2" stroke-dasharray="10,4"/>
+  <text x="65" y="88" font-size="8.5" fill="#e53e3e" font-weight="bold">红线范围</text>
+
+  <!-- ══════════════════════════════════════
+       1# L型顶翼 北向·水局 4层
+       x:54~726  y:76~310  (横向)
+  ══════════════════════════════════════ -->
+  <rect x="54" y="76" width="672" height="234" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2.5" filter="url(#sh)" rx="2"/>
+  <rect x="54" y="76" width="672" height="20" fill="#1d4ed8" rx="2"/>
+  <text x="390" y="91" text-anchor="middle" font-size="10" font-weight="bold" fill="white">1# 顶翼（北向·水局）· 108m×20m×4层 · 约8,640m²毛 / 7,344m²净</text>
+
+  <!-- 1F strip label -->
+  <text x="62" y="113" font-size="8.5" fill="#1d4ed8" font-weight="bold">1F</text>
+
+  <!-- 1F 接待+展厅 -->
+  <rect x="56" y="97" width="200" height="60" fill="#bfdbfe" stroke="#2563eb" stroke-width="1.5" rx="1"/>
+  <text x="156" y="122" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e3a8a">接待大厅 · 展厅</text>
+  <text x="156" y="136" text-anchor="middle" font-size="8.5" fill="#3b82f6">500m² · 正门入口·品牌形象</text>
+  <text x="156" y="149" text-anchor="middle" font-size="8" fill="#3b82f6">门卫保安80m²</text>
+
+  <!-- 1F 门卫/IT/档案 -->
+  <rect x="256" y="97" width="160" height="60" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="1"/>
+  <text x="336" y="118" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#1e3a8a">IT机房+配电</text>
+  <text x="336" y="132" text-anchor="middle" font-size="8.5" fill="#3b82f6">300m²</text>
+  <text x="336" y="146" text-anchor="middle" font-size="8" fill="#3b82f6">档案室+设备库400m²</text>
+
+  <!-- 1F 卫生间/核心筒 -->
+  <rect x="416" y="97" width="80" height="60" fill="#93c5fd" stroke="#1d4ed8" stroke-width="1.5" rx="1"/>
+  <text x="456" y="118" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e3a8a">核心筒</text>
+  <text x="456" y="131" text-anchor="middle" font-size="8" fill="#1e3a8a">电梯×2</text>
+  <text x="456" y="143" text-anchor="middle" font-size="8" fill="#1e3a8a">楼梯·卫生间</text>
+
+  <!-- 2F 财务行政+研发+办公 -->
+  <rect x="56" y="158" width="440" height="40" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5" rx="1"/>
+  <text x="276" y="173" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">2F · 财务/法务/人事/行政（600m²）+ 大会议室30人（200m²）+ 研发中心（800m²）+ 集中办公60+工位（900m²）</text>
+  <text x="276" y="189" text-anchor="middle" font-size="8.5" fill="#0369a1">合计约2,500m²（含走廊340m²） · 水局·智慧管理层</text>
+
+  <!-- 3F 高管+洽谈+培训 -->
+  <rect x="56" y="199" width="440" height="35" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" rx="1"/>
+  <text x="276" y="214" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e3a8a">3F · 董事长套间（150m²）+ 高管×6（360m²）+ 洽谈室×4（160m²）+ 培训室50人（200m²）+ 贵宾客房×3（180m²）</text>
+  <text x="276" y="227" text-anchor="middle" font-size="8.5" fill="#3b82f6">合计约2,050m²（含预留570m²） · 水局正位·领导核心</text>
+
+  <!-- 4F 多功能+屋顶 -->
+  <rect x="56" y="235" width="440" height="30" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="1"/>
+  <text x="276" y="252" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e3a8a">4F · 多功能展厅（600m²）+ 屋顶花园露台（800m²）+ 设备机房（400m²）+ 预留（1,140m²）</text>
+
+  <!-- 1F 右侧空间说明 -->
+  <rect x="496" y="97" width="228" height="168" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5" rx="1"/>
+  <text x="610" y="115" text-anchor="middle" font-size="9" font-weight="bold" fill="#0c4a6e">1#顶翼各层概览</text>
+  <text x="510" y="132" font-size="8.5" fill="#0369a1">1F：接待580m²+IT700m²+公共120m²</text>
+  <text x="510" y="147" font-size="8.5" fill="#0369a1">2F：财务600m²+研发800m²+办公900m²</text>
+  <text x="510" y="162" font-size="8.5" fill="#0369a1">3F：高管510m²+洽谈160m²+培训200m²</text>
+  <text x="510" y="177" font-size="8.5" fill="#0369a1">      +客房180m²+预留+备用</text>
+  <text x="510" y="192" font-size="8.5" fill="#0369a1">4F：展厅600m²+露台800m²+机房400m²</text>
+  <text x="510" y="210" font-size="8.5" fill="#0c4a6e" font-weight="bold">顶翼净面积合计：约7,344m²</text>
+  <text x="510" y="226" font-size="8" fill="#0369a1">（108m×20m×4层×85%公摊）</text>
+  <text x="510" y="241" font-size="8" fill="#1d4ed8">北·水局：聚财气·管理中枢</text>
+  <text x="510" y="255" font-size="8" fill="#1d4ed8">水主智慧·北向收藏蓄积</text>
+
+  <!-- 水局标注 -->
+  <text x="390" y="299" text-anchor="middle" font-size="9.5" fill="#1d4ed8" font-weight="bold">▲ 北·水局：管理财务高管居北聚财，知识研发蓄积，水主智慧</text>
+
+  <!-- ══════════════════════════════════════
+       1# L型西腿 西向·金局 4层
+       x:54~174  y:310~590
+  ══════════════════════════════════════ -->
+  <rect x="54" y="310" width="120" height="360" fill="#f0fdf4" stroke="#16a34a" stroke-width="2.5" filter="url(#sh)" rx="2"/>
+  <rect x="54" y="310" width="120" height="19" fill="#16a34a" rx="2"/>
+  <text x="114" y="324" text-anchor="middle" font-size="9" font-weight="bold" fill="white">1#西腿·西·金局·4层</text>
+
+  <!-- 1F 餐厅 -->
+  <rect x="56" y="330" width="116" height="85" fill="#fef9c3" stroke="#ca8a04" stroke-width="2" rx="1"/>
+  <text x="114" y="354" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#78350f">🍽 员工餐厅</text>
+  <text x="114" y="369" text-anchor="middle" font-size="9" fill="#92400e">1F · 1,200m²</text>
+  <text x="114" y="383" text-anchor="middle" font-size="8.5" fill="#b45309">就餐1,000m²</text>
+  <text x="114" y="396" text-anchor="middle" font-size="8" fill="#b45309">厨房200m²</text>
+  <text x="114" y="408" text-anchor="middle" font-size="7.5" fill="#ca8a04">水生木·滋养生产</text>
+
+  <!-- 2F 研发 -->
+  <rect x="56" y="416" width="116" height="65" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5" rx="1"/>
+  <text x="114" y="439" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d">研发中心</text>
+  <text x="114" y="453" text-anchor="middle" font-size="8.5" fill="#16a34a">2F · 约2,500m²</text>
+  <text x="114" y="467" text-anchor="middle" font-size="8" fill="#16a34a">实验室+测试室</text>
+  <text x="114" y="478" text-anchor="middle" font-size="7.5" fill="#15803d">（含西腿2F全层）</text>
+
+  <!-- 3F 集中办公 -->
+  <rect x="56" y="482" width="116" height="60" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5" rx="1"/>
+  <text x="114" y="503" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#14532d">集中办公</text>
+  <text x="114" y="517" text-anchor="middle" font-size="8.5" fill="#16a34a">3F · 工位50+</text>
+  <text x="114" y="530" text-anchor="middle" font-size="8" fill="#16a34a">品控/运营/销售</text>
+
+  <!-- 4F 会议室群 -->
+  <rect x="56" y="543" width="116" height="56" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.5" rx="1"/>
+  <text x="114" y="563" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#14532d">会议室群</text>
+  <text x="114" y="577" text-anchor="middle" font-size="8.5" fill="#16a34a">4F · 大/中/小</text>
+  <text x="114" y="590" text-anchor="middle" font-size="8" fill="#16a34a">培训室·图书角</text>
+
+  <!-- 西腿标注 -->
+  <text x="114" y="620" text-anchor="middle" font-size="8.5" fill="#14532d" font-weight="bold">◀ 西·金局：研发精工</text>
+  <text x="114" y="633" text-anchor="middle" font-size="8" fill="#15803d">西腿净面积：约4,420m²</text>
+
+  <!-- ══════════════════════════════════════
+       园区内部纵向消防车道（1#厂房东侧 · 竖向）
+  ══════════════════════════════════════ -->
+  <rect x="174" y="76" width="28" height="584" fill="url(#hatch)" stroke="#888" stroke-width="1" stroke-dasharray="6,3"/>
+  <text x="188" y="200" text-anchor="middle" font-size="8" fill="#555" font-weight="bold" transform="rotate(-90,188,200)">内部消防车道（4.8m）</text>
+
+  <!-- ══════════════════════════════════════
+       横向消防车道（2#与6#之间）
+  ══════════════════════════════════════ -->
+  <rect x="202" y="430" width="668" height="28" fill="url(#hatch)" stroke="#888" stroke-width="1" stroke-dasharray="6,3"/>
+  <text x="536" y="448" text-anchor="middle" font-size="9" fill="#555" font-weight="bold">消防车道（4.8m · 2#与6#之间）</text>
+
+  <!-- ══════════════════════════════════════
+       2# 独栋（一期） 北侧 · 3层+阁楼 · 装配车间
+       x:202~620  y:310~428
+  ══════════════════════════════════════ -->
+  <rect x="202" y="310" width="420" height="120" fill="#fff7ed" stroke="#ea580c" stroke-width="2.5" filter="url(#sh)" rx="2"/>
+  <rect x="202" y="310" width="420" height="19" fill="#ea580c" rx="2"/>
+  <text x="412" y="324" text-anchor="middle" font-size="9.5" font-weight="bold" fill="white">已建厂房 2#（一期）· 女儿墙14.60m · H=13.28 · 3层+阁楼 · 约4,500m²</text>
+
+  <!-- 1F 生产车间 -->
+  <rect x="204" y="330" width="416" height="36" fill="#fed7aa" stroke="#ea580c" stroke-width="1.5" rx="1"/>
+  <text x="412" y="345" text-anchor="middle" font-size="10" font-weight="bold" fill="#7c2d12">🏭 1F · 自动化装配双线（木局核心）· 层高5.25m</text>
+  <text x="412" y="359" text-anchor="middle" font-size="8.5" fill="#ea580c">装配线A（617m²）+ 装配线B（550m²）+ 叉车通道（70m²）= 1,237m²满铺 · 双线年产10万台</text>
+
+  <!-- 2F 仓储 -->
+  <rect x="204" y="367" width="416" height="29" fill="#ffedd5" stroke="#ea580c" stroke-width="1.5" rx="1"/>
+  <text x="412" y="378" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#7c2d12">2F · 成品仓储（700m²）+ 原材料仓储（450m²）= 1,237m²</text>
+  <text x="412" y="392" text-anchor="middle" font-size="8" fill="#ea580c">货梯×2 · 楼板承重≥1,000kg/m²（需确认）· 叉车可上楼</text>
+
+  <!-- 3F+阁楼 -->
+  <rect x="204" y="397" width="416" height="30" fill="#fef3c7" stroke="#d97706" stroke-width="1" rx="1"/>
+  <text x="412" y="410" text-anchor="middle" font-size="9" font-weight="bold" fill="#92400e">3F · 原材料长储（800m²）+ 备件库（300m²）+ 样品库（100m²）= 1,237m²</text>
+  <text x="412" y="423" text-anchor="middle" font-size="8" fill="#b45309">阁楼（人字坡内·约340m²）更衣室+班组会议室+工具库</text>
+
+  <!-- 2#标注 -->
+  <text x="630" y="340" font-size="8.5" font-weight="bold" fill="#7c2d12">▶ 东南·木局</text>
+  <text x="630" y="355" font-size="8" fill="#ea580c">装配双线</text>
+  <text x="630" y="368" font-size="8" fill="#ea580c">产能10万台</text>
+
+  <!-- ══════════════════════════════════════
+       6# 独栋（一期） 南侧 · 3层+阁楼 · 品控仓储
+       x:202~620  y:458~620
+  ══════════════════════════════════════ -->
+  <rect x="202" y="458" width="420" height="156" fill="#f1f5f9" stroke="#475569" stroke-width="2" filter="url(#sh)" rx="2"/>
+  <rect x="202" y="458" width="420" height="19" fill="#475569" rx="2"/>
+  <text x="412" y="472" text-anchor="middle" font-size="9.5" font-weight="bold" fill="white">已建厂房 6#（一期）· 女儿墙14.60m · H=13.28 · 3层+阁楼 · 约2,900m²</text>
+
+  <!-- 1F 品控 -->
+  <rect x="204" y="478" width="416" height="38" fill="#e2e8f0" stroke="#475569" stroke-width="1.5" rx="1"/>
+  <text x="412" y="492" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e293b">1F · 品控检测区（层高5.25m）</text>
+  <text x="412" y="507" text-anchor="middle" font-size="8.5" fill="#475569">全检台×10（400m²）+ 打标包装（250m²）+ 叉车充电（100m²）+ 成品暂存（60m²）= 810m²</text>
+
+  <!-- 2F 辅助 -->
+  <rect x="204" y="517" width="416" height="32" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" rx="1"/>
+  <text x="412" y="531" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#1e293b">2F · 线边原料缓冲（410m²）+ 生产辅助办公（400m²）= 810m²</text>
+  <text x="412" y="545" text-anchor="middle" font-size="8" fill="#475569">当日用料+次日备料 · 可弹性调整</text>
+
+  <!-- 3F+阁楼 预留 -->
+  <rect x="204" y="550" width="416" height="30" fill="#e2e8f0" stroke="#475569" stroke-width="1.5" rx="1"/>
+  <text x="412" y="563" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#1e293b">3F · 弹性预留空间（810m²）· 初期空置</text>
+  <text x="412" y="577" text-anchor="middle" font-size="8" fill="#475569">阁楼（约180m²）休息室+卫生间</text>
+
+  <!-- 6#标注 -->
+  <text x="630" y="490" font-size="8.5" font-weight="bold" fill="#334155">▶ 木金交界</text>
+  <text x="630" y="503" font-size="8" fill="#475569">品控收尾</text>
+  <text x="630" y="516" font-size="8" fill="#475569">缓冲预留</text>
+
+  <!-- ══════════════════════════════════════
+       拟建配电间（1F）
+  ══════════════════════════════════════ -->
+  <rect x="202" y="588" width="80" height="40" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="5,3" rx="2"/>
+  <text x="242" y="605" text-anchor="middle" font-size="8" font-weight="bold" fill="#0369a1">拟建</text>
+  <text x="242" y="618" text-anchor="middle" font-size="8" fill="#0369a1">配电间(1F)</text>
+
+  <!-- ══════════════════════════════════════
+       面积汇总
+  ══════════════════════════════════════ -->
+  <rect x="52" y="638" width="818" height="106" rx="6" fill="white" stroke="#e5e7eb" stroke-width="1.5" filter="url(#sh)"/>
+  <rect x="52" y="638" width="818" height="22" rx="6" fill="#1B3A6B"/>
+  <rect x="52" y="652" width="818" height="8" fill="#1B3A6B"/>
+  <text x="461" y="654" text-anchor="middle" font-size="11" font-weight="bold" fill="white">V4 修正版 · 总面积分配汇总（按CAD平面图核准 · 三栋南北布局）</text>
+
+  <!-- 列1：1#厂房 -->
+  <text x="65" y="676" font-size="9" font-weight="bold" fill="#1d4ed8">1#厂房（L型·水/金局）约11,764m²净</text>
+  <text x="65" y="689" font-size="8.5" fill="#555">顶翼 1~4F：接待/财务/研发/高管/多功能</text>
+  <text x="65" y="702" font-size="8.5" fill="#555">西腿 1~4F：餐厅/研发/办公/会议</text>
+  <text x="65" y="715" font-size="8.5" fill="#555">女儿墙高度21.85m · H=20.67 · 耐火二级</text>
+
+  <!-- 列2：2#厂房 -->
+  <text x="340" y="676" font-size="9" font-weight="bold" fill="#ea580c">2#厂房（北侧·木局）约3,826m²净</text>
+  <text x="340" y="689" font-size="8.5" fill="#555">1F 装配双线：1,237m²（双线年产10万台）</text>
+  <text x="340" y="702" font-size="8.5" fill="#555">2F 仓储：1,237m²（楼板承重需确认≥1t/m²）</text>
+  <text x="340" y="715" font-size="8.5" fill="#555">3F+阁楼：仓储1,237m²+340m²辅助</text>
+
+  <!-- 列3：6#厂房 -->
+  <text x="620" y="676" font-size="9" font-weight="bold" fill="#334155">6#厂房（南侧·金局）约2,465m²净</text>
+  <text x="620" y="689" font-size="8.5" fill="#555">1F 品控+叉车充电：810m²</text>
+  <text x="620" y="702" font-size="8.5" fill="#555">2F 缓冲库+辅助办公：810m²</text>
+  <text x="620" y="715" font-size="8.5" fill="#555">3F+阁楼 弹性预留：990m²</text>
+
+  <!-- 总计 -->
+  <line x1="52" y1="722" x2="870" y2="722" stroke="#1B3A6B" stroke-width="1.5"/>
+  <text x="65" y="736" font-size="10" font-weight="bold" fill="#1B3A6B">三栋总净可用面积：约18,000m²</text>
+  <text x="461" y="736" text-anchor="middle" font-size="9" fill="#ea580c" font-weight="bold">⚠ 2#楼板承重需确认≥1,000kg/m²（仓储用途）</text>
+  <text x="860" y="736" text-anchor="end" font-size="9" fill="#16a34a" font-weight="bold">布局：1# L型西北角 · 2#北侧 · 6#南侧</text>
+
+  <!-- 北门（正对内部纵向消防车道 · 西侧围墙中段）-->
+  <rect x="25" y="330" width="27" height="50" fill="#7c3aed" rx="3"/>
+  <text x="38" y="360" text-anchor="middle" font-size="8" fill="white" font-weight="bold" transform="rotate(-90,38,360)">◀ 北门（主入口）</text>
+  <!-- 北门箭头指向内部车道 -->
+  <line x1="52" y1="355" x2="174" y2="355" stroke="#7c3aed" stroke-width="2" stroke-dasharray="4,3"/>
+  <polygon points="174,352 182,355 174,358" fill="#7c3aed"/>
+
+  <!-- 西门（进货·正对横向内部车道 · 北侧围墙） -->
+  <rect x="370" y="58" width="70" height="18" fill="#ea580c" rx="3"/>
+  <text x="405" y="70" text-anchor="middle" font-size="8.5" fill="white" font-weight="bold">▼ 西门（进货）</text>
+  <!-- 西门箭头指向内部横向车道 -->
+  <line x1="405" y1="76" x2="405" y2="310" stroke="#ea580c" stroke-width="2" stroke-dasharray="4,3"/>
+  <polygon points="402,310 405,318 408,310" fill="#ea580c"/>
+
+  <!-- 比例尺 -->
+  <line x1="56" y1="755" x2="206" y2="755" stroke="#333" stroke-width="2"/>
+  <line x1="56" y1="750" x2="56" y2="760" stroke="#333" stroke-width="2"/>
+  <line x1="131" y1="750" x2="131" y2="760" stroke="#333" stroke-width="2"/>
+  <line x1="206" y1="750" x2="206" y2="760" stroke="#333" stroke-width="2"/>
+  <text x="93" y="752" text-anchor="middle" font-size="8.5" fill="#555">≈50m</text>
+  <text x="168" y="752" text-anchor="middle" font-size="8.5" fill="#555">≈50m</text>
+
+  <!-- 页脚 -->
+  <text x="500" y="758" text-anchor="middle" font-size="8" fill="#aaa">V4修正版 · 面积基于CAD原始数据推算（女儿墙高度21.85m/14.60m），误差±15%，以竣工备案表为准 · 卡列尼娜（沧州）科技 2026</text>
+</svg>
+</div>
+</div>
+</div>
+
+<!-- PAGE: 区划建议书 -->
+<div id="pageDoc" class="page">
+<div class="pg-header">
+  <h2>📋 分层区划建议书</h2>
+  <p>三栋建筑逐层功能分配方案 · 五行空间理念 · V3修正版</p>
+</div>
+<div class="content">
+<p class="sec-meta">本建议书依据五行空间布局理念，结合企业经营实际，对三栋建筑进行逐层功能分配。面积数据基于CAD推算（误差±15%），以竣工备案表为准。</p>
+<div class="btabs">
+  <button class="btab act" onclick="showB('b18',this)">🔵 1# L型（北·水/西·金）</button>
+  <button class="btab" onclick="showB('b14',this)">🟠 2# 独栋北侧（东南·木局）</button>
+  <button class="btab" onclick="showB('b10',this)">⬜ 6# 独栋南侧（木金交界）</button>
+</div>
+
+<div id="b18" class="dsec">
+<h3>1# L型楼 · 4层 · 约11,764m²净</h3>
+<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:12px 16px;margin-bottom:16px;font-size:10.5px;line-height:1.9">
+  <strong style="color:#1d4ed8">建筑特征：</strong>米白石材幕墙+大面积黑色铝合金窗框，1F全落地玻璃，底部玻璃连廊雨棚，两翼连体L形。<br>
+  <strong style="color:#1d4ed8">五行：</strong>顶翼朝北属水（管理·财务·聚气），西腿朝西属金（研发·精工·办公）。
+</div>
+<div style="font-size:11px;font-weight:600;color:#1d4ed8;margin:0 0 10px;padding:6px 0;border-bottom:1px solid #bfdbfe">▶ 顶翼（北·水局，约7,344m²净）</div>
+
+<div class="fc"><div class="fch"><h4>1F · 企业入口层（层高5.25m）</h4><span class="ar">约2,940m²</span></div>
+<div class="fcb">
+  <div class="rm bl"><h5>接待大厅 · 展厅</h5><p>500m² · 品牌形象墙，水晶吊灯，弧形大理石前台，大面积落地玻璃</p></div>
+  <div class="rm bl"><h5>IT机房 · 配电室</h5><p>300m² · 精密空调，UPS备电，服务器机柜区，独立门禁</p></div>
+  <div class="rm bl"><h5>档案室 · 设备库</h5><p>400m² · 密集架档案存储 + 备用设备库</p></div>
+  <div class="rm bl"><h5>门卫 · 核心筒</h5><p>200m² · 门卫80m² + 电梯×2 + 疏散楼梯×2 + 卫生间，贯通四层</p></div>
+</div></div>
+
+<div class="fc"><div class="fch"><h4>2F · 管理运营层</h4><span class="ar">约2,940m²</span></div>
+<div class="fcb">
+  <div class="rm bl"><h5>财务·法务·人事·行政</h5><p>600m² · 4个独立办公区，玻璃隔断，各15~20人</p></div>
+  <div class="rm bl"><h5>大会议室（30人）</h5><p>200m² · 视频会议系统，电动投影，环形桌</p></div>
+  <div class="rm bl"><h5>研发中心</h5><p>800m² · 与西腿2F联通，总研发约1,600m²，含实验台、工程师工位</p></div>
+  <div class="rm bl"><h5>集中办公（60+工位）</h5><p>900m² · 开放式工位 + 6人会议舱×4，站立桌×10</p></div>
+</div></div>
+
+<div class="fc"><div class="fch"><h4>3F · 领导决策层</h4><span class="ar">约2,940m²</span></div>
+<div class="fcb">
+  <div class="rm pu"><h5>董事长套间</h5><p>150m² · 独立办公+秘书前厅+洽谈室+私用卫生间，木地板+书墙</p></div>
+  <div class="rm pu"><h5>高管办公×6</h5><p>360m²（各60m²）· 副总/总监，玻璃隔断，独立工位+洽谈角</p></div>
+  <div class="rm pu"><h5>洽谈室×4</h5><p>160m²（各40m²）· 客户接待，异形桌，艺术画，可调光</p></div>
+  <div class="rm pu"><h5>培训室（50人）</h5><p>200m² · 翻转教室，折叠桌椅，双投影，可兼大会</p></div>
+  <div class="rm pu"><h5>贵宾客房×3</h5><p>180m²（各60m²）· 高端访客住宿，含独卫，五星级标准</p></div>
+  <div class="rm pu"><h5>弹性预留</h5><p>570m² · 二期扩高管室或VIP接待区，不做固定隔断</p></div>
+</div></div>
+
+<div class="fc"><div class="fch"><h4>4F · 展示活动层</h4><span class="ar">约2,940m²</span></div>
+<div class="fcb">
+  <div class="rm bl"><h5>多功能展厅</h5><p>600m² · 无柱空间，升降展台，LED大屏，产品发布/品牌展示</p></div>
+  <div class="rm bl"><h5>屋顶花园 · 露台</h5><p>800m² · 防水隔热，户外家具，企业文化展示墙</p></div>
+  <div class="rm bl"><h5>设备机房</h5><p>400m² · 空调主机+新风机组+弱电汇聚，隔声减振</p></div>
+  <div class="rm bl"><h5>战略预留</h5><p>1,140m² · 二期数据中心/直播间/高端接待区</p></div>
+</div></div>
+
+<div style="font-size:11px;font-weight:600;color:#15803d;margin:18px 0 10px;padding:6px 0;border-bottom:1px solid #bbf7d0">▶ 西腿（西·金局，约4,420m²净）</div>
+
+<div class="fc"><div class="fch" style="background:#15803d"><h4>1F · 员工餐厅（水生木·滋养生产）</h4><span class="ar">约1,200m²</span></div>
+<div class="fcb">
+  <div class="rm gd"><h5>员工就餐区</h5><p>1,000m² · 圆桌×50组（200人同时），暖黄吊灯，自选餐台，绿植间隔</p></div>
+  <div class="rm gd"><h5>厨房 · 备餐间</h5><p>200m² · 商用厨房，排烟通道，餐具消毒区，原料冷库</p></div>
+</div></div>
+
+<div class="fc"><div class="fch" style="background:#15803d"><h4>2F · 研发中心延伸</h4><span class="ar">约1,105m²</span></div>
+<div class="fcb">
+  <div class="rm gr"><h5>研发实验室</h5><p>600m² · 软水机测试台×8，水质检测，防震台面，接地规范</p></div>
+  <div class="rm gr"><h5>样品测试间</h5><p>300m² · 整机老化+噪音测试+高低温环境箱</p></div>
+  <div class="rm gr"><h5>工程师工作区</h5><p>205m² · 20工位，大尺寸双屏，3D打印机，原型机陈列架</p></div>
+</div></div>
+
+<div class="fc"><div class="fch" style="background:#15803d"><h4>3F · 集中办公（50+工位）</h4><span class="ar">约1,105m²</span></div>
+<div class="fcb">
+  <div class="rm gr"><h5>开放办公区</h5><p>800m² · 工位50+，会议舱×3，咖啡角，面向内院</p></div>
+  <div class="rm gr"><h5>小会议室×3</h5><p>200m²（各约65m²）· 6~8人，视频会议，隔声处理</p></div>
+</div></div>
+
+<div class="fc"><div class="fch" style="background:#15803d"><h4>4F · 会议室群 · 培训 · 图书角</h4><span class="ar">约1,105m²</span></div>
+<div class="fcb">
+  <div class="rm gr"><h5>大会议室（20人）</h5><p>160m² · 与顶翼30人会议室功能互补</p></div>
+  <div class="rm gr"><h5>中会议室×3</h5><p>240m²（各80m²）· 部门级，日常使用频率最高</p></div>
+  <div class="rm gr"><h5>企业图书角 · 休闲区</h5><p>300m² · 书架+懒人沙发+咖啡机</p></div>
+  <div class="rm gr"><h5>培训辅助区</h5><p>200m² · 器材库+讲师休息室</p></div>
+</div></div>
+</div>
+
+<div id="b14" class="dsec" style="display:none">
+<h3>2# 独栋（北侧）· 东南·木局 · 3层+阁楼 · 约3,826m²净</h3>
+<div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:12px 16px;margin-bottom:16px;font-size:10.5px;line-height:1.9">
+  <strong style="color:#c2410c">五行：</strong>木主生发，产品在此诞生、检验、出厂，是整个厂区核心价值产出地。<br>
+  <strong style="color:#dc2626">⚠ 关键：</strong>2~3F用于仓储，需确认楼板承重≥1,000kg/m²。
+</div>
+<div class="fc"><div class="fch" style="background:#ea580c"><h4>1F · 自动化装配车间（层高5.25m）</h4><span class="ar">1,237m²</span></div>
+<div class="fcb">
+  <div class="rm or"><h5>装配线A（主线）</h5><p>617m² · 自动化装配，工业机械臂预留，工位×15，年产5万台</p></div>
+  <div class="rm or"><h5>装配线B（副线）</h5><p>550m² · 与A线平行，可独立运营，总年产10万台</p></div>
+  <div class="rm or"><h5>叉车通道 · 转运区</h5><p>70m² · 双向4m通道，连接卷帘门进货口</p></div>
+</div></div>
+<div class="fc"><div class="fch" style="background:#ea580c"><h4>2F · 成品+原材料仓储（需确认承重）</h4><span class="ar">1,237m²</span></div>
+<div class="fcb">
+  <div class="rm or"><h5>成品仓储区</h5><p>700m² · 货架×6组，FIFO出库，叉车通道×2</p></div>
+  <div class="rm or"><h5>原材料仓储区</h5><p>450m² · 钢管/滤芯/电控件分区，货架×4组</p></div>
+  <div class="rm or"><h5>货梯间 · 缓冲</h5><p>87m² · 货梯×2（各1,000kg），楼层转运缓冲台</p></div>
+</div></div>
+<div class="fc"><div class="fch" style="background:#ea580c"><h4>3F · 原材料长期储备库</h4><span class="ar">1,237m²</span></div>
+<div class="fcb">
+  <div class="rm or"><h5>原材料长储库</h5><p>800m² · 7~10天储备量，条码追溯，零停线保障</p></div>
+  <div class="rm or"><h5>备品备件库</h5><p>300m² · 设备易损件、模具、工装夹具</p></div>
+  <div class="rm or"><h5>质检样品库</h5><p>137m² · 留样区+返修品暂放+报废品隔离</p></div>
+</div></div>
+<div class="fc"><div class="fch" style="background:#b45309"><h4>阁楼（人字坡内，层高2.5m）</h4><span class="ar">约340m²</span></div>
+<div class="fcb">
+  <div class="rm gd"><h5>男女更衣室</h5><p>120m² · 储物柜×60套，淋浴间×6</p></div>
+  <div class="rm gd"><h5>班组会议室</h5><p>80m² · 30人，投影+白板</p></div>
+  <div class="rm gd"><h5>工具库 · 维修间</h5><p>80m² · 统一领用管理，维修操作台</p></div>
+  <div class="rm gd"><h5>休息室</h5><p>60m² · 值班用，6组上下铺</p></div>
+</div></div>
+</div>
+
+<div id="b10" class="dsec" style="display:none">
+<h3>6# 独栋（南侧）· 木金交界 · 3层+阁楼 · 约2,503m²净</h3>
+<div style="background:#f1f5f9;border:1px solid #cbd5e1;border-radius:6px;padding:12px 16px;margin-bottom:16px;font-size:10.5px;line-height:1.9">
+  <strong style="color:#334155">五行：</strong>木金交界，品控（金克木）与缓冲（木聚能），弹性预留支持扩产。<br>
+  45m×20m×3层+阁楼，底面积900m²/层，总毛面积约2,900m²。
+</div>
+<div class="fc"><div class="fch" style="background:#475569"><h4>1F · 品控检测 · 打标包装（层高5.25m）</h4><span class="ar">810m²</span></div>
+<div class="fcb">
+  <div class="rm gy"><h5>品控全检区</h5><p>400m² · 全检台×10，水压/电气/功能自检，3min/台</p></div>
+  <div class="rm gy"><h5>打标 · 包装区</h5><p>250m² · 喷码机×2，贴标机×2，包装流水线×2</p></div>
+  <div class="rm gy"><h5>叉车充电站</h5><p>100m² · 叉车×4，安全隔离，通风消防</p></div>
+  <div class="rm gy"><h5>成品暂存区</h5><p>60m² · 当日待出库成品，FIFO管理</p></div>
+</div></div>
+<div class="fc"><div class="fch" style="background:#475569"><h4>2F · 线边缓冲 · 生产辅助办公</h4><span class="ar">810m²</span></div>
+<div class="fcb">
+  <div class="rm gy"><h5>线边原料缓冲库</h5><p>410m² · 当日及次日物料，货架×3组，每小时从2#补充</p></div>
+  <div class="rm gy"><h5>生产辅助办公</h5><p>400m² · 生产管理20+质检10+计划采购10工位，靠近车间</p></div>
+</div></div>
+<div class="fc"><div class="fch" style="background:#475569"><h4>3F · 弹性预留（初期空置）</h4><span class="ar">810m²</span></div>
+<div class="fcb">
+  <div class="rm gy"><h5>方向A：餐厅补充</h5><p>初期空置，二期可增加100人就餐位（若西腿餐厅不足）</p></div>
+  <div class="rm gy"><h5>方向B：员工宿舍</h5><p>招募外地技术人才，提供住宿福利，增强人才竞争力</p></div>
+  <div class="rm gy"><h5>方向C：产能扩充</h5><p>第三条装配线，年产能扩至15万台</p></div>
+</div></div>
+<div class="fc"><div class="fch" style="background:#64748b"><h4>阁楼（层高2.5m）</h4><span class="ar">约180m²</span></div>
+<div class="fcb">
+  <div class="rm gy"><h5>员工休息室</h5><p>120m² · 休息床×10，冰箱，热水机，倒班员工使用</p></div>
+  <div class="rm gy"><h5>卫生间</h5><p>60m² · 4蹲位+4淋浴，补充1F设施</p></div>
+</div></div>
+</div>
+</div>
+</div>
+
+<!-- PAGE: 室内效果图 -->
+<div id="pageIndoor" class="page">
+<div class="pg-header">
+  <h2>🛋 各厂房室内装修效果图</h2>
+  <p>按区划建议书设计标准绘制 · 装修完成后室内预期效果 · 五行空间设计理念</p>
+</div>
+<div class="content">
+<p class="sec-meta">
+  以下效果图依据五行空间布局方案及区划建议书绘制，展示各功能区装修完成后的室内预期效果。配色、材质、家具陈设均参照方案设计标准，实际施工以最终设计深化图纸为准。
+</p>
+
+<style>
+.room-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:20px;margin-bottom:32px}
+.room-card{border-radius:10px;overflow:hidden;box-shadow:0 3px 16px rgba(0,0,0,.10);border:1px solid var(--border)}
+.room-card .rc-img{width:100%;height:240px;display:block;position:relative;overflow:hidden}
+.room-card .rc-img svg{width:100%;height:100%}
+.room-card .rc-info{padding:14px 16px;background:#fff}
+.room-card .rc-info h4{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:4px}
+.room-card .rc-info .rc-tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:9px;font-weight:600;margin-bottom:8px}
+.room-card .rc-info p{font-size:10px;color:var(--muted);line-height:1.8}
+.room-section-title{font-size:15px;font-weight:700;color:var(--blue);border-left:4px solid var(--gold);padding-left:12px;margin:28px 0 16px}
+</style>
+
+<!-- ① 1# 顶翼 接待大厅 -->
+<div class="room-section-title">1# 顶翼（北·水局）</div>
+<div class="room-grid">
+
+<div class="room-card">
+  <div class="rc-img">
+  <svg viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg" font-family="'PingFang SC','Microsoft YaHei',Arial,sans-serif">
+    <!-- 接待大厅 Room -->
+    <defs>
+      <linearGradient id="floorLG1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8e0d0"/><stop offset="100%" stop-color="#c8bfa8"/></linearGradient>
+      <linearGradient id="wallLG1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1B3A6B"/><stop offset="100%" stop-color="#2d5fa6"/></linearGradient>
+      <linearGradient id="ceilLG1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f0ede6"/><stop offset="100%" stop-color="#e4e0d8"/></linearGradient>
+      <linearGradient id="glassLG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b8d4f0" stop-opacity=".7"/><stop offset="100%" stop-color="#7aaad8" stop-opacity=".5"/></linearGradient>
+      <filter id="glow1"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <!-- ceiling -->
+    <rect x="0" y="0" width="600" height="60" fill="url(#ceilLG1)"/>
+    <!-- back wall blue -->
+    <rect x="0" y="0" width="600" height="180" fill="url(#wallLG1)"/>
+    <!-- floor perspective -->
+    <polygon points="0,240 600,240 480,155 120,155" fill="url(#floorLG1)"/>
+    <!-- floor tiles grid -->
+    <g stroke="#c0b090" stroke-width=".7" opacity=".5">
+      <line x1="0" y1="240" x2="120" y2="155"/><line x1="120" y1="240" x2="192" y2="155"/>
+      <line x1="240" y1="240" x2="264" y2="155"/><line x1="360" y1="240" x2="336" y2="155"/>
+      <line x1="480" y1="240" x2="408" y2="155"/><line x1="600" y1="240" x2="480" y2="155"/>
+      <line x1="0" y1="220" x2="600" y2="220"/><line x1="0" y1="200" x2="600" y2="200"/>
+      <line x1="30" y1="240" x2="150" y2="155"/><line x1="570" y1="240" x2="450" y2="155"/>
+    </g>
+    <!-- glass curtain wall windows -->
+    <rect x="50" y="20" width="100" height="120" fill="url(#glassLG)" rx="2"/>
+    <rect x="165" y="20" width="100" height="120" fill="url(#glassLG)" rx="2"/>
+    <rect x="335" y="20" width="100" height="120" fill="url(#glassLG)" rx="2"/>
+    <rect x="450" y="20" width="100" height="120" fill="url(#glassLG)" rx="2"/>
+    <!-- window frame lines -->
+    <g stroke="#c9a84c" stroke-width="1.5" fill="none">
+      <rect x="50" y="20" width="100" height="120" rx="2"/><line x1="100" y1="20" x2="100" y2="140"/>
+      <rect x="165" y="20" width="100" height="120" rx="2"/><line x1="215" y1="20" x2="215" y2="140"/>
+      <rect x="335" y="20" width="100" height="120" rx="2"/><line x1="385" y1="20" x2="385" y2="140"/>
+      <rect x="450" y="20" width="100" height="120" rx="2"/><line x1="500" y1="20" x2="500" y2="140"/>
+    </g>
+    <!-- brand wall panel on left -->
+    <rect x="0" y="0" width="48" height="180" fill="#162e58"/>
+    <rect x="6" y="40" width="36" height="8" fill="#c9a84c" rx="2"/>
+    <rect x="10" y="56" width="28" height="4" fill="#c9a84c" opacity=".5" rx="1"/>
+    <rect x="10" y="66" width="28" height="4" fill="#c9a84c" opacity=".5" rx="1"/>
+    <!-- right wall -->
+    <rect x="552" y="0" width="48" height="180" fill="#162e58"/>
+    <!-- Reception desk -->
+    <rect x="200" y="150" width="200" height="35" fill="#1B3A6B" rx="3"/>
+    <rect x="200" y="150" width="200" height="6" fill="#c9a84c" rx="3"/>
+    <rect x="220" y="130" width="30" height="20" fill="#2d5fa6" rx="2"/><!-- monitor -->
+    <rect x="222" y="130" width="26" height="16" fill="#4a8fdc" opacity=".8" rx="1"/>
+    <rect x="350" y="130" width="30" height="20" fill="#2d5fa6" rx="2"/>
+    <rect x="352" y="130" width="26" height="16" fill="#4a8fdc" opacity=".8" rx="1"/>
+    <!-- logo on desk front -->
+    <rect x="270" y="158" width="60" height="12" fill="#c9a84c" opacity=".3" rx="1"/>
+    <text x="300" y="168" text-anchor="middle" font-size="7" fill="#c9a84c" font-weight="bold">卡列尼娜</text>
+    <!-- pendant lights -->
+    <line x1="200" y1="0" x2="200" y2="105" stroke="#c9a84c" stroke-width="1"/>
+    <ellipse cx="200" cy="108" rx="12" ry="5" fill="#fffbe8" filter="url(#glow1)"/>
+    <ellipse cx="200" cy="108" rx="12" ry="5" fill="#c9a84c" opacity=".4"/>
+    <line x1="300" y1="0" x2="300" y2="100" stroke="#c9a84c" stroke-width="1"/>
+    <ellipse cx="300" cy="103" rx="14" ry="6" fill="#fffbe8" filter="url(#glow1)"/>
+    <line x1="400" y1="0" x2="400" y2="105" stroke="#c9a84c" stroke-width="1"/>
+    <ellipse cx="400" cy="108" rx="12" ry="5" fill="#fffbe8" filter="url(#glow1)"/>
+    <!-- sofas left -->
+    <rect x="70" y="165" width="80" height="25" fill="#1B3A6B" rx="4"/>
+    <rect x="70" y="158" width="80" height="12" fill="#2d5fa6" rx="3"/>
+    <rect x="68" y="158" width="8" height="30" fill="#2d5fa6" rx="2"/>
+    <!-- coffee table -->
+    <rect x="85" y="186" width="50" height="12" fill="#8B7355" rx="2"/>
+    <!-- plant right -->
+    <rect x="510" y="130" width="14" height="20" fill="#5a3e28" rx="2"/>
+    <ellipse cx="517" cy="128" rx="16" ry="14" fill="#1a5c2a"/>
+    <ellipse cx="510" cy="120" rx="10" ry="9" fill="#1e6830"/>
+    <ellipse cx="525" cy="122" rx="9" ry="8" fill="#165a24"/>
+    <!-- ceiling cornice -->
+    <rect x="0" y="58" width="600" height="6" fill="#c9a84c" opacity=".4"/>
+    <!-- ambient light glow on ceiling -->
+    <ellipse cx="300" cy="30" rx="180" ry="22" fill="#fff9e8" opacity=".12"/>
+    <text x="300" y="232" text-anchor="middle" font-size="9" fill="#8B7355" font-weight="bold" letter-spacing="1">大理石地板 · 蓝色主题背景墙 · 金色灯带 · 落地玻璃幕墙</text>
+  </svg>
+  </div>
+  <div class="rc-info">
+    <div class="rc-tag" style="background:#dbeafe;color:#1d4ed8">1# 顶翼 1F</div>
+    <h4>接待大厅 · 展厅 · 约580m²</h4>
+    <p>玻璃幕墙+玻化砖地板（800×800仿大理石）· 企业蓝主题背景墙 · 金色吊灯组+LED灯带 · L型接待台（深蓝烤漆+金色收边）· 品牌LOGO背光装置 · 皮质接待沙发区</p>
+  </div>
+</div>
+
+<div class="room-card">
+  <div class="rc-img">
+  <svg viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg" font-family="'PingFang SC','Microsoft YaHei',Arial,sans-serif">
+    <defs>
+      <linearGradient id="offFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d8e8f8"/><stop offset="100%" stop-color="#b8cce0"/></linearGradient>
+      <linearGradient id="offWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f4f7fb"/><stop offset="100%" stop-color="#e8eff8"/></linearGradient>
+    </defs>
+    <!-- ceiling -->
+    <rect x="0" y="0" width="600" height="55" fill="#f0f4f8"/>
+    <!-- back wall -->
+    <rect x="0" y="0" width="600" height="180" fill="url(#offWall)"/>
+    <!-- floor -->
+    <polygon points="0,240 600,240 500,158 100,158" fill="url(#offFloor)"/>
+    <!-- floor grid lines -->
+    <g stroke="#a0b8d0" stroke-width=".5" opacity=".4">
+      <line x1="0" y1="220" x2="600" y2="220"/><line x1="0" y1="200" x2="600" y2="200"/>
+      <line x1="0" y1="180" x2="600" y2="180"/>
+    </g>
+    <!-- windows back wall -->
+    <rect x="80" y="15" width="130" height="100" fill="#b8d4f0" opacity=".6" rx="2"/>
+    <rect x="240" y="15" width="130" height="100" fill="#b8d4f0" opacity=".6" rx="2"/>
+    <rect x="390" y="15" width="130" height="100" fill="#b8d4f0" opacity=".6" rx="2"/>
+    <g stroke="#1B3A6B" stroke-width="1.5" fill="none">
+      <rect x="80" y="15" width="130" height="100" rx="2"/><rect x="240" y="15" width="130" height="100" rx="2"/>
+      <rect x="390" y="15" width="130" height="100" rx="2"/>
+    </g>
+    <!-- workstation desks row 1 -->
+    <g>
+      <rect x="80" y="158" width="60" height="40" fill="#e0e8f0" rx="2"/>
+      <rect x="82" y="145" width="56" height="14" fill="#2d5fa6" opacity=".85" rx="1"/><!-- screen -->
+      <rect x="150" y="158" width="60" height="40" fill="#e0e8f0" rx="2"/>
+      <rect x="152" y="145" width="56" height="14" fill="#2d5fa6" opacity=".85" rx="1"/>
+      <rect x="220" y="158" width="60" height="40" fill="#e0e8f0" rx="2"/>
+      <rect x="222" y="145" width="56" height="14" fill="#2d5fa6" opacity=".85" rx="1"/>
+      <rect x="310" y="158" width="60" height="40" fill="#e0e8f0" rx="2"/>
+      <rect x="312" y="145" width="56" height="14" fill="#2d5fa6" opacity=".85" rx="1"/>
+      <rect x="380" y="158" width="60" height="40" fill="#e0e8f0" rx="2"/>
+      <rect x="382" y="145" width="56" height="14" fill="#2d5fa6" opacity=".85" rx="1"/>
+      <rect x="450" y="158" width="60" height="40" fill="#e0e8f0" rx="2"/>
+      <rect x="452" y="145" width="56" height="14" fill="#2d5fa6" opacity=".85" rx="1"/>
+    </g>
+    <!-- office chairs -->
+    <g fill="#1B3A6B" opacity=".6">
+      <ellipse cx="110" cy="202" rx="14" ry="10"/><ellipse cx="180" cy="202" rx="14" ry="10"/>
+      <ellipse cx="250" cy="202" rx="14" ry="10"/><ellipse cx="340" cy="202" rx="14" ry="10"/>
+      <ellipse cx="410" cy="202" rx="14" ry="10"/><ellipse cx="480" cy="202" rx="14" ry="10"/>
+    </g>
+    <!-- ceiling LED strips -->
+    <rect x="50" y="8" width="500" height="4" fill="#c9a84c" opacity=".5" rx="2"/>
+    <rect x="50" y="8" width="500" height="4" fill="#fffbe8" opacity=".3" rx="2"/>
+    <!-- accent divider wall glass partition -->
+    <rect x="70" y="55" width="4" height="100" fill="#1B3A6B" opacity=".3" rx="1"/>
+    <rect x="520" y="55" width="4" height="100" fill="#1B3A6B" opacity=".3" rx="1"/>
+    <!-- whiteboard end -->
+    <rect x="530" y="20" width="60" height="80" fill="white" rx="2"/>
+    <rect x="530" y="20" width="60" height="80" fill="none" stroke="#ccc" stroke-width="1" rx="2"/>
+    <line x1="535" y1="35" x2="585" y2="35" stroke="#1B3A6B" stroke-width=".8"/>
+    <line x1="535" y1="45" x2="575" y2="45" stroke="#1B3A6B" stroke-width=".8" opacity=".5"/>
+    <line x1="535" y1="55" x2="580" y2="55" stroke="#1B3A6B" stroke-width=".8" opacity=".4"/>
+    <text x="300" y="232" text-anchor="middle" font-size="9" fill="#476b8a" font-weight="bold" letter-spacing="1">全钢玻璃隔断 · 人体工学工位 · LED吊线灯 · 蓝灰色系</text>
+  </svg>
+  </div>
+  <div class="rc-info">
+    <div class="rc-tag" style="background:#dbeafe;color:#1d4ed8">1# 顶翼 2F</div>
+    <h4>研发中心 · 集中办公区 · 约2,500m²</h4>
+    <p>铝合金+钢化玻璃隔断 · 人体工学座椅×60+工位 · 蓝灰色地毯+防静电架空地板 · LED条形吊灯 · 白板墙+投影屏 · 静音电话间×4</p>
+  </div>
+</div>
+
+<div class="room-card">
+  <div class="rc-img">
+  <svg viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg" font-family="'PingFang SC','Microsoft YaHei',Arial,sans-serif">
+    <defs>
+      <linearGradient id="execFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8b87a"/><stop offset="100%" stop-color="#a89060"/></linearGradient>
+      <linearGradient id="execWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2a1a0a"/><stop offset="100%" stop-color="#1a0e04"/></linearGradient>
+    </defs>
+    <rect x="0" y="0" width="600" height="55" fill="#1a1208"/>
+    <rect x="0" y="0" width="600" height="180" fill="url(#execWall)"/>
+    <polygon points="0,240 600,240 490,158 110,158" fill="url(#execFloor)"/>
+    <!-- wood floor planks -->
+    <g stroke="#907840" stroke-width=".8" opacity=".5">
+      <line x1="110" y1="158" x2="0" y2="240"/><line x1="180" y1="158" x2="100" y2="240"/>
+      <line x1="250" y1="158" x2="200" y2="240"/><line x1="320" y1="158" x2="300" y2="240"/>
+      <line x1="390" y1="158" x2="400" y2="240"/><line x1="460" y1="158" x2="500" y2="240"/>
+    </g>
+    <!-- bookshelf full wall right -->
+    <rect x="520" y="10" width="80" height="165" fill="#3d2210"/>
+    <g fill="#c8a87a" opacity=".7">
+      <rect x="525" y="20" width="70" height="18" rx="1"/><rect x="525" y="42" width="70" height="18" rx="1"/>
+      <rect x="525" y="64" width="70" height="18" rx="1"/><rect x="525" y="86" width="70" height="18" rx="1"/>
+      <rect x="525" y="108" width="70" height="18" rx="1"/><rect x="525" y="130" width="70" height="18" rx="1"/>
+    </g>
+    <!-- window left with curtains -->
+    <rect x="60" y="15" width="100" height="120" fill="#b8c8d8" opacity=".5" rx="2"/>
+    <rect x="58" y="10" width="8" height="130" fill="#8B7355" rx="1"/><!-- curtain left -->
+    <rect x="60" y="10" width="40" height="130" fill="#7a5c3a" opacity=".35" rx="1"/>
+    <!-- main executive desk -->
+    <rect x="160" y="148" width="200" height="55" fill="#5a3010" rx="3"/>
+    <rect x="160" y="148" width="200" height="5" fill="#c9a84c" rx="2"/>
+    <!-- laptop on desk -->
+    <rect x="200" y="128" width="40" height="22" fill="#2a2a2a" rx="2"/>
+    <rect x="202" y="130" width="36" height="18" fill="#3a8fdc" opacity=".9" rx="1"/>
+    <!-- exec chair -->
+    <rect x="240" y="165" width="40" height="8" fill="#1a1a2a" rx="3"/>
+    <rect x="248" y="160" width="24" height="25" fill="#1a1a2a" rx="2"/>
+    <!-- nameplate -->
+    <rect x="170" y="155" width="50" height="8" fill="#c9a84c" opacity=".4" rx="1"/>
+    <!-- pendant light center -->
+    <ellipse cx="300" cy="50" rx="30" ry="8" fill="#c9a84c" opacity=".6"/>
+    <line x1="300" y1="0" x2="300" y2="42" stroke="#c9a84c" stroke-width="1.5"/>
+    <ellipse cx="300" cy="52" rx="25" ry="6" fill="#fffbe8" opacity=".8"/>
+    <!-- side chairs -->
+    <rect x="50" y="175" width="80" height="30" fill="#2a1a40" rx="4"/>
+    <rect x="50" y="168" width="80" height="12" fill="#3d2a5a" rx="3"/>
+    <rect x="460" y="175" width="80" height="30" fill="#2a1a40" rx="4"/>
+    <rect x="460" y="168" width="80" height="12" fill="#3d2a5a" rx="3"/>
+    <!-- plant corner -->
+    <rect x="20" y="140" width="18" height="22" fill="#3d2810" rx="2"/>
+    <ellipse cx="29" cy="136" rx="22" ry="18" fill="#1a5c2a"/>
+    <ellipse cx="18" cy="125" rx="14" ry="12" fill="#1e6830"/>
+    <text x="300" y="232" text-anchor="middle" font-size="9" fill="#8B7355" font-weight="bold" letter-spacing="1">实木地板 · 胡桃木书柜墙 · 水晶吊灯 · 皮质座椅</text>
+  </svg>
+  </div>
+  <div class="rc-info">
+    <div class="rc-tag" style="background:#dbeafe;color:#1d4ed8">1# 顶翼 3F</div>
+    <h4>高管办公室 · 约510m²</h4>
+    <p>实木复合地板（胡桃木色）· 整墙书柜+陈列架 · 水晶吊灯+台灯 · 牛皮班椅 · 落地窗+遮光卷帘 · 独立卫生间 · 小型洽谈桌×4</p>
+  </div>
+</div>
+
+</div><!-- end room-grid -->
+
+<!-- ② 1# 西腿 餐厅 -->
+<div class="room-section-title">1# 西腿（西·金局）</div>
+<div class="room-grid">
+
+<div class="room-card">
+  <div class="rc-img">
+  <svg viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg" font-family="'PingFang SC','Microsoft YaHei',Arial,sans-serif">
+    <defs>
+      <linearGradient id="dinFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8d8b8"/><stop offset="100%" stop-color="#c8b890"/></linearGradient>
+      <linearGradient id="dinCeil" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff8f0"/><stop offset="100%" stop-color="#fdf0e0"/></linearGradient>
+    </defs>
+    <rect x="0" y="0" width="600" height="55" fill="url(#dinCeil)"/>
+    <rect x="0" y="55" width="600" height="125" fill="#fff4e8"/>
+    <polygon points="0,240 600,240 500,158 100,158" fill="url(#dinFloor)"/>
+    <!-- orange accent wall strip right -->
+    <rect x="560" y="0" width="40" height="180" fill="#ea580c" opacity=".15"/>
+    <rect x="564" y="30" width="32" height="80" fill="#ea580c" opacity=".2"/>
+    <!-- windows back -->
+    <rect x="60" y="20" width="110" height="90" fill="#b8d4f0" opacity=".5" rx="2"/>
+    <rect x="200" y="20" width="110" height="90" fill="#b8d4f0" opacity=".5" rx="2"/>
+    <rect x="340" y="20" width="110" height="90" fill="#b8d4f0" opacity=".5" rx="2"/>
+    <g stroke="#ea580c" stroke-width="1.5" fill="none" opacity=".4">
+      <rect x="60" y="20" width="110" height="90" rx="2"/>
+      <rect x="200" y="20" width="110" height="90" rx="2"/>
+      <rect x="340" y="20" width="110" height="90" rx="2"/>
+    </g>
+    <!-- dining tables + chairs -->
+    <!-- table 1 -->
+    <ellipse cx="120" cy="185" rx="42" ry="22" fill="#8B7355" opacity=".7"/>
+    <g fill="#ea580c" opacity=".5">
+      <ellipse cx="80" cy="185" rx="16" ry="10"/><ellipse cx="160" cy="185" rx="16" ry="10"/>
+      <ellipse cx="120" cy="163" rx="16" ry="10"/><ellipse cx="120" cy="207" rx="16" ry="10"/>
+    </g>
+    <!-- table 2 -->
+    <ellipse cx="300" cy="185" rx="42" ry="22" fill="#8B7355" opacity=".7"/>
+    <g fill="#ea580c" opacity=".5">
+      <ellipse cx="260" cy="185" rx="16" ry="10"/><ellipse cx="340" cy="185" rx="16" ry="10"/>
+      <ellipse cx="300" cy="163" rx="16" ry="10"/><ellipse cx="300" cy="207" rx="16" ry="10"/>
+    </g>
+    <!-- table 3 -->
+    <ellipse cx="480" cy="185" rx="42" ry="22" fill="#8B7355" opacity=".7"/>
+    <g fill="#ea580c" opacity=".5">
+      <ellipse cx="440" cy="185" rx="16" ry="10"/><ellipse cx="520" cy="185" rx="16" ry="10"/>
+      <ellipse cx="480" cy="163" rx="16" ry="10"/>
+    </g>
+    <!-- ceiling pendant lights warm -->
+    <g filter="url(#glow1)">
+      <ellipse cx="150" cy="100" rx="18" ry="6" fill="#ffcc88" opacity=".9"/>
+      <ellipse cx="300" cy="95" rx="18" ry="6" fill="#ffcc88" opacity=".9"/>
+      <ellipse cx="450" cy="100" rx="18" ry="6" fill="#ffcc88" opacity=".9"/>
+    </g>
+    <line x1="150" y1="0" x2="150" y2="94" stroke="#c9a84c" stroke-width="1"/>
+    <line x1="300" y1="0" x2="300" y2="89" stroke="#c9a84c" stroke-width="1"/>
+    <line x1="450" y1="0" x2="450" y2="94" stroke="#c9a84c" stroke-width="1"/>
+    <!-- food counter -->
+    <rect x="0" y="140" width="50" height="58" fill="#c8a060"/>
+    <rect x="0" y="140" width="50" height="6" fill="#ea580c"/>
+    <!-- green plants row -->
+    <g fill="#1a5c2a">
+      <ellipse cx="535" cy="140" rx="18" ry="14"/><ellipse cx="555" cy="135" rx="14" ry="11"/>
+      <ellipse cx="520" cy="135" rx="12" ry="10"/>
+    </g>
+    <rect x="528" y="150" width="16" height="16" fill="#5a3e28" rx="2"/>
+    <text x="300" y="232" text-anchor="middle" font-size="9" fill="#8B7355" font-weight="bold" letter-spacing="1">暖色木纹地板 · 橙色装饰带 · 暖光吊灯 · 圆形餐桌</text>
+  </svg>
+  </div>
+  <div class="rc-info">
+    <div class="rc-tag" style="background:#fef9c3;color:#92400e">1# 西腿 1F</div>
+    <h4>员工餐厅 · 1,200m²（就餐1,000m² + 厨房200m²）</h4>
+    <p>暖色木纹地板 · 橙色主题装饰腰带 · 暖白光球形吊灯 · 4人/6人圆形餐桌×80组 · 就餐台×6 · 绿植隔断带 · 明档厨房展示窗</p>
+  </div>
+</div>
+
+</div>
+
+<!-- ③ 2# 厂房 装配车间 -->
+<div class="room-section-title">2# 厂房北侧（东南·木局）</div>
+<div class="room-grid">
+
+<div class="room-card">
+  <div class="rc-img">
+  <svg viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg" font-family="'PingFang SC','Microsoft YaHei',Arial,sans-serif">
+    <defs>
+      <linearGradient id="facFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#909090"/><stop offset="100%" stop-color="#686868"/></linearGradient>
+      <linearGradient id="facWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8d0d8"/><stop offset="100%" stop-color="#a0aab4"/></linearGradient>
+    </defs>
+    <!-- ceiling industrial -->
+    <rect x="0" y="0" width="600" height="65" fill="#404850"/>
+    <!-- steel trusses ceiling -->
+    <g stroke="#606870" stroke-width="2" opacity=".7">
+      <line x1="0" y1="10" x2="600" y2="10"/>
+      <line x1="0" y1="30" x2="600" y2="30"/>
+      <line x1="0" y1="50" x2="600" y2="50"/>
+      <line x1="100" y1="0" x2="100" y2="65"/><line x1="200" y1="0" x2="200" y2="65"/>
+      <line x1="300" y1="0" x2="300" y2="65"/><line x1="400" y1="0" x2="400" y2="65"/>
+      <line x1="500" y1="0" x2="500" y2="65"/>
+    </g>
+    <!-- back wall -->
+    <rect x="0" y="65" width="600" height="115" fill="url(#facWall)"/>
+    <!-- floor -->
+    <polygon points="0,240 600,240 520,158 80,158" fill="url(#facFloor)"/>
+    <!-- yellow safety lines -->
+    <line x1="80" y1="185" x2="520" y2="185" stroke="#ffcc00" stroke-width="3" stroke-dasharray="20,8"/>
+    <line x1="80" y1="215" x2="520" y2="215" stroke="#ffcc00" stroke-width="3" stroke-dasharray="20,8"/>
+    <!-- assembly line A (conveyor belt) -->
+    <rect x="80" y="165" width="440" height="20" fill="#2a2a2a" rx="3"/>
+    <rect x="80" y="167" width="440" height="4" fill="#c9a84c" opacity=".4"/>
+    <!-- products on line A -->
+    <g fill="#3a5a8a" opacity=".8">
+      <rect x="110" y="158" width="25" height="14" rx="2"/>
+      <rect x="165" y="158" width="25" height="14" rx="2"/>
+      <rect x="220" y="158" width="25" height="14" rx="2"/>
+      <rect x="330" y="158" width="25" height="14" rx="2"/>
+      <rect x="385" y="158" width="25" height="14" rx="2"/>
+      <rect x="440" y="158" width="25" height="14" rx="2"/>
+    </g>
+    <!-- assembly line B -->
+    <rect x="80" y="195" width="440" height="20" fill="#2a2a2a" rx="3"/>
+    <rect x="80" y="197" width="440" height="4" fill="#22c55e" opacity=".4"/>
+    <!-- red pipe system overhead -->
+    <line x1="0" y1="80" x2="600" y2="80" stroke="#c53030" stroke-width="5"/>
+    <line x1="0" y1="95" x2="600" y2="95" stroke="#c53030" stroke-width="3" opacity=".6"/>
+    <!-- drop pipes -->
+    <g stroke="#c53030" stroke-width="3">
+      <line x1="130" y1="80" x2="130" y2="140"/><line x1="230" y1="80" x2="230" y2="140"/>
+      <line x1="330" y1="80" x2="330" y2="140"/><line x1="430" y1="80" x2="430" y2="140"/>
+    </g>
+    <!-- LED industrial lights -->
+    <g fill="#fffbe8" filter="url(#glow1)">
+      <rect x="80" y="62" width="80" height="6" rx="3"/><rect x="220" y="62" width="80" height="6" rx="3"/>
+      <rect x="360" y="62" width="80" height="6" rx="3"/><rect x="460" y="62" width="80" height="6" rx="3"/>
+    </g>
+    <!-- worker silhouettes -->
+    <g fill="#404040" opacity=".6">
+      <ellipse cx="155" cy="155" rx="8" ry="5"/><!-- head -->
+      <rect x="151" y="152" width="8" height="12" rx="2"/><!-- body -->
+      <ellipse cx="280" cy="155" rx="8" ry="5"/>
+      <rect x="276" y="152" width="8" height="12" rx="2"/>
+      <ellipse cx="405" cy="155" rx="8" ry="5"/>
+      <rect x="401" y="152" width="8" height="12" rx="2"/>
+    </g>
+    <!-- forklift right -->
+    <rect x="520" y="155" width="55" height="28" fill="#ffcc00" rx="2"/>
+    <rect x="520" y="135" width="10" height="20" fill="#e0a000" rx="1"/>
+    <rect x="522" y="130" width="6" height="6" fill="#ffee00" rx="1"/>
+    <ellipse cx="530" cy="186" rx="8" ry="8" fill="#333"/><ellipse cx="565" cy="186" rx="8" ry="8" fill="#333"/>
+    <!-- safety sign -->
+    <rect x="10" y="90" width="50" height="25" fill="#c53030" rx="2"/>
+    <text x="35" y="107" text-anchor="middle" font-size="8" fill="white" font-weight="bold">注意安全</text>
+    <text x="300" y="232" text-anchor="middle" font-size="9" fill="#606870" font-weight="bold" letter-spacing="1">金刚砂耐磨地坪 · 红色消防管网 · 双线自动化装配 · LED工矿灯</text>
+  </svg>
+  </div>
+  <div class="rc-info">
+    <div class="rc-tag" style="background:#fff7ed;color:#c2410c">2# 厂房 1F</div>
+    <h4>自动化装配双线 · 1,237m²</h4>
+    <p>金刚砂耐磨地坪（绿色） · 红色消防管网明装 · 装配线A+B各550m² · LED工矿灯（≥300lux）· 黄色安全警戒线 · 叉车充电区 · 5.25m层高 · 行车轨道预留</p>
+  </div>
+</div>
+
+<div class="room-card">
+  <div class="rc-img">
+  <svg viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg" font-family="'PingFang SC','Microsoft YaHei',Arial,sans-serif">
+    <defs>
+      <linearGradient id="stoFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#808890"/><stop offset="100%" stop-color="#606870"/></linearGradient>
+    </defs>
+    <!-- ceiling dark warehouse -->
+    <rect x="0" y="0" width="600" height="50" fill="#303840"/>
+    <g stroke="#404850" stroke-width="2">
+      <line x1="0" y1="15" x2="600" y2="15"/><line x1="0" y1="35" x2="600" y2="35"/>
+      <line x1="150" y1="0" x2="150" y2="50"/><line x1="300" y1="0" x2="300" y2="50"/>
+      <line x1="450" y1="0" x2="450" y2="50"/>
+    </g>
+    <rect x="0" y="50" width="600" height="130" fill="#8090a0"/>
+    <polygon points="0,240 600,240 530,158 70,158" fill="url(#stoFloor)"/>
+    <!-- pallet racking rows -->
+    <!-- rack left -->
+    <rect x="30" y="60" width="14" height="130" fill="#ff6600" rx="1"/><!-- upright -->
+    <rect x="120" y="60" width="14" height="130" fill="#ff6600" rx="1"/>
+    <rect x="30" y="80" width="104" height="6" fill="#c8c8c8" rx="1"/><!-- shelf -->
+    <rect x="30" y="110" width="104" height="6" fill="#c8c8c8" rx="1"/>
+    <rect x="30" y="140" width="104" height="6" fill="#c8c8c8" rx="1"/>
+    <rect x="30" y="170" width="104" height="6" fill="#c8c8c8" rx="1"/>
+    <!-- boxes on shelves left -->
+    <g opacity=".75">
+      <rect x="35" y="64" width="30" height="16" fill="#3a5a8a" rx="1"/>
+      <rect x="68" y="64" width="30" height="16" fill="#8a5a3a" rx="1"/>
+      <rect x="101" y="64" width="28" height="16" fill="#3a8a5a" rx="1"/>
+      <rect x="35" y="94" width="30" height="16" fill="#8a3a3a" rx="1"/>
+      <rect x="68" y="94" width="30" height="16" fill="#3a5a8a" rx="1"/>
+      <rect x="101" y="94" width="28" height="16" fill="#8a8a3a" rx="1"/>
+      <rect x="35" y="124" width="30" height="16" fill="#3a8a5a" rx="1"/>
+      <rect x="68" y="124" width="30" height="16" fill="#8a5a3a" rx="1"/>
+    </g>
+    <!-- rack center -->
+    <rect x="230" y="60" width="14" height="130" fill="#ff6600" rx="1"/>
+    <rect x="350" y="60" width="14" height="130" fill="#ff6600" rx="1"/>
+    <rect x="230" y="80" width="134" height="6" fill="#c8c8c8" rx="1"/>
+    <rect x="230" y="110" width="134" height="6" fill="#c8c8c8" rx="1"/>
+    <rect x="230" y="140" width="134" height="6" fill="#c8c8c8" rx="1"/>
+    <g opacity=".75">
+      <rect x="235" y="64" width="40" height="16" fill="#3a5a8a" rx="1"/>
+      <rect x="280" y="64" width="40" height="16" fill="#8a3a3a" rx="1"/>
+      <rect x="235" y="94" width="40" height="16" fill="#8a5a3a" rx="1"/>
+      <rect x="280" y="94" width="40" height="16" fill="#3a8a5a" rx="1"/>
+    </g>
+    <!-- rack right -->
+    <rect x="460" y="60" width="14" height="130" fill="#ff6600" rx="1"/>
+    <rect x="560" y="60" width="14" height="130" fill="#ff6600" rx="1"/>
+    <rect x="460" y="80" width="114" height="6" fill="#c8c8c8" rx="1"/>
+    <rect x="460" y="110" width="114" height="6" fill="#c8c8c8" rx="1"/>
+    <rect x="460" y="140" width="114" height="6" fill="#c8c8c8" rx="1"/>
+    <g opacity=".75">
+      <rect x="465" y="64" width="35" height="16" fill="#8a8a3a" rx="1"/>
+      <rect x="505" y="64" width="35" height="16" fill="#3a5a8a" rx="1"/>
+      <rect x="465" y="94" width="35" height="16" fill="#8a3a3a" rx="1"/>
+    </g>
+    <!-- forklift aisle center -->
+    <rect x="145" y="158" width="80" height="30" fill="#ffcc00" opacity=".8" rx="2"/>
+    <ellipse cx="155" cy="190" rx="7" ry="7" fill="#333"/>
+    <ellipse cx="215" cy="190" rx="7" ry="7" fill="#333"/>
+    <!-- ceiling lights in rows -->
+    <g fill="#fffbe8" opacity=".6">
+      <rect x="60" y="6" width="60" height="4" rx="2"/><rect x="240" y="6" width="60" height="4" rx="2"/>
+      <rect x="420" y="6" width="60" height="4" rx="2"/>
+    </g>
+    <!-- aisle yellow markings -->
+    <line x1="145" y1="158" x2="145" y2="240" stroke="#ffcc00" stroke-width="2.5" stroke-dasharray="10,6"/>
+    <line x1="225" y1="158" x2="225" y2="240" stroke="#ffcc00" stroke-width="2.5" stroke-dasharray="10,6"/>
+    <text x="300" y="232" text-anchor="middle" font-size="9" fill="#8090a0" font-weight="bold" letter-spacing="1">橙色重型托盘货架 · 叉车通道 · 货梯×2 · 楼板1t/m²</text>
+  </svg>
+  </div>
+  <div class="rc-info">
+    <div class="rc-tag" style="background:#fff7ed;color:#c2410c">2# 厂房 2~3F</div>
+    <h4>成品仓储 + 原材料仓储 · 约2,474m²</h4>
+    <p>橙色重型托盘货架×约80组 · 叉车通道（4m宽）· 货梯×2（1t载重）· 地面环氧涂层 · LED高位灯带 · 楼板承重≥1,000kg/m²（需确认）</p>
+  </div>
+</div>
+
+</div>
+
+<!-- ④ 6# 厂房 品控区 -->
+<div class="room-section-title">6# 厂房南侧（木金交界）</div>
+<div class="room-grid">
+
+<div class="room-card">
+  <div class="rc-img">
+  <svg viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg" font-family="'PingFang SC','Microsoft YaHei',Arial,sans-serif">
+    <defs>
+      <linearGradient id="qcFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d0d8e0"/><stop offset="100%" stop-color="#b0b8c0"/></linearGradient>
+    </defs>
+    <!-- clean ceiling white -->
+    <rect x="0" y="0" width="600" height="55" fill="#f8f9fa"/>
+    <!-- back wall clean room style -->
+    <rect x="0" y="55" width="600" height="125" fill="#eef2f6"/>
+    <!-- floor -->
+    <polygon points="0,240 600,240 510,158 90,158" fill="url(#qcFloor)"/>
+    <!-- anti-static floor grid -->
+    <g stroke="#a0b0c0" stroke-width=".5" opacity=".4">
+      <line x1="90" y1="200" x2="510" y2="200"/><line x1="90" y1="220" x2="510" y2="220"/>
+      <line x1="150" y1="158" x2="90" y2="240"/><line x1="250" y1="158" x2="170" y2="240"/>
+      <line x1="350" y1="158" x2="330" y2="240"/><line x1="450" y1="158" x2="430" y2="240"/>
+    </g>
+    <!-- inspection tables row -->
+    <rect x="60" y="148" width="80" height="40" fill="#c8d0d8" rx="3"/>
+    <rect x="60" y="148" width="80" height="5" fill="#475569" rx="3"/>
+    <rect x="160" y="148" width="80" height="40" fill="#c8d0d8" rx="3"/>
+    <rect x="160" y="148" width="80" height="5" fill="#475569" rx="3"/>
+    <rect x="260" y="148" width="80" height="40" fill="#c8d0d8" rx="3"/>
+    <rect x="260" y="148" width="80" height="5" fill="#475569" rx="3"/>
+    <rect x="360" y="148" width="80" height="40" fill="#c8d0d8" rx="3"/>
+    <rect x="360" y="148" width="80" height="5" fill="#475569" rx="3"/>
+    <rect x="460" y="148" width="80" height="40" fill="#c8d0d8" rx="3"/>
+    <rect x="460" y="148" width="80" height="5" fill="#475569" rx="3"/>
+    <!-- microscopes / test equipment on tables -->
+    <g fill="#475569" opacity=".7">
+      <rect x="80" y="132" width="14" height="16" rx="2"/><!-- instrument -->
+      <rect x="83" y="124" width="8" height="8" rx="1"/>
+      <rect x="180" y="132" width="14" height="16" rx="2"/>
+      <rect x="183" y="124" width="8" height="8" rx="1"/>
+      <rect x="280" y="132" width="14" height="16" rx="2"/>
+      <rect x="380" y="132" width="14" height="16" rx="2"/>
+      <rect x="480" y="132" width="14" height="16" rx="2"/>
+    </g>
+    <!-- computer screens on tables -->
+    <g fill="#2d5fa6" opacity=".85">
+      <rect x="100" y="128" width="28" height="20" rx="2"/>
+      <rect x="200" y="128" width="28" height="20" rx="2"/>
+      <rect x="300" y="128" width="28" height="20" rx="2"/>
+      <rect x="400" y="128" width="28" height="20" rx="2"/>
+      <rect x="500" y="128" width="28" height="20" rx="2"/>
+    </g>
+    <!-- precise lighting (white clean room) -->
+    <rect x="30" y="8" width="540" height="6" fill="#e8f0f8" rx="3"/>
+    <rect x="30" y="8" width="540" height="6" fill="white" opacity=".5" rx="3"/>
+    <!-- second light strip -->
+    <rect x="60" y="30" width="480" height="4" fill="#e0e8f4" rx="2"/>
+    <!-- ESD warning strip floor -->
+    <line x1="90" y1="175" x2="510" y2="175" stroke="#ff6600" stroke-width="3" stroke-dasharray="15,8" opacity=".6"/>
+    <!-- scanning barcode equipment -->
+    <rect x="530" y="100" width="30" height="50" fill="#475569" opacity=".5" rx="3"/>
+    <rect x="533" y="110" width="24" height="14" fill="#3b82f6" opacity=".7" rx="1"/>
+    <!-- signage -->
+    <rect x="0" y="70" width="55" height="25" fill="#475569" rx="2"/>
+    <text x="27" y="87" text-anchor="middle" font-size="8" fill="white" font-weight="bold">品控区</text>
+    <text x="300" y="232" text-anchor="middle" font-size="9" fill="#475569" font-weight="bold" letter-spacing="1">防静电地板 · 洁净白色调 · 精密照明 · 全检台×10</text>
+  </svg>
+  </div>
+  <div class="rc-info">
+    <div class="rc-tag" style="background:#f1f5f9;color:#334155">6# 厂房 1F</div>
+    <h4>品控检测区 · 810m²</h4>
+    <p>防静电环氧地坪（浅灰）· 洁净白色调 · 精密照明（≥500lux均匀照度）· 全检台×10（每台含显微镜+测试仪）· ESD腕带接地系统 · 扫描枪+打标设备 · 成品暂存区</p>
+  </div>
+</div>
+
+</div>
+
+<div class="notice" style="margin-top:8px">
+  📌 <strong>说明</strong>：以上效果图为设计预期效果，基于区划建议书及五行空间设计方案绘制。实际施工需经专业设计师出具施工图深化设计，材质及配色可根据业主意见调整。面积数据以竣工备案表为准，误差±15%。
+</div>
+</div>
+</div>
+
+<!-- PAGE: 造价估算 -->
+<div id="pageCost" class="page">
+<div class="pg-header">
+  <h2>💰 精装修造价估算</h2>
+  <p>V2版 · 含10%不可预见费 · 外立面不含 · 仓储货架需单独追加约80~120万元</p>
+</div>
+<div class="content">
+<p class="sec-meta">以下造价基于2026年3月沧州地区市场价（材料及人工），含10%不可预见费。外立面装修已竣工，不含在内。单价仅供参考，以中标合同为准。</p>
+<table class="ctbl">
+  <thead><tr><th>分项</th><th>区域</th><th>面积</th><th>单价(元/m²)</th><th>合计(万元)</th><th>施工期</th></tr></thead>
+  <tbody>
+    <tr><td colspan="6" style="background:#eff6ff;font-weight:600;color:#1d4ed8;padding:7px 12px">2# 独栋（北侧）— 装配车间与仓储</td></tr>
+    <tr><td>1F 装配车间（金刚砂地坪+工业照明+消防）</td><td>2# 1F</td><td>1,237m²</td><td>680</td><td>84</td><td><span class="pb p1">第1~8周</span></td></tr>
+    <tr><td>2~3F 仓储层（货架基础+货梯+地面）</td><td>2# 2~3F</td><td>2,474m²</td><td>420</td><td>104</td><td><span class="pb p2">第6~14周</span></td></tr>
+    <tr><td>电动提升门 4.0m×4.5m×3</td><td>2# 1F侧</td><td>—</td><td>—</td><td>18</td><td><span class="pb p1">第1~4周</span></td></tr>
+    <tr class="sbt"><td colspan="4">2# 小计</td><td>206</td><td></td></tr>
+    <tr><td colspan="6" style="background:#fff7ed;font-weight:600;color:#c2410c;padding:7px 12px">6# 独栋（南侧）— 品控与缓冲</td></tr>
+    <tr><td>1F 品控区（环氧地坪+精密照明+检测台）</td><td>6# 1F</td><td>810m²</td><td>720</td><td>58</td><td><span class="pb p1">第2~10周</span></td></tr>
+    <tr><td>2F 生产辅助办公（轻钢隔断+简装）</td><td>6# 2F</td><td>810m²</td><td>480</td><td>39</td><td><span class="pb p2">第6~12周</span></td></tr>
+    <tr class="sbt"><td colspan="4">6# 小计</td><td>97</td><td></td></tr>
+    <tr><td colspan="6" style="background:#f0fdf4;font-weight:600;color:#15803d;padding:7px 12px">1# L型西腿</td></tr>
+    <tr><td>1F 员工餐厅（防滑砖+商用厨房+暖色装修）</td><td>西腿1F</td><td>1,200m²</td><td>780</td><td>94</td><td><span class="pb p1">第2~10周</span></td></tr>
+    <tr><td>2~4F 研发办公（玻璃隔断+工位+会议）</td><td>西腿2~4F</td><td>3,300m²</td><td>620</td><td>205</td><td><span class="pb p3">第6~16周</span></td></tr>
+    <tr class="sbt"><td colspan="4">西腿小计</td><td>299</td><td></td></tr>
+    <tr><td colspan="6" style="background:#eff6ff;font-weight:600;color:#1d4ed8;padding:7px 12px">1# L型顶翼</td></tr>
+    <tr><td>1F 接待大厅（大理石+水晶灯+品牌墙+前台）</td><td>顶翼1F</td><td>500m²</td><td>2,200</td><td>110</td><td><span class="pb p1">第3~10周</span></td></tr>
+    <tr><td>1F IT机房（精密空调+防静电地板+机柜）</td><td>顶翼1F</td><td>300m²</td><td>1,800</td><td>54</td><td><span class="pb p1">第3~8周</span></td></tr>
+    <tr><td>2F 管理办公层（轻钢玻璃隔断+精装）</td><td>顶翼2F</td><td>2,500m²</td><td>680</td><td>170</td><td><span class="pb p2">第5~12周</span></td></tr>
+    <tr><td>3F 高管层（木地板+实木家具+贵宾客房）</td><td>顶翼3F</td><td>2,000m²</td><td>1,200</td><td>240</td><td><span class="pb p2">第6~13周</span></td></tr>
+    <tr><td>4F 多功能展厅+屋顶花园</td><td>顶翼4F</td><td>1,400m²</td><td>900</td><td>126</td><td><span class="pb p3">第10~18周</span></td></tr>
+    <tr class="sbt"><td colspan="4">顶翼小计</td><td>700</td><td></td></tr>
+    <tr><td colspan="6" style="background:#f8f7f2;font-weight:600;color:#374151;padding:7px 12px">设备·系统·景观</td></tr>
+    <tr><td>客货梯（无机房800kg×2客梯+货梯×2）</td><td>1#+2#</td><td>—</td><td>—</td><td>80</td><td><span class="pb p1">第1周订货</span></td></tr>
+    <tr><td>多联机中央空调（约600HP分区控制）</td><td>全部</td><td>—</td><td>—</td><td>130</td><td><span class="pb p1">第1周订货</span></td></tr>
+    <tr><td>弱电综合（监控+门禁+网络+广播）</td><td>全部</td><td>—</td><td>—</td><td>60</td><td><span class="pb p2">第4~12周</span></td></tr>
+    <tr><td>景观·VI·标识系统</td><td>室外+公共</td><td>—</td><td>—</td><td>45</td><td><span class="pb p3">第12~18周</span></td></tr>
+    <tr class="sbt"><td colspan="4">设备系统小计</td><td>315</td><td></td></tr>
+    <tr class="tot"><td colspan="4" style="font-size:12px">★ 装修总造价（不含货架、税费、设计费）</td><td style="font-size:14px">约1,030万元</td><td></td></tr>
+    <tr style="background:#fef9c3"><td colspan="4" style="font-weight:600;color:#92400e">⚠ 追加：仓储货架+货梯安装调试</td><td style="font-weight:600;color:#92400e">+80~120万元</td><td></td></tr>
+    <tr style="background:#fff0f0"><td colspan="4" style="font-weight:600;color:#c53030">⚠ 追加：设计费（施工图深化+驻场）约造价3~5%</td><td style="font-weight:600;color:#c53030">+31~52万元</td><td></td></tr>
+    <tr style="background:#fff0f0"><td colspan="4" style="font-weight:600;color:#c53030">⚠ 追加：增值税（装修乙方9%，甲供材6%）</td><td style="font-weight:600;color:#c53030">+60~90万元</td><td></td></tr>
+    <tr class="tot" style="background:#7c3aed!important"><td colspan="4" style="font-size:12px;background:#7c3aed">★ 综合实际落地总费用区间（含税含设计含货架）</td><td style="font-size:14px;background:#7c3aed">约1,200~1,290万元</td><td style="background:#7c3aed"></td></tr>
+  </tbody>
+</table>
+
+<!-- ══ 专业审查意见 ══ -->
+<div style="margin-top:28px">
+<h3 style="font-size:15px;font-weight:700;color:#c53030;border-left:4px solid #c53030;padding-left:12px;margin-bottom:16px">🔍 专业审查意见（工程师视角）</h3>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px">
+
+<div style="border:1px solid #fca5a5;border-radius:8px;padding:16px;background:#fff5f5">
+  <h4 style="font-size:12px;font-weight:700;color:#c53030;margin-bottom:10px">🚨 高风险漏洞（必须在开工前解决）</h4>
+  <div style="font-size:10.5px;line-height:2.1;color:#374151">
+    <div>① <strong>2#楼板承重未确认</strong>：方案将2~3F规划为重型仓储（1,237m²×2层），若楼板承重低于1,000kg/m²，仓储方案将全部作废，货架安装后存在坍塌风险。<strong>须在签约前取得原始结构设计说明书</strong>，不可依赖口头承诺。</div>
+    <div>② <strong>消防验收状态未核实</strong>：三栋建筑消防系统由上一租户/业主遗留，喷淋、报警、应急照明是否通过验收、是否已过期，直接影响开工合法性与后续经营许可。</div>
+    <div>③ <strong>变压器容量未评估</strong>：2#装配双线、品控检测（10台检测台+精密仪器）、多联机600HP、IT机房精密空调，合计用电负荷预估≥1,200kVA，需向供电局申报增容，周期2~4个月，<strong>不在18周工期内</strong>。</div>
+    <div>④ <strong>食堂餐饮许可前置</strong>：1#西腿1F餐厅规划明档厨房，须取得食品经营许可证，厨房排烟管道需贯穿楼板引至屋面，涉及结构开洞审批，需提前60天申请。</div>
+  </div>
+</div>
+
+<div style="border:1px solid #fdba74;border-radius:8px;padding:16px;background:#fff7ed">
+  <h4 style="font-size:12px;font-weight:700;color:#c2410c;margin-bottom:10px">⚠ 中风险问题（影响造价或工期）</h4>
+  <div style="font-size:10.5px;line-height:2.1;color:#374151">
+    <div>⑤ <strong>18周工期严重乐观</strong>：1#顶翼4层精装修（约8,640m²毛）单独就需16~20周，叠加2#装配线、6#品控区、餐厅同时施工，多工种交叉作业需强力协调，<strong>建议调整为24~28周</strong>，或分期：先交付2# 1F（第8周），其余顺延。</div>
+    <div>⑥ <strong>600HP多联机造价低估</strong>：表中估算130万元，600HP多联机（约相当于1,800kW制冷量）市场价含安装约180~220万元，<strong>差额50~90万元需补列</strong>。</div>
+    <div>⑦ <strong>货梯数量与载重不足</strong>：2#共3层仓储，规划2台货梯，若单台载重1t，班组满载叉车（含托盘约1.5~2t）无法使用，建议<strong>至少1台载重≥3t的货运电梯</strong>，单台造价约35~50万。</div>
+    <div>⑧ <strong>IT机房造价严重低估</strong>：300m² IT机房含精密空调、防静电地板、UPS、机柜、综合布线，1,800元/m²只够基础装修，精密空调单独约60~80万，<strong>实际应为2,800~3,500元/m²</strong>。</div>
+  </div>
+</div>
+
+<div style="border:1px solid #86efac;border-radius:8px;padding:16px;background:#f0fdf4">
+  <h4 style="font-size:12px;font-weight:700;color:#15803d;margin-bottom:10px">✅ 方案亮点（值得保留）</h4>
+  <div style="font-size:10.5px;line-height:2.1;color:#374151">
+    <div>✓ <strong>仓储整合在2#内部</strong>：2~3F做仓储，解决了红线外用地问题，逻辑正确。</div>
+    <div>✓ <strong>装配线先行策略</strong>：第1~8周优先交付2# 1F装配线，最快速度恢复产能，现金流逻辑合理。</div>
+    <div>✓ <strong>6#品控独立</strong>：品控与装配分楼，避免交叉污染，符合ISO 9001洁净区管理要求。</div>
+    <div>✓ <strong>员工餐厅在1#西腿1F</strong>：位置居中，距离装配区和办公区均在步行5分钟内，动线合理。</div>
+    <div>✓ <strong>五行分区与功能吻合</strong>：北向管理（水主智慧）、东南生产（木主生发），在堪舆逻辑之外，功能分区本身也符合工厂管理人货分流原则。</div>
+  </div>
+</div>
+
+<div style="border:1px solid #c4b5fd;border-radius:8px;padding:16px;background:#f5f3ff">
+  <h4 style="font-size:12px;font-weight:700;color:#7c3aed;margin-bottom:10px">💡 专业建议补充</h4>
+  <div style="font-size:10.5px;line-height:2.1;color:#374151">
+    <div>A. <strong>先做EPC总包询价</strong>：装修+设备+货架打包EPC总包，可降低协调成本，总价可能比分包低5~8%。</div>
+    <div>B. <strong>建议增列：安全文明施工费</strong>（约工程造价1.5%=15万）、<strong>竣工验收检测费</strong>（消防+节能+室内空气质量，约8~12万）。</div>
+    <div>C. <strong>2#装配线地坪升级建议</strong>：金刚砂地坪（耐磨）是正确选择，但建议增加<strong>环氧耐油涂层</strong>（+15元/m²），防止生产中液压油渗入地面，后期清洁成本大幅降低。</div>
+    <div>D. <strong>1#顶翼4F露台防水</strong>：方案未提及，屋顶花园需做两道防水（聚氨酯+SBS），单独造价约120元/m²×800m²=9.6万元，需补列。</div>
+    <div>E. <strong>电梯订货周期风险</strong>：无机房货梯定制周期约12~16周，必须第1~2周完成选型签约，否则货梯成为工期关键路径，直接延误整体交付。</div>
+  </div>
+</div>
+
+</div>
+
+<div style="border:2px solid #c53030;border-radius:8px;padding:14px;background:#fff5f5;margin-top:8px">
+  <h4 style="font-size:12px;font-weight:700;color:#c53030;margin-bottom:8px">📊 修正后综合费用汇总</h4>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;font-size:10.5px">
+    <div style="background:#fff;border:1px solid #fca5a5;border-radius:6px;padding:10px;text-align:center">
+      <div style="font-size:18px;font-weight:700;color:#c53030">1,030</div>
+      <div style="color:#6b7280;margin-top:3px">万元·装修本体</div>
+    </div>
+    <div style="background:#fff;border:1px solid #fcd34d;border-radius:6px;padding:10px;text-align:center">
+      <div style="font-size:18px;font-weight:700;color:#d97706">+150</div>
+      <div style="color:#6b7280;margin-top:3px">万元·货架+货梯</div>
+    </div>
+    <div style="background:#fff;border:1px solid #fca5a5;border-radius:6px;padding:10px;text-align:center">
+      <div style="font-size:18px;font-weight:700;color:#c53030">+110</div>
+      <div style="color:#6b7280;margin-top:3px">万元·税费+设计</div>
+    </div>
+    <div style="background:#fef2f2;border:2px solid #c53030;border-radius:6px;padding:10px;text-align:center">
+      <div style="font-size:20px;font-weight:700;color:#c53030">≈1,290</div>
+      <div style="color:#c53030;font-weight:600;margin-top:3px">万元·落地总费用</div>
+    </div>
+  </div>
+  <div style="font-size:10px;color:#6b7280;margin-top:10px;line-height:1.8">
+    ⚠ 工期建议修正为<strong>24~28周</strong>（原18周不含增容申报、消防复验、电梯安装）· 
+    建议资金预备金≥<strong>150万元</strong>（应对楼板加固、增容电费、不可预见变更）·
+    强烈建议聘请<strong>驻场监理</strong>（约8~12万/项目），多栋同期施工风险极高
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// Global bridge object - declared first, before everything
+var _S={};
+var VIEWS={
+  bird:   {th:.55,ph:.42,rad:200,tx:-10,ty:8,tz:-10,   lb:'全景鸟瞰'},
+  north:  {th:Math.PI/2+.05,ph:.72,rad:60,tx:-78,ty:10,tz:30,  lb:'北门·主入口（西墙南段）'},
+  west:   {th:Math.PI-.05,ph:.7,rad:55,tx:50,ty:10,tz:-78,     lb:'西门·进货（北墙东侧）'},
+  street: {th:.08,ph:.74,rad:60,tx:-15,ty:6,tz:-15,  lb:'内街视角'},
+  corner: {th:.48,ph:.6,rad:65,tx:-48,ty:9,tz:-44, lb:'L型转角'},
+  lobby:  {th:Math.PI+.15,ph:.78,rad:16,tx:40,ty:5,tz:-53, lb:'接待大厅（内部）'},
+  office: {th:Math.PI/2,ph:.72,rad:14,tx:-53,ty:9,tz:0, lb:'研发办公层（内部）'},
+  factory:{th:Math.PI+.2,ph:.76,rad:20,tx:28,ty:5,tz:-35, lb:'2#装配车间（内部）'},
+  dining: {th:Math.PI/2-.1,ph:.74,rad:16,tx:-53,ty:5,tz:25, lb:'员工餐厅（内部）'},
+  exec:   {th:Math.PI+.3,ph:.76,rad:13,tx:-30,ty:9,tz:-53, lb:'高管办公（内部）'},
+};
+function gv(k,btn){
+  if(!_S.updCam)return;
+  var v=VIEWS[k];
+  _S.th=v.th;_S.ph=v.ph;_S.rad=v.rad;_S.tx=v.tx;_S.ty=v.ty;_S.tz=v.tz;
+  _S.updCam();
+  document.querySelectorAll('.btn3').forEach(function(b){b.classList.remove('on');});
+  if(btn)btn.classList.add('on');
+  var lbl=document.getElementById('vlabel3');
+  if(lbl){lbl.textContent=v.lb;lbl.style.opacity=1;setTimeout(function(){lbl.style.opacity=0;},2500);}
+}
+function toggleNight(btn){
+  if(!_S.scene)return;
+  _S.night=!_S.night;btn.classList.toggle('on',_S.night);
+  if(_S.night){
+    _S.scene.background.set(0x020510);_S.scene.fog.color.set(0x020510);
+    _S.amb.intensity=.08;_S.sun.intensity=.04;_S.fill2.intensity=.04;
+    _S.renderer.toneMappingExposure=1.6;
+    _S.M.gBlue.emissiveIntensity=.9;_S.M.gGreen.emissiveIntensity=.8;
+    _S.M.gWarm.emissiveIntensity=1.9;_S.M.gWhite.emissiveIntensity=1.1;
+    _S.M.sign.emissiveIntensity=1.8;_S.M.signW.emissiveIntensity=3;
+  } else {
+    _S.scene.background.set(0x0c1420);_S.scene.fog.color.set(0x0c1420);
+    _S.amb.intensity=.5;_S.sun.intensity=2.3;_S.fill2.intensity=.3;
+    _S.renderer.toneMappingExposure=1.08;
+    _S.M.gBlue.emissiveIntensity=.1;_S.M.gGreen.emissiveIntensity=.08;
+    _S.M.gWarm.emissiveIntensity=.32;_S.M.gWhite.emissiveIntensity=.18;
+    _S.M.sign.emissiveIntensity=.7;_S.M.signW.emissiveIntensity=1.4;
+  }
+}
+function show(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('#nav a').forEach(a=>a.classList.remove('act'));
+  if(el)el.classList.add('act');
+  if(id==='page3d')initScene();
+  return false;
+}
+function showB(id,el){
+  ['b18','b14','b10'].forEach(b=>{const e=document.getElementById(b);if(e)e.style.display='none';});
+  const t=document.getElementById(id);if(t)t.style.display='block';
+  document.querySelectorAll('.btab').forEach(b=>b.classList.remove('act'));
+  if(el)el.classList.add('act');
+}
+let sceneInited=false,renderer,camera;
+function initScene(){
+  if(sceneInited)return;sceneInited=true;
+const cv=document.getElementById('c3d');
+const renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true});
+const _cw=document.getElementById('canvas3d-wrap');renderer.setSize(_cw?_cw.clientWidth:window.innerWidth,_cw?_cw.clientHeight:window.innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.08;
+
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x0c1420);
+scene.fog=new THREE.FogExp2(0x0c1420,.0011);
+const camera=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,.3,2000);
+
+// Lights
+const amb=new THREE.AmbientLight(0x445577,.5);scene.add(amb);
+const sun=new THREE.DirectionalLight(0xfff8e8,2.3);
+sun.position.set(-80,140,60);sun.castShadow=true;
+const sc=sun.shadow.camera;
+sc.near=1;sc.far=700;sc.left=-200;sc.right=200;sc.top=200;sc.bottom=-200;
+sun.shadow.mapSize.set(4096,4096);sun.shadow.bias=-.0003;scene.add(sun);
+const fill1=new THREE.DirectionalLight(0x7799cc,.3);fill1.position.set(80,50,-60);scene.add(fill1);
+const fill2=new THREE.DirectionalLight(0x7799cc,.3);fill2.position.set(80,50,-60);scene.add(fill2);
+scene.add(new THREE.HemisphereLight(0x334488,0x223322,.22));
+
+// ── Material helpers ──────────────────────────────────────────
+const M={};
+function sm(c,m,r){return new THREE.MeshStandardMaterial({color:c,metalness:m,roughness:r});}
+function gm(c,m,r,o,ec,ei){
+  const mat=new THREE.MeshStandardMaterial({color:c,metalness:m,roughness:r,transparent:true,opacity:o,side:THREE.DoubleSide});
+  if(ec!=null){mat.emissive=new THREE.Color(ec);mat.emissiveIntensity=ei;}
+  return mat;
+}
+// Exterior
+M.stone=sm(0xc0b49a,.05,.82);   // beige stone panels
+M.stoneD=sm(0x8a8278,.06,.80);  // darker band
+M.facade=sm(0x72787f,.1,.76);   // grey facade body 18#
+M.alum=sm(0x282e35,.72,.28);
+M.roof=sm(0x18202e,.4,.72);
+M.roofTl=sm(0x1e2a3a,.32,.75);
+// Glass
+M.gClear=gm(0x6699bb,.88,.08,.55,null,0);
+M.gBlue=gm(0x3355aa,.88,.07,.58,0x1a3066,.1);
+M.gGreen=gm(0x2a5540,.85,.08,.55,0x0a2015,.08);
+M.gWarm=gm(0xddaa44,.88,.06,.65,0xff9922,.32);
+M.gWhite=gm(0xddeeff,.85,.05,.6,0x8899cc,.18);
+// Ground
+M.gnd=sm(0x171f2c,0,.95);
+M.asph=sm(0x20262f,0,.93);
+M.pave=sm(0x363d4b,0,.88);
+M.grass=sm(0x193b1e,0,.95);
+// Interior
+M.iWall=sm(0xf2efe8,.01,.55);
+M.iWallB=sm(0xe8f0f8,.02,.5);   // blue accent wall
+M.iWallG=sm(0xe8f2ea,.02,.5);   // green accent wall
+M.iFloor=sm(0xd0cbc0,.06,.6);   // marble
+M.iFloorD=sm(0x242c38,.1,.75);  // dark factory floor
+M.iCeil=sm(0x252e3c,.12,.82);
+M.iCeilW=sm(0xf0eee8,.02,.65);  // white suspended ceiling
+M.iGlass=gm(0x88aacc,.75,.15,.38,null,0);
+// Furniture
+M.fBlue=sm(0x1e3a8a,.1,.4);
+M.fNvy=sm(0x0f2860,.12,.45);
+M.fOrange=sm(0xc2410c,.1,.45);
+M.fGold=sm(0x92400e,.1,.5);
+M.fGrey=sm(0x3a4555,.2,.5);
+M.fWhite=sm(0xfafafa,0,.35);
+M.fBeige=sm(0xe8e0d0,.02,.55);
+M.fWood=sm(0x8b6340,.05,.65);
+M.metal=sm(0x55606a,.55,.38);
+M.redPipe=new THREE.MeshStandardMaterial({color:0xcc2020,emissive:0x660000,emissiveIntensity:.25});
+M.green2=sm(0x1a4a22,.01,.95);
+// Signs
+M.sign=new THREE.MeshStandardMaterial({color:0x0c2460,emissive:0x1a3a99,emissiveIntensity:.7});
+M.signW=new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xffffff,emissiveIntensity:1.4});
+M.signG=new THREE.MeshStandardMaterial({color:0x0a3a20,emissive:0x0a6030,emissiveIntensity:.5});
+M.wall=sm(0x252d3c,.05,.85);
+M.conc=sm(0x787e8a,.04,.85);
+M.yel=new THREE.MeshStandardMaterial({color:0xddcc00,emissive:0x886600,emissiveIntensity:.25});
+M.can=gm(0x88aabb,.7,.15,.4,null,0);
+M.canF=sm(0x44505a,.55,.4);
+M.lmpG=new THREE.MeshStandardMaterial({color:0xfff8cc,emissive:0xfff5aa,emissiveIntensity:3});
+
+// ── Geometry helper ───────────────────────────────────────────
+function bx(w,h,d,mat,x,y,z,ry=0){
+  const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);
+  m.position.set(x,y,z);if(ry)m.rotation.y=ry;
+  m.castShadow=true;m.receiveShadow=true;scene.add(m);return m;
+}
+function cyl(rt,rb,h,seg,mat,x,y,z,ry=0){
+  const m=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg),mat);
+  m.position.set(x,y,z);if(ry)m.rotation.y=ry;m.castShadow=true;scene.add(m);return m;
+}
+function sph(r,mat,x,y,z){
+  const m=new THREE.Mesh(new THREE.SphereGeometry(r,8,6),mat);
+  m.position.set(x,y,z);m.castShadow=true;scene.add(m);return m;
+}
+function pt(x,y,z,col,int,dist){
+  const l=new THREE.PointLight(col,int,dist);l.position.set(x,y,z);scene.add(l);return l;
+}
+function spot(x,y,z,tx,ty,tz,col,int,ang){
+  const l=new THREE.SpotLight(col,int,40,ang,.5);
+  l.position.set(x,y,z);l.target.position.set(tx,ty,tz);
+  scene.add(l);scene.add(l.target);return l;
+}
+
+// ══════════════════════════════════════════════════════
+// COORDINATE SYSTEM (matches CAD / real layout):
+//   North = -Z,  South = +Z
+//   West  = -X,  East  = +X
+//   Up    = +Y
+//
+// Site bounding box: X: -90 to +90,  Z: -90 to +90
+// Red line inner:    X: -80 to +80,  Z: -80 to +80
+//
+// 1# TOP WING: along north edge, spans full width
+//   Center: X=0,  Z=-62,  Width=130, Depth=18, H=18
+// 1# WEST LEG: along west edge, spans height
+//   Center: X=-62, Z=-10,  Width=18, Depth=80, H=18
+// Corner junction: X=-62, Z=-62 (top-left)
+//
+// CORRECTED per CAD:
+// 2# (装配厂房) = NORTH standalone, east of internal road
+//   Center: X=28, Z=-35  Width=44, Depth=22
+// 6# (品控厂房) = SOUTH standalone, south of fire lane
+//   Center: X=28, Z=22   Width=44, Depth=22
+// E-W fire road between 2# and 6#: Z=-5 to +5
+// N-S internal road (between 1# and 2#/6#): X=-5 to +5
+//
+// GATES (corrected per CAD):
+// 北门(主入口): WEST WALL, Z=-35 (正对N-S internal road → 2#)
+// 西门(进货):  NORTH WALL, X=10 (正对E-W road between 1# and 2#)
+// ══════════════════════════════════════════════════════
+
+const FH=4.5; // floor height
+const H18=FH*4; // 18m  (4 floors)
+const H14=FH*3; // 13.5m (3 floors)
+
+// ── GROUND ───────────────────────────────────────────────────
+bx(240,.4,240,M.gnd,0,-.2,0);
+bx(160,.3,120,M.pave,10,.15,0);   // courtyard paving
+bx(180,.28,12,M.asph,0,.14,-74);  // north road
+bx(12,.28,180,M.asph,-74,.14,0);  // west road
+bx(10,.28,80,M.asph,0,.14,-10);   // N-S internal road (between 1# and 2#/6#)
+bx(80,.28,10,M.asph,28,.14,-5);   // E-W fire road (between 2# and 6#)
+bx(60,.28,5,M.grass,-30,.14,50);  // south green strip
+bx(8,.28,80,M.grass,-50,.14,-10); // west courtyard green
+
+// ── 18# L-SHAPE (NORTHWEST CORNER) ──────────────────────────
+// TOP WING: east-west along north, x:-71 to +59, z:-53 to -35
+const TWX=0, TWZ=-53, TWW=130, TWD=18;
+
+// Main body
+bx(TWW,H18,TWD,M.facade,TWX,H18/2,TWZ);
+
+// Stone cladding + window system
+for(let f=0;f<4;f++){
+  const by=f*FH;
+  bx(TWW,.9,TWD+.3,M.stone,TWX,by+.45,TWZ);       // floor sill band
+  bx(TWW,.45,TWD+.3,M.stoneD,TWX,by+FH-.28,TWZ);  // lintel band
+  const gy=by+FH*.52;
+  const gh=FH-1.5;
+  const gw=TWW-2;
+  const gmat=f===0?M.gClear:(f===3?M.gWhite:M.gBlue);
+  bx(gw,f===0?FH-.9:gh,.18,gmat,TWX,f===0?by+FH*.5+.2:gy,TWZ-TWD/2-.09);
+  bx(gw,f===0?FH-.9:gh,.18,gmat,TWX,f===0?by+FH*.5+.2:gy,TWZ+TWD/2+.09);
+}
+// Vertical pilasters
+for(let x=-62;x<=62;x+=10){
+  bx(.9,H18+.5,.55,M.stone,x,H18/2,TWZ-TWD/2-.28);
+  bx(.9,H18+.5,.55,M.stone,x,H18/2,TWZ+TWD/2+.28);
+}
+bx(.9,H18+.3,TWD+.6,M.stone,-TWW/2-.1,H18/2,TWZ);
+bx(.9,H18+.3,TWD+.6,M.stone,TWW/2+.1,H18/2,TWZ);
+bx(TWW+.3,.8,TWD+.3,M.facade,TWX,H18+.4,TWZ);
+bx(TWW+1,.7,TWD+1,M.roof,TWX,H18+.35,TWZ);
+// Roof equipment
+bx(16,1.8,5,M.conc,20,H18+1.2,TWZ);
+bx(10,1.4,5,M.conc,-20,H18+1.0,TWZ);
+bx(7,2.0,4,M.conc,50,H18+1.3,TWZ);
+bx(6,1.6,4,M.conc,-45,H18+1.1,TWZ);
+
+// WEST LEG: north-south along west, x:-53 to -35, z:-53 to +37
+const WLX=-53, WLZ=-5, WLD=90, WLW=18;
+
+bx(WLW,H18,WLD,M.facade,WLX,H18/2,WLZ);
+
+for(let f=0;f<4;f++){
+  const by=f*FH;
+  bx(WLW+.3,.9,WLD,M.stone,WLX,by+.45,WLZ);
+  bx(WLW+.3,.45,WLD,M.stoneD,WLX,by+FH-.28,WLZ);
+  const gy=by+FH*.52;
+  const gh=FH-1.5;
+  // West face: 1F warm(dining), 2~3F green(research), 4F blue
+  const gwm=f===0?M.gWarm:(f===3?M.gBlue:M.gGreen);
+  bx(.18,f===0?FH-.9:gh,WLD-2,gwm,WLX-WLW/2-.09,f===0?by+FH*.5+.2:gy,WLZ);
+  bx(.18,f===0?FH-.9:gh,WLD-2,gwm,WLX+WLW/2+.09,f===0?by+FH*.5+.2:gy,WLZ);
+}
+for(let z=-48;z<=38;z+=10){
+  bx(.8,H18+.5,.55,M.stone,WLX-WLW/2-.28,H18/2,z);
+  bx(.8,H18+.5,.55,M.stone,WLX+WLW/2+.28,H18/2,z);
+}
+bx(WLW+.5,.9,.6,M.stone,WLX,H18/2,-WLD/2+WLZ-.28);
+bx(WLW+.5,.9,.6,M.stone,WLX,H18/2, WLD/2+WLZ+.28);
+bx(WLW+.3,.8,WLD,M.facade,WLX,H18+.4,WLZ);
+bx(WLW+1,.7,WLD+1,M.roof,WLX,H18+.35,WLZ);
+bx(6,1.9,6,M.conc,WLX,H18+1.25,WLZ);
+bx(8,1.5,5,M.conc,WLX,H18+1.05,WLZ+20);
+
+// Corner: fill NW corner seamlessly
+bx(WLW,H18,TWD,M.facade,WLX,H18/2,TWZ);
+bx(WLW+1,.7,TWD+1,M.roof,WLX,H18+.35,TWZ);
+// Corner glazing feature (arc glass panel)
+bx(.3,H18,7,M.gClear,WLX+WLW/2+.1,H18/2,TWZ+TWD/2+3.5);
+
+// Small entrance canopies at key doorways (south face of top wing)
+for(let cx of [-55,-30,0,30,55]){
+  bx(8,.15,3,M.can,cx,FH+.1,TWZ+TWD/2+1.5);
+  bx(8,.18,.2,M.canF,cx,FH-.06,TWZ+TWD/2+.3);
+}
+
+// Brand signage on north facade (top wing)
+bx(26,2.6,.3,M.sign,30,H18-2,TWZ-TWD/2-.15);
+bx(18,.7,.35,M.signW,30,H18-1.8,TWZ-TWD/2-.3);
+
+// ── 2# STANDALONE (NORTH, east of internal road) ─────────
+// CAD corrected: 2# is north standalone building, center at X=28, Z=-35
+const P14X=28, P14Z=-35, PW=44, PD=22;
+
+bx(PW,H14,PD,M.stone,P14X,H14/2,P14Z);
+for(let f=0;f<3;f++){
+  const by=f*FH;
+  bx(PW+.2,.8,PD+.2,M.stone,P14X,by+.4,P14Z);
+  bx(PW+.2,.4,PD+.2,M.stoneD,P14X,by+FH-.3,P14Z);
+  const gy=by+FH*.52; const gh=FH-1.4;
+  const gm2=f===0?M.gClear:M.gBlue;
+  bx(PW-3,f===0?FH-.9:gh,.18,gm2,P14X,f===0?by+FH*.48:gy,P14Z-PD/2-.09);
+  bx(PW-3,f===0?FH-.9:gh,.18,gm2,P14X,f===0?by+FH*.48:gy,P14Z+PD/2+.09);
+}
+for(let x=-18;x<=18;x+=9){
+  bx(.7,H14,.5,M.stoneD,P14X+x,H14/2,P14Z-PD/2-.22);
+  bx(.7,H14,.5,M.stoneD,P14X+x,H14/2,P14Z+PD/2+.22);
+}
+bx(.7,H14,PD+.5,M.stone,P14X-PW/2-.1,H14/2,P14Z);
+bx(.7,H14,PD+.5,M.stone,P14X+PW/2+.1,H14/2,P14Z);
+// Stair tower
+bx(7,H14+1.5,PD+1,M.stone,P14X,H14*.5+.75,P14Z);
+bx(5,H14+1.2,.2,M.gBlue,P14X,H14*.5+.5,P14Z-PD/2-.18);
+bx(5,H14+1.2,.2,M.gBlue,P14X,H14*.5+.5,P14Z+PD/2+.18);
+// Gable roof 14#
+const cg=new THREE.CylinderGeometry(0,1,1,4);
+const gm14=new THREE.Mesh(cg,M.roofTl);
+gm14.position.set(P14X,H14+3.8,P14Z);gm14.scale.set(PW*.54,7,PD*.58);
+gm14.rotation.y=Math.PI/4;gm14.castShadow=true;scene.add(gm14);
+bx(5,3,.2,M.gClear,P14X,H14+1.6,P14Z-PD/2-.12);
+bx(5,3,.2,M.gClear,P14X,H14+1.6,P14Z+PD/2+.12);
+// Loading doors (facing west toward fire road)
+bx(4,4.5,.22,M.alum,P14X-14,2.25,P14Z-PD/2-.12);
+bx(4,4.5,.22,M.alum,P14X-6,2.25,P14Z-PD/2-.12);
+bx(4,4.5,.22,M.alum,P14X+5,2.25,P14Z-PD/2-.12);
+// Entry canopy south
+bx(PW*.7,.18,3,M.can,P14X,3.8,P14Z-PD/2-1.5);
+
+// ── 6# STANDALONE (SOUTH of fire lane, same X band) ────────────────
+// CAD corrected: 6# is south standalone, center at X=28, Z=22
+const P10X=28, P10Z=48, QW=44, QD=22;
+
+bx(QW,H14,QD,M.stone,P10X,H14/2,P10Z);
+for(let f=0;f<3;f++){
+  const by=f*FH;
+  bx(QW+.2,.8,QD+.2,M.stone,P10X,by+.4,P10Z);
+  bx(QW+.2,.4,QD+.2,M.stoneD,P10X,by+FH-.3,P10Z);
+  const gy=by+FH*.52; const gh=FH-1.4;
+  bx(QW-3,f===0?FH-.9:gh,.18,f===0?M.gClear:M.conc,P10X,f===0?by+FH*.48:gy,P10Z-QD/2-.09);
+  bx(QW-3,f===0?FH-.9:gh,.18,f===0?M.gClear:M.conc,P10X,f===0?by+FH*.48:gy,P10Z+QD/2+.09);
+}
+for(let x=-13;x<=13;x+=9){
+  bx(.7,H14,.5,M.stoneD,P10X+x,H14/2,P10Z-QD/2-.22);
+  bx(.7,H14,.5,M.stoneD,P10X+x,H14/2,P10Z+QD/2+.22);
+}
+bx(.7,H14,QD+.5,M.stone,P10X-QW/2-.1,H14/2,P10Z);
+bx(.7,H14,QD+.5,M.stone,P10X+QW/2+.1,H14/2,P10Z);
+bx(5,H14+1.2,QD+1,M.stone,P10X,H14*.5+.4,P10Z);
+bx(4,H14+1,.2,M.conc,P10X,H14*.5+.4,P10Z-QD/2-.18);
+const gm10=new THREE.Mesh(cg,M.roofTl);
+gm10.position.set(P10X,H14+3.4,P10Z);gm10.scale.set(QW*.52,6.5,QD*.56);
+gm10.rotation.y=Math.PI/4;gm10.castShadow=true;scene.add(gm10);
+bx(4,2.6,.2,M.gClear,P10X,H14+1.4,P10Z-QD/2-.12);
+bx(4,2.6,.2,M.gClear,P10X,H14+1.4,P10Z+QD/2+.12);
+bx(4,4.5,.22,M.alum,P10X-8,2.25,P10Z-QD/2-.12);
+bx(4,4.5,.22,M.alum,P10X+4,2.25,P10Z-QD/2-.12);
+bx(QW*.65,.18,3,M.can,P10X,3.8,P10Z-QD/2-1.5);
+
+// ══ PERIMETER WALLS ════════════════════════════════════════
+bx(200,2.5,.5,M.wall,0,1.25,-83);   // north wall
+bx(.5,2.5,200,M.wall,-83,1.25,0);   // west wall
+bx(200,2.5,.5,M.wall,0,1.25,83);    // south wall
+bx(.5,2.5,200,M.wall,83,1.25,0);    // east wall
+
+// ══ NORTH GATE / 北门·主入口 (西围墙, 正对内部南北车道) ══
+// Per CAD: Main gate is on WEST wall, aligned with N-S internal road (Z≈-35)
+const NGX_W=-83, NGZ=30;  // 北门·西围墙南段 Z=+30
+bx(2.5,7,2.5,M.stone,NGX_W,3.5,NGZ-7);
+bx(2.5,7,2.5,M.stone,NGX_W,3.5,NGZ+7);
+bx(.45,.45,16,M.alum,NGX_W,7,NGZ);
+bx(.35,2,10,M.sign,NGX_W-0.2,5.8,NGZ);
+bx(.4,.55,7,M.signW,NGX_W-0.38,5.8,NGZ);
+pt(NGX_W,8,NGZ,0xfff5bb,3,28);
+sph(.32,M.lmpG,NGX_W,7.3,NGZ-7);sph(.32,M.lmpG,NGX_W,7.3,NGZ+7);
+// Guardhouse
+bx(3,3.2,4,M.stone,-79,1.6,NGZ-11);
+bx(3.1,.2,4.1,M.roof,-79,3.3,NGZ-11);
+bx(1.4,1.2,.15,M.gClear,-77.5,1.8,NGZ-11);
+// Driveway markings (east-west, from gate into site)
+bx(10,.3,.35,M.yel,-68,.15,NGZ-2);
+bx(10,.3,.35,M.yel,-68,.15,NGZ+2);
+
+// ══ WEST GATE / 西门·进货 (北围墙, 正对内部东西车道) ═══════════════
+// Per CAD: Goods gate is on NORTH wall, aligned with E-W road (X≈10)
+const WGX=50, WGZ_N=-83;  // 西门·北围墙东侧 X=+50
+bx(2.5,6,2.5,M.stone,WGX-7,3,WGZ_N);
+bx(2.5,6,2.5,M.stone,WGX+7,3,WGZ_N);
+bx(16,.4,.4,M.alum,WGX,6,WGZ_N);
+bx(10,1.8,.3,M.sign,WGX,4.8,WGZ_N-0.2);
+bx(7,.55,.35,M.signW,WGX,4.8,WGZ_N-0.38);
+pt(WGX,6.5,WGZ_N,0xfff5bb,2.8,22);
+sph(.28,M.lmpG,WGX-7,6.5,WGZ_N);sph(.28,M.lmpG,WGX+7,6.5,WGZ_N);
+// Guardhouse
+bx(3,3,3.5,M.stone,WGX-11,1.5,WGZ_N+5);
+bx(3.1,.2,3.6,M.roof,WGX-11,3.1,WGZ_N+5);
+// West gate driveway (south into site from north wall, X=50)
+bx(.35,.3,10,M.yel,WGX-2,.15,-68);
+bx(.35,.3,10,M.yel,WGX+2,.15,-68);
+
+// ════════════════════════════════════════════════════════════
+// INTERIORS — real walkable rooms with full decoration
+// ════════════════════════════════════════════════════════════
+
+// ── [A] 接待大厅 (18# top wing 1F east, 管理入口) ──────────
+const LBX=40, LBZ=TWZ, LBW=28, LBD=16;
+// Floor — white marble
+bx(LBW,.15,LBD,M.iFloor,LBX,.08,LBZ);
+// Ceiling — high coffered
+bx(LBW,.18,LBD,M.iCeilW,LBX,FH-.08,LBZ);
+// Walls interior
+bx(.15,FH-1,LBD,M.iWallB,LBX-LBW/2+.2,FH/2,LBZ); // west wall accent blue
+bx(.15,FH-1,LBD,M.iWall, LBX+LBW/2-.2,FH/2,LBZ); // east wall
+bx(LBW,.15,LBD,M.iWall, LBX,FH*.3,LBZ-LBD/2+.2); // back wall (north)
+// Reception desk
+bx(9,.95,2.2,M.fNvy,LBX,0.47,LBZ+3);
+bx(9,.15,2.2,M.fWhite,LBX,0.97,LBZ+3);
+bx(3.5,.55,.5,M.fBlue,LBX-2,0.55,LBZ+2.2); // monitor stands
+bx(1.2,.08,.9,M.fWhite,LBX-2,0.56,LBZ+2.2);
+// Brand wall backdrop
+bx(.18,FH-1,LBD*.7,M.sign,LBX-LBW/2+.25,FH*.45,LBZ);
+bx(9,1.6,.2,M.signW,LBX-LBW/2+.3,FH*.8-0.3,LBZ);
+// Pendant lights
+for(let lx=-6;lx<=6;lx+=6){
+  const ly=FH-.45;
+  bx(.08,1.5,.08,M.metal,LBX+lx,ly+.75,LBZ);
+  sph(.28,M.lmpG,LBX+lx,ly,LBZ);
+  pt(LBX+lx,ly,LBZ,0xfff8ee,1.2,10);
+}
+// Sofa cluster
+bx(4,.45,1.8,M.fBlue,LBX+7,0.23,LBZ-3);
+bx(4,.45,1.8,M.fBlue,LBX+7,0.23,LBZ-5);
+bx(1.8,.8,.4,M.fBlue,LBX+5.2,0.4,LBZ-4);
+bx(1.8,.45,1.8,M.fBeige,LBX+7,0.4,LBZ-3.5);
+// Coffee table
+bx(1.6,.35,1.0,M.fWood,LBX+7,0.18,LBZ-4.4);
+// Indoor plants
+cyl(.15,0,1.8,6,sm(0x2a4a2a,.02,.8),LBX+9,0.9,LBZ-6);
+sph(1.1,M.green2,LBX+9,1.9+1.1,LBZ-6);
+cyl(.15,0,1.6,6,sm(0x2a4a2a,.02,.8),LBX+9,0.8,LBZ+5);
+sph(.9,M.green2,LBX+9,1.7+.9,LBZ+5);
+// Columns
+bx(1,FH,1,M.iWall,LBX-5,FH/2,LBZ);
+bx(1,FH,1,M.iWall,LBX+5,FH/2,LBZ);
+// Signage above entry
+bx(10,1.2,.18,M.sign,LBX-5,FH*.88,LBZ+LBD/2-.3);
+
+// ── [B] 高管办公 (18# top wing 3F, west section) ──────────
+const EXX=-30, EXZ=TWZ, EXW=22, EXD=15;
+const EXY=FH*2; // 3F floor
+bx(EXW,.15,EXD,sm(0xc8b87a,.06,.6),EXX,EXY+.08,EXZ);  // wood floor
+bx(EXW,.18,EXD,M.iCeilW,EXX,EXY+FH-.08,EXZ);
+// Partition walls
+bx(.15,FH-1,EXD,M.iWall,EXX-EXW/2+.2,EXY+FH/2,EXZ);
+bx(.15,FH-1,EXD,M.iGlass,EXX+EXW/2-.2,EXY+FH/2,EXZ);
+// Executive desk
+bx(5,1,2.5,M.fWood,EXX-5,EXY+.5,EXZ);
+bx(5,.08,2.5,M.fBeige,EXX-5,EXY+1.04,EXZ);
+bx(1.5,.06,1.2,M.metal,EXX-5,EXY+1.1,EXZ-0.5);  // laptop
+bx(3,.4,1.5,M.fBlue,EXX-5,EXY+.2,EXZ+1.8);  // exec chair
+// Bookshelf wall
+bx(.25,FH-1.2,EXD*.8,M.fWood,EXX+EXW/2-.4,EXY+FH*.45,EXZ);
+for(let s=0;s<4;s++) bx(.1,.06,EXD*.7,M.metal,EXX+EXW/2-.3,EXY+1+s*0.9,EXZ);
+// Meeting table side
+bx(4,.72,2,M.fWood,EXX+5,EXY+.36,EXZ);
+for(let c=-1;c<=1;c+=2) bx(1,.4,1,M.fBlue,EXX+5,EXY+.2,EXZ+c*1.5);
+// Window view wall (south)
+bx(EXW,.18,EXD,M.iWall,EXX,EXY+.4,EXZ+EXD/2-.2);
+// Ceiling light
+bx(EXW*.7,.05,EXD*.7,sm(0xfff8ee,.1,.5),EXX,EXY+FH-.12,EXZ);
+pt(EXX,EXY+FH-.5,EXZ,0xfff8ee,1.5,15);
+// Plant corner
+cyl(.12,0,1.4,6,sm(0x3a4a2a,.02,.85),EXX-8,EXY+.7,EXZ-5);
+sph(.8,M.green2,EXX-8,EXY+1.5+.8,EXZ-5);
+// Award plaques on wall
+for(let i=0;i<3;i++) bx(1.2,.9,.08,M.sign,EXX-7+i*3,EXY+2.8,EXZ-EXD/2+.3);
+
+// ── [C] 集中办公室 (18# west leg 2F) ──────────────────────
+const OFX=WLX, OFZ=0, OFW=15, OFD=50;
+const OFY=FH; // 2F
+bx(OFW,.15,OFD,M.iFloor,OFX,OFY+.08,OFZ);
+bx(OFW,.18,OFD,M.iCeilW,OFX,OFY+FH-.08,OFZ);
+// Partition glass walls
+for(let z=-18;z<=18;z+=12) bx(.12,FH*.65,OFW-.5,M.iGlass,OFX,OFY+FH*.33,z);
+// Desk pods (4-person pods)
+for(let pz=-20;pz<=20;pz+=10){
+  for(let px=-3;px<=3;px+=6){
+    bx(2.8,.72,1.4,M.fWhite,OFX+px,OFY+.36,OFZ+pz);
+    bx(2.8,.06,1.4,M.metal,OFX+px,OFY+.75,OFZ+pz);
+    bx(.9,.4,.5,M.fBlue,OFX+px,OFY+.2,OFZ+pz+1.1);
+  }
+}
+// Central aisle
+bx(.3,.3,OFD,sm(0x88aacc,.1,.7),OFX,OFY+.15,OFZ);
+// Pendant strip lights
+for(let z=-22;z<=22;z+=8){
+  bx(OFW*.7,.06,.2,sm(0xfff8cc,.15,.5),OFX,OFY+FH-.25,OFZ+z);
+  pt(OFX,OFY+FH-.35,OFZ+z,0xddeeff,.7,16);
+}
+// Whiteboard end wall
+bx(.18,FH*.6,OFW*.8,sm(0xf0f4f8,.05,.35),OFX,OFY+FH*.3,OFZ-OFD/2+.3);
+
+// ── [D] 装配车间 (2# 1F full floor) ──────────────────────
+const FAX=P14X, FAZ=P14Z;
+bx(PW,.15,PD,M.iFloorD,FAX,.08,FAZ);
+// Assembly line A (main, parallel to Z axis)
+bx(PW-4,.82,.9,M.metal,FAX,.41,FAZ-5);
+bx(PW-4,.06,.9,M.fOrange,FAX,.88,FAZ-5);
+// Assembly line B
+bx(PW-4,.82,.9,M.metal,FAX,.41,FAZ+5);
+bx(PW-4,.06,.9,M.fOrange,FAX,.88,FAZ+5);
+// Workstations on line A
+for(let x=FAX-14;x<=FAX+14;x+=4){
+  bx(.7,1.1,.7,M.fGrey,x,.55,FAZ-7.2);
+  bx(.5,.06,.5,sm(0x88ccff,.8,.15),x,1.15,FAZ-7.2);// screen
+  bx(.7,1.1,.7,M.fGrey,x,.55,FAZ+7.2);
+}
+// Red pipe infrastructure (matches photos)
+bx(PW-2,.2,.2,M.redPipe,FAX,FH*.75,FAZ);
+bx(.2,.2,PD-2,M.redPipe,FAX-PW/3,FH*.7,FAZ);
+bx(.2,.2,PD-2,M.redPipe,FAX+PW/3,FH*.7,FAZ);
+// Drop pipe connections
+for(let x=FAX-12;x<=FAX+12;x+=6) bx(.2,FH*.6,.2,M.redPipe,x,FH*.4,FAZ-1);
+// Industrial ceiling
+bx(PW,.18,PD,M.iCeil,FAX,FH-.08,FAZ);
+// Factory lights
+for(let x=FAX-12;x<=FAX+12;x+=8){
+  sph(.4,M.lmpG,x,FH-.35,FAZ-5); pt(x,FH-.45,FAZ-5,0xffffff,1.4,14);
+  sph(.4,M.lmpG,x,FH-.35,FAZ+5); pt(x,FH-.45,FAZ+5,0xffffff,1.4,14);
+}
+// Forklift charging
+bx(3.5,1.6,2,M.fGrey,FAX+16,0.8,FAZ+8);
+bx(3.5,.08,2,sm(0xffcc00,.3,.5),FAX+16,1.64,FAZ+8);
+// Safety yellow floor lines
+bx(PW,.1,.2,M.yel,FAX,.1,FAZ-3);
+bx(PW,.1,.2,M.yel,FAX,.1,FAZ+3);
+// Fire extinguisher station
+bx(.5,1,.3,M.redPipe,FAX-PW/2+1,0.5,FAZ-PD/2+1);
+
+// ── [E] 员工餐厅 (18# west leg 1F south section) ──────────
+const DNX=WLX, DNZ=20, DNW=15, DND=28;
+bx(DNW,.15,DND,sm(0xe8e2d8,.04,.55),DNX,0.08,DNZ);  // warm floor
+bx(DNW,.18,DND,M.iCeilW,DNX,FH-.08,DNZ);
+// Round tables
+for(let z=10;z<=30;z+=5){
+  for(let dx=-3;dx<=3;dx+=6){
+    bx(1.8,.05,1.8,M.fWhite,DNX+dx,0.71,z);
+    cyl(.04,.04,.71,6,M.metal,DNX+dx,0.36,z);
+    for(let ang=0;ang<Math.PI*2;ang+=Math.PI/2){
+      const cx=DNX+dx+Math.cos(ang)*1.1,cz=z+Math.sin(ang)*1.1;
+      bx(.62,.36,.54,M.fGold,cx,.18,cz);
+      bx(.08,.45,.08,M.metal,cx-Math.cos(ang)*.3,.23+.23,cz-Math.sin(ang)*.3);
+    }
+  }
+}
+// Counter / kitchen partition
+bx(DNW,.92,.35,M.stoneD,DNX,.46,DNZ-DND/2+2);
+bx(DNW,.15,.35,M.metal,DNX,.99,DNZ-DND/2+2);
+// Menu boards
+for(let i=-4;i<=4;i+=4) bx(2.5,1.5,.15,sm(0x1a2a3a,.2,.5),DNX+i,3.2,DNZ-DND/2+.2);
+bx(DNW,.1,.35,sm(0xffdd66,.6,.4),DNX,3.25,DNZ-DND/2+.22);  // menu light
+// Warm pendant lights
+for(let z=10;z<=30;z+=7){
+  bx(.06,1.4,.06,M.metal,DNX,FH-.25,z);
+  sph(.3,new THREE.MeshStandardMaterial({color:0xffee88,emissive:0xffcc44,emissiveIntensity:2.5}),DNX,FH-.6,z);
+  pt(DNX,FH-.7,z,0xffbb44,1.8,14);
+}
+// Plants near windows
+cyl(.12,0,1.6,6,sm(0x3a4a20,.02,.9),DNX-5,0.8,DNZ+10);
+sph(1.0,M.green2,DNX-5,1.7,DNZ+10);
+cyl(.12,0,1.8,6,sm(0x3a4a20,.02,.9),DNX+5,0.9,DNZ+12);
+sph(1.1,M.green2,DNX+5,1.9,DNZ+12);
+// Wall accent stripe (dining warmth)
+bx(.18,FH*.4,DND,sm(0xc87020,.1,.5),DNX+DNW/2-.25,FH*.2,DNZ);
+
+// Interior ambient point lights (all consts now defined)
+pt(LBX,FH*.6,LBZ,0xfff5ee,1.5,18);   // lobby
+pt(EXX,EXY+FH*.5,EXZ,0xfff8e8,1.2,14); // exec office
+pt(OFX,OFY+FH*.5,OFZ,0xddeeff,1.0,20); // open office
+pt(FAX,FH*.5,FAZ,0xffffff,1.4,22);      // 2# factory
+pt(DNX,FH*.5,DNZ,0xffcc88,1.8,18);      // dining
+
+// ════════════════════════════════════════════════════════
+// TREES, LAMPS, VEHICLES, MARKINGS
+// ════════════════════════════════════════════════════════
+const mTk=sm(0x3d2b1a,.01,.9);
+const mLv=[sm(0x1a4a24,.01,.95),sm(0x245224,.01,.95),sm(0x1e5028,.01,.95)];
+function tree(x,z,h=4,r=2.3){
+  cyl(.22,.32,h,7,mTk,x,h/2,z);
+  sph(r,mLv[Math.floor(Math.random()*3)],x,h+r*.5,z);
+}
+for(let x=-65;x<=65;x+=11) tree(x,-74,4.5,2.6);
+for(let z=-65;z<=65;z+=11) tree(-74,z,4,2.2);
+[-55,-42,-28,-14,0,14].forEach(z=>tree(-12,z,2.8,1.7));
+[5,15,25,35,45,55,70].forEach(x=>tree(x,-40,2.5,1.5));
+[-5,8,22,36,50].forEach(x=>tree(x,35,2.5,1.5));
+
+// Street lamps
+function lamp(x,z,ry=0){
+  const g=new THREE.Group();
+  const pole=new THREE.Mesh(new THREE.CylinderGeometry(.15,.2,6.5,7),sm(0x505a62,.4,.55));
+  pole.position.y=3.25;g.add(pole);
+  const arm=new THREE.Mesh(new THREE.BoxGeometry(2.5,.12,.12),sm(0x505a62,.4,.55));
+  arm.position.set(1.25,6.6,0);g.add(arm);
+  const head=new THREE.Mesh(new THREE.BoxGeometry(.55,.22,1.15),sm(0x404a52,.5,.4));
+  head.position.set(2.5,6.46,0);g.add(head);
+  const glow=new THREE.Mesh(new THREE.BoxGeometry(.45,.07,1.0),M.lmpG);
+  glow.position.set(2.5,6.34,0);g.add(glow);
+  pt(x+2.5,6.4,z,0xfff8cc,1.9,32);
+  g.position.set(x,0,z);g.rotation.y=ry;
+  g.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});
+  scene.add(g);
+}
+[-60,-40,-20,0,20,40,60].forEach(x=>lamp(x,-72));
+[-60,-40,-20,0,20,40,60].forEach(z=>lamp(-72,z,Math.PI/2));
+[-20,0,20,40].forEach(x=>lamp(x,10));
+
+// Road markings
+for(let x=-60;x<=60;x+=12) bx(4,.22,.3,M.yel,x,.11,-65);
+const mWL=sm(0xcccccc,.05,.7);
+for(let z=-40;z<=40;z+=5){bx(.12,.22,5,mWL,-62,.11,z);bx(.12,.22,5,mWL,-72,.11,z);}
+bx(40,.22,.12,mWL,-67,.11,-42);bx(40,.22,.12,mWL,-67,.11,-18);
+//消防车道 label
+bx(.22,.22,6,sm(0xff2222,.2,.6),-26,.11,0);
+bx(.22,.22,6,sm(0xff2222,.2,.6),-22,.11,0);
+
+// Cars
+const carCols=[sm(0x1a2a4a,.7,.2),sm(0xcc2222,.65,.25),sm(0xd0c8b8,.55,.3),sm(0x1a4020,.6,.25)];
+function car(x,z,col,ry=0){
+  const g=new THREE.Group();
+  const body=new THREE.Mesh(new THREE.BoxGeometry(4.5,.9,2.1),col);body.position.y=.82;g.add(body);
+  const top=new THREE.Mesh(new THREE.BoxGeometry(2.7,.68,1.8),col);top.position.set(-.1,1.5,0);g.add(top);
+  const win=new THREE.Mesh(new THREE.BoxGeometry(2.3,.52,1.6),gm(0x88aacc,.85,.08,.45,null,0));win.position.set(-.1,1.5,0);g.add(win);
+  [[1.4,.38,.95],[-1.4,.38,.95],[1.4,.38,-.95],[-1.4,.38,-.95]].forEach(([wx,wy,wz])=>{
+    const w=new THREE.Mesh(new THREE.CylinderGeometry(.38,.38,.28,10),sm(0x111111,.3,.7));
+    w.position.set(wx,wy,wz);w.rotation.x=Math.PI/2;g.add(w);
+  });
+  g.position.set(x,.32,z);g.rotation.y=ry;
+  g.traverse(o=>{if(o.isMesh){o.castShadow=true;}});
+  scene.add(g);
+}
+[[-70,50],[-70,57],[-70,64],[-62,50],[-62,57],[-62,64]].forEach(([x,z],i)=>car(x,z,carCols[i%4]));
+[[-70,-60],[-62,-60],[40,-75],[52,-75]].forEach(([x,z],i)=>car(x,z,carCols[i%4]));
+car(NGX_W+14,NGZ+5,carCols[2],Math.PI/2);
+car(NGX_W+20,NGZ-5,carCols[0],Math.PI/2);
+// Truck at 2# loading
+const tmG=new THREE.Group();
+const tmCab=new THREE.Mesh(new THREE.BoxGeometry(4,3.2,2.6),sm(0x2a3a4a,.45,.5));
+tmCab.position.set(0,2.1,0);tmCab.castShadow=true;tmG.add(tmCab);
+const tmBody=new THREE.Mesh(new THREE.BoxGeometry(9,3.5,2.6),sm(0xc0b8a8,.1,.55));
+tmBody.position.set(4.5,2.1,0);tmBody.castShadow=true;tmG.add(tmBody);
+tmG.position.set(P14X-18,.42,P14Z);tmG.rotation.y=0;scene.add(tmG);
+
+// 配电间 (小型) - 拟建配电间位于2#南侧
+bx(9,5.5,7,M.conc,P10X-14,2.75,P10Z-16);
+bx(9.2,.5,7.2,M.roof,P10X-14,5.5,P10Z-16);
+for(let i=-1;i<=1;i++) bx(.3,3.5,.3,sm(0x999900,.3,.5),P10X-14+i*2,2.5,P10Z-20);
+
+// ════════════════════════════════════════════════════════
+// CAMERA & CONTROLS
+// ════════════════════════════════════════════════════════
+let th=.55,ph=.42,rad=200,tx=-10,ty=8,tz=-10;
+_S.th=.55;_S.ph=.42;_S.rad=200;_S.tx=-10;_S.ty=8;_S.tz=-10;
+_S.night=false;
+
+function updCam(){
+  camera.position.set(
+    _S.tx+_S.rad*Math.sin(_S.ph)*Math.sin(_S.th),
+    _S.ty+_S.rad*Math.cos(_S.ph),
+    _S.tz+_S.rad*Math.sin(_S.ph)*Math.cos(_S.th)
+  );
+  camera.lookAt(_S.tx,_S.ty,_S.tz);
+  // sync local vars for touch/drag handlers
+  th=_S.th;ph=_S.ph;rad=_S.rad;tx=_S.tx;ty=_S.ty;tz=_S.tz;
+}
+_S.updCam=updCam;
+updCam();
+
+let drag=false,rmb=false,lx=0,ly=0;
+cv.addEventListener('mousedown',e=>{drag=true;rmb=e.button===2;lx=e.clientX;ly=e.clientY;e.preventDefault();});
+document.addEventListener('mouseup',()=>drag=false);
+document.addEventListener('mousemove',e=>{
+  if(!drag)return;
+  const dx=e.clientX-lx,dy=e.clientY-ly;lx=e.clientX;ly=e.clientY;
+  if(!rmb){th-=dx*.004;ph=Math.max(.05,Math.min(1.5,ph+dy*.004));}
+  else{
+    const cs=Math.cos(th),sn=Math.sin(th);
+    tx+=(-sn*dx)*rad*.00065;
+    tz+=(cs*dx)*rad*.00065;
+  }
+  _S.th=th;_S.ph=ph;_S.rad=rad;_S.tx=tx;_S.ty=ty;_S.tz=tz;
+  camera.position.set(tx+rad*Math.sin(ph)*Math.sin(th),ty+rad*Math.cos(ph),tz+rad*Math.sin(ph)*Math.cos(th));
+  camera.lookAt(tx,ty,tz);
+});
+cv.addEventListener('wheel',e=>{rad=Math.max(8,Math.min(320,rad+e.deltaY*.11));_S.rad=rad;
+  camera.position.set(tx+rad*Math.sin(ph)*Math.sin(th),ty+rad*Math.cos(ph),tz+rad*Math.sin(ph)*Math.cos(th));
+  camera.lookAt(tx,ty,tz);},{passive:true});
+cv.addEventListener('contextmenu',e=>e.preventDefault());
+let td0=0;
+cv.addEventListener('touchstart',e=>{
+  if(e.touches.length===2) td0=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+  else{lx=e.touches[0].clientX;ly=e.touches[0].clientY;}
+},{passive:true});
+cv.addEventListener('touchmove',e=>{
+  if(e.touches.length===2){
+    const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+    rad=Math.max(8,Math.min(320,rad-(d-td0)*.2));td0=d;_S.rad=rad;
+    camera.position.set(tx+rad*Math.sin(ph)*Math.sin(th),ty+rad*Math.cos(ph),tz+rad*Math.sin(ph)*Math.cos(th));
+    camera.lookAt(tx,ty,tz);
+  } else {
+    const dx=e.touches[0].clientX-lx,dy=e.touches[0].clientY-ly;
+    lx=e.touches[0].clientX;ly=e.touches[0].clientY;
+    th-=dx*.005;ph=Math.max(.05,Math.min(1.5,ph+dy*.005));
+    _S.th=th;_S.ph=ph;
+    camera.position.set(tx+rad*Math.sin(ph)*Math.sin(th),ty+rad*Math.cos(ph),tz+rad*Math.sin(ph)*Math.cos(th));
+    camera.lookAt(tx,ty,tz);
+  }
+},{passive:true});
+
+// (gv, toggleNight, VIEWS defined globally after initScene)
+
+// Wire global scene refs for gv/toggleNight
+_S.scene=scene;_S.amb=amb;_S.sun=sun;_S.fill2=fill2;_S.renderer=renderer;_S.M=M;
+
+let t=0;
+function tick(){
+  requestAnimationFrame(tick);t+=.004;
+  sun.position.x=-80*Math.cos(t*.01);
+  sun.position.z=60*Math.sin(t*.01);
+  renderer.render(scene,camera);
+}
+tick();
+
+addEventListener('resize',()=>{
+  const wrap=document.getElementById('canvas3d-wrap');
+  if(wrap){const W2=wrap.clientWidth,H2=wrap.clientHeight;camera.aspect=W2/H2;camera.updateProjectionMatrix();renderer.setSize(W2,H2);}
+});
+
+} // end initScene
+</script>
+</body>
+</html>
